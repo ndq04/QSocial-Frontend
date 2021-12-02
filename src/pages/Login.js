@@ -4,16 +4,22 @@ import {login} from '../redux/actions/authActions'
 import {useDispatch} from 'react-redux'
 
 function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [userData, setUserData] = useState({email, password})
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+  })
+  const {email, password} = state
   const dispatch = useDispatch()
 
-  const handleSubmit = async (e) => {
+  const handleChange = (e) => {
+    const {name, value} = e.target
+    setState({...state, [name]: value})
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setUserData({email, password})
-    await dispatch(login(userData))
+    dispatch(login(state))
   }
   return (
     <div className='login bg-[#f0f2f5] select-none h-screen flex items-center'>
@@ -29,9 +35,10 @@ function Login() {
                 required
                 placeholder='Email'
                 className='border-2 rounded-md w-full 
-              focus:border-blue-500 outline-none py-3 px-3 text-lg'
+                focus:border-blue-500 outline-none py-3 px-3 text-lg'
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name='email'
+                onChange={handleChange}
               />
             </div>
             <div className='form-control relative'>
@@ -40,9 +47,10 @@ function Login() {
                 required
                 placeholder='Mật khẩu'
                 className='border-2 rounded-md w-full
-              focus:border-blue-500 outline-none py-3 px-3 text-lg'
+                focus:border-blue-500 outline-none py-3 px-3 text-lg'
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name='password'
+                onChange={handleChange}
               />
               {password.length > 0 && (
                 <p
