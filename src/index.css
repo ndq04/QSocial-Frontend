@@ -60,3 +60,13 @@
 .content::-webkit-scrollbar {
   display: none;
 }
+
+.logout-icon {
+  background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/5AbLIFMspEl.png');
+  background-position: 0px -74px;
+  background-size: 26px 260px;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}

@@ -2,13 +2,14 @@ import {useEffect} from 'react'
 import {Routes, Route} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 
-import Home from './pages/home/'
+import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Post from './pages/Post'
 import Alert from './components/Alert'
 
 import {refreshToken} from './redux/actions/authActions'
+import Navbar from './components/Navbar'
 
 function App() {
   const {auth} = useSelector((state) => state)
@@ -20,6 +21,7 @@ function App() {
   return (
     <>
       <Alert />
+      {auth.token && <Navbar />}
       <Routes>
         <Route path='/' element={auth.token ? <Home /> : <Login />} />
         <Route path='/post/:id' element={<Post />} />

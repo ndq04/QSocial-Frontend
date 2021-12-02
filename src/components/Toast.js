@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 
-function Toast({msg, tColor, bgColor, handleShow}) {
+function Toast({msg, bgColor, handleShow}) {
   useEffect(() => {
     setTimeout(() => {
       handleShow()
@@ -29,7 +29,7 @@ function Toast({msg, tColor, bgColor, handleShow}) {
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className={`h-8 w-8 m-auto hover:${tColor}`}
+            className='h-6 w-6 m-auto text-gray-800'
             fill='none'
             viewBox='0 0 24 24'
             stroke='currentColor'

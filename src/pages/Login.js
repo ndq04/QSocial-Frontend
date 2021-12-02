@@ -1,7 +1,7 @@
-import {useState} from 'react'
-// import {Link} from 'react-router-dom'
+import {useState, useEffect} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
 import {login} from '../redux/actions/authActions'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
@@ -10,7 +10,15 @@ function Login() {
     password: '',
   })
   const {email, password} = state
+  const {auth, alert} = useSelector((state) => state)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (auth.token) {
+      navigate('/')
+    }
+  }, [auth.token, navigate])
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -34,8 +42,10 @@ function Login() {
                 type='email'
                 required
                 placeholder='Email'
-                className='border-2 rounded-md w-full 
-                focus:border-blue-500 outline-none py-3 px-3 text-lg'
+                className={`border-2 rounded-md w-full focus:border-blue-500 
+                outline-none py-3 px-3 text-lg ${
+                  alert.error && 'border-red-400'
+                }`}
                 value={email}
                 name='email'
                 onChange={handleChange}
@@ -46,8 +56,10 @@ function Login() {
                 type={showPassword ? 'text' : 'password'}
                 required
                 placeholder='Mật khẩu'
-                className='border-2 rounded-md w-full
-                focus:border-blue-500 outline-none py-3 px-3 text-lg'
+                className={`border-2 rounded-md w-full focus:border-blue-500 
+                outline-none py-3 px-3 text-lg ${
+                  alert.error && 'border-red-400'
+                }`}
                 value={password}
                 name='password'
                 onChange={handleChange}
@@ -71,12 +83,13 @@ function Login() {
               Đăng nhập
             </button>
           </form>
-          <button
+          <Link
+            to='/register'
             className='bg-[#00a400] hover:bg-[#048004]
-            text-white text-lg font-semibold py-2.5 rounded-lg text-center w-[50%] mx-auto'
+              text-white font-semibold py-2 rounded-lg text-center w-[50%] mx-auto'
           >
-            Tạo tài khoản mới
-          </button>
+            <p>Tạo tài khoản mới</p>
+          </Link>
         </div>
         <div className='login-right w-[50%]'>
           <p className='font-bold text-6xl text-blue-500'>Q Social</p>

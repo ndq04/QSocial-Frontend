@@ -1,7 +1,20 @@
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import {logout} from '../redux/actions/authActions'
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false)
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
+
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    if (window.confirm('Bạn có chắc chắn muốn đăng xuất ?')) {
+      dispatch(logout())
+    }
+  }
+
   return (
     <nav className='bg-white shadow-md w-full h-[60px] px-4 grid grid-cols-4 fixed select-none'>
       <div className='nav-left h-full flex items-center'>
@@ -79,9 +92,7 @@ function Navbar() {
             alt='avatar'
             className='w-9 h-9 rounded-full mr-2'
           />
-          <p className='text-gray-600 font-semibold'>
-            Quang
-          </p>
+          <p className='text-gray-600 font-semibold'>Quang</p>
         </div>
 
         <div className='ml-5 flex w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer border'>
@@ -108,7 +119,11 @@ function Navbar() {
           </svg>
         </div>
 
-        <div className='ml-4 flex w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer border'>
+        <div
+          className='ml-4 flex w-10 h-10 bg-gray-100 rounded-full 
+        hover:bg-gray-200 cursor-pointer border relative'
+          onClick={() => setIsOpen(!isOpen)}
+        >
           <svg
             viewBox='0 0 20 20'
             width='1.3em'
@@ -117,6 +132,36 @@ function Navbar() {
           >
             <path d='M10 14a1 1 0 0 1-.755-.349L5.329 9.182a1.367 1.367 0 0 1-.205-1.46A1.184 1.184 0 0 1 6.2 7h7.6a1.18 1.18 0 0 1 1.074.721 1.357 1.357 0 0 1-.2 1.457l-3.918 4.473A1 1 0 0 1 10 14z'></path>
           </svg>
+          {isOpen && (
+            <div
+              className='absolute right-0 top-[120%] w-[350px] h-[200px] border-t-2 
+            bg-white rounded-lg shadow-md drop-shadow-lg p-2'
+            >
+              <ul>
+                <li className='flex items-center p-2 rounded-md hover:bg-gray-200 cursor-pointer'>
+                  <img
+                    src='avatar.jpg'
+                    alt='avatar'
+                    className='w-14 h-14 rounded-full mr-3'
+                  />
+                  <p className='text-gray-800 font-semibold'>Quang</p>
+                </li>
+                <li className='m-3 w-[95%] mx-auto h-[0.5px] bg-gray-400'></li>
+                <li
+                  className='flex items-center p-2 rounded-md hover:bg-gray-200 cursor-pointer'
+                  onClick={handleLogout}
+                >
+                  <p className='flex w-10 h-10 rounded-full bg-gray-400 mr-3'>
+                    <i
+                      data-visualcompletion='css-img'
+                      className='logout-icon m-auto'
+                    ></i>
+                  </p>
+                  <p className='text-gray-800 font-semibold'>Đăng xuất</p>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </nav>

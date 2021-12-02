@@ -1,5 +1,6 @@
 import {postDataApi} from '../../utils/fetchDataApi'
 import {ACTION_TYPES} from './actionTypes'
+import {valid} from '../../utils/Valid'
 
 export const login = (data) => async (dispatch) => {
   try {
@@ -11,14 +12,15 @@ export const login = (data) => async (dispatch) => {
     })
     const res = await postDataApi('login', data)
     // console.log(res)
+
+    localStorage.setItem('login', true)
     dispatch({
-      type: ACTION_TYPES.LOGIN,
+      type: ACTION_TYPES.AUTH,
       payload: {
         token: res.data.access_token,
         user: res.data.user,
       },
     })
-    localStorage.setItem('login', true)
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {
@@ -49,7 +51,7 @@ export const refreshToken = () => async (dispatch) => {
       const res = await postDataApi('refresh_token')
       // console.log(res)
       dispatch({
-        type: ACTION_TYPES.LOGIN,
+        type: ACTION_TYPES.AUTH,
         payload: {
           token: res.data.access_token,
           user: res.data.user,
@@ -70,5 +72,66 @@ export const refreshToken = () => async (dispatch) => {
         },
       })
     }
+  }
+}
+
+export const register = (data) => async (dispatch) => {
+  try {
+    const check = valid(data)
+    // console.log(check)
+    if (check.errLength > 0) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: check.errMessage,
+      })
+    }
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
+        loading: true,
+      },
+    })
+
+    const res = postDataApi('register', data)
+    // console.log(res)
+
+    localStorage.setItem('login', true)
+    dispatch({
+      type: ACTION_TYPES.AUTH,
+      payload: {
+        token: res.data.access_token,
+        user: res.data.user,
+      },
+    })
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
+        success: res.data.message,
+      },
+    })
+  } catch (error) {
+    console.log(error.response.data.message)
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
+        error: error.res.data.message,
+      },
+    })
+  }
+}
+
+export const logout = () => async (dispatch) => {
+  try {
+    localStorage.removeItem('login')
+    await postDataApi('logout')
+    window.location.href = '/'
+  } catch (error) {
+    console.log(error.response.data.message)
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
+        error: error.res.data.message,
+      },
+    })
   }
 }

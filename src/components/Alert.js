@@ -20,7 +20,6 @@ function Alert() {
         <Toast
           msg={{title: 'Có lỗi xảy ra', body: alert.error}}
           bgColor='bg-red-500'
-          tColor='text-red-500'
           handleShow={close}
         />
       )}
@@ -28,7 +27,6 @@ function Alert() {
         <Toast
           msg={{title: 'Thành công', body: alert.success}}
           bgColor='bg-green-600'
-          tColor='text-green-500'
           handleShow={close}
         />
       )}
