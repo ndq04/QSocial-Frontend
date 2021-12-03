@@ -7,19 +7,25 @@ const validateEmail = (email) => {
 }
 
 export const valid = ({
-  fullname,
+  firstname,
+  lastname,
   username,
   email,
   password,
   cfPassword,
-  gender,
 }) => {
   const err = {}
 
-  if (!fullname) {
-    err.fullname = 'Họ và tên không được để trống'
-  } else if (fullname.length > 25) {
-    err.fullname = 'Họ và tên vượt quá 25 ký tự'
+  if (!firstname) {
+    err.firstname = 'Họ không được để trống'
+  } else if (firstname.length > 10) {
+    err.firstname = 'Họ vượt quá 10 ký tự'
+  }
+
+  if (!lastname) {
+    err.lastname = 'Tên không được để trống'
+  } else if (lastname.length > 10) {
+    err.lastname = 'Tên vượt quá 10 ký tự'
   }
 
   if (!username) {
@@ -36,8 +42,6 @@ export const valid = ({
 
   if (!password) {
     err.password = 'Mật khẩu không được để trống'
-  } else if (password.length < 6) {
-    err.password = 'Mật khẩu tối thiểu 6 ký tự'
   }
 
   if (cfPassword !== password) {

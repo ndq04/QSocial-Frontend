@@ -76,45 +76,40 @@ export const refreshToken = () => async (dispatch) => {
 }
 
 export const register = (data) => async (dispatch) => {
+  const check = valid(data)
   try {
-    const check = valid(data)
     // console.log(check)
     if (check.errLength > 0) {
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: check.errMessage,
       })
+    } else {
+      const res = await postDataApi('register', data)
+      // console.log(res)
+
+      localStorage.setItem('login', true)
+
+      dispatch({
+        type: ACTION_TYPES.AUTH,
+        payload: {
+          token: res.data.access_token,
+          user: res.data.user,
+        },
+      })
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          success: res.data.message,
+        },
+      })
     }
-    dispatch({
-      type: ACTION_TYPES.ALERT,
-      payload: {
-        loading: true,
-      },
-    })
-
-    const res = postDataApi('register', data)
-    // console.log(res)
-
-    localStorage.setItem('login', true)
-    dispatch({
-      type: ACTION_TYPES.AUTH,
-      payload: {
-        token: res.data.access_token,
-        user: res.data.user,
-      },
-    })
-    dispatch({
-      type: ACTION_TYPES.ALERT,
-      payload: {
-        success: res.data.message,
-      },
-    })
   } catch (error) {
     console.log(error.response.data.message)
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {
-        error: error.res.data.message,
+        error: error.response.data.message,
       },
     })
   }
@@ -130,7 +125,7 @@ export const logout = () => async (dispatch) => {
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {
-        error: error.res.data.message,
+        error: error.response.data.message,
       },
     })
   }

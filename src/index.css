@@ -10,6 +10,10 @@
   width: 80px;
   height: 80px;
 }
+.lds-facebook.lds-search {
+  position: absolute;
+  right: 0;
+}
 .lds-facebook div {
   display: inline-block;
   position: absolute;

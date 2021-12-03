@@ -12,14 +12,16 @@ function Register() {
   const {auth, alert} = useSelector((state) => state)
 
   const [state, setState] = useState({
-    fullname: '',
+    firstname: '',
+    lastname: '',
     username: '',
     email: '',
     password: '',
     cfPassword: '',
     gender: 'male',
   })
-  const {fullname, username, email, password, cfPassword, gender} = state
+  const {firstname, lastname, username, email, password, cfPassword, gender} =
+    state
 
   useEffect(() => {
     if (auth.token) {
@@ -48,7 +50,7 @@ function Register() {
             của bạn.
           </p>
         </div>
-        <div className='register-right w-[45%] mx-auto flex flex-col bg-white rounded-lg shadow-md px-4 py-8'>
+        <div className='register-right w-[45%] mx-auto flex flex-col bg-white rounded-lg shadow-md p-4'>
           <form
             className='flex flex-col border-b border-gray-300 pb-3 mb-5'
             onSubmit={handleSubmit}
@@ -56,18 +58,36 @@ function Register() {
             <div className='form-control mb-6 relative'>
               <input
                 type='text'
-                placeholder='Họ và tên'
+                placeholder='Họ'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-3 text-lg ${
-                  alert.fullname && 'border-red-400'
-                } ${alert.fullname && 'focus:border-red-400'}`}
-                value={fullname}
-                name='fullname'
+                outline-none p-2.5 text-lg ${
+                  alert.firstname && 'border-red-400'
+                } ${alert.firstname && 'focus:border-red-400'}`}
+                value={firstname.trim(/ /g, '')}
+                name='firstname'
                 onChange={handleChange}
               />
-              {alert.fullname && (
+              {alert.firstname && (
                 <small className='text-red-500 absolute left-0 top-[100%]'>
-                  {alert.fullname}
+                  {alert.firstname}
+                </small>
+              )}
+            </div>
+            <div className='form-control mb-6 relative'>
+              <input
+                type='text'
+                placeholder='Tên'
+                className={`border-2 rounded-md w-full focus:border-blue-500 
+                outline-none p-2.5 text-lg ${
+                  alert.lastname && 'border-red-400'
+                } ${alert.lastname && 'focus:border-red-400'}`}
+                value={lastname.trim(/ /g, '')}
+                name='lastname'
+                onChange={handleChange}
+              />
+              {alert.lastname && (
+                <small className='text-red-500 absolute left-0 top-[100%]'>
+                  {alert.lastname}
                 </small>
               )}
             </div>
@@ -76,7 +96,7 @@ function Register() {
                 type='text'
                 placeholder='Tên đăng nhập'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-3 text-lg ${
+                outline-none p-2.5 text-lg ${
                   alert.username && 'border-red-400'
                 }  ${alert.username && 'focus:border-red-400'}`}
                 value={username.toLowerCase().trim(/ /g, '')}
@@ -94,7 +114,7 @@ function Register() {
                 type='text'
                 placeholder='Email'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-3 text-lg ${alert.email && 'border-red-400'} ${
+                outline-none p-2.5 text-lg ${alert.email && 'border-red-400'} ${
                   alert.email && 'focus:border-red-400'
                 }`}
                 value={email.trim(/ /g, '')}
@@ -112,7 +132,7 @@ function Register() {
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Mật khẩu'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-3 text-lg ${
+                outline-none p-2.5 text-lg ${
                   alert.password && 'border-red-400'
                 } ${alert.password && 'focus:border-red-400'}`}
                 value={password.trim(/ /g, '')}
@@ -140,7 +160,7 @@ function Register() {
                 type={showCfPassword ? 'text' : 'password'}
                 placeholder='Nhập lại mật khẩu'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-3 text-lg ${
+                outline-none p-2.5 text-lg ${
                   alert.cfPassword && 'border-red-400'
                 } ${alert.cfPassword && 'focus:border-red-400'}`}
                 value={cfPassword.trim(/ /g, '')}

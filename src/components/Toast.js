@@ -15,7 +15,7 @@ function Toast({msg, bgColor, handleShow}) {
     <div
       className={`toast fixed top-5 right-[5%] 
       rounded-md ${bgColor} transition-colors 
-      text-white w-80 z-10 select-none`}
+      text-white w-80 z-50 select-none`}
     >
       <div
         className='toast-head flex items-center justify-between w-[90%] mx-auto
