@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {register} from '../redux/actions/authActions'
 import {useSelector, useDispatch} from 'react-redux'
 
@@ -7,7 +7,7 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false)
   const [showCfPassword, setShowCfPassword] = useState(false)
 
-  const navigate = useNavigate()
+  const history = useHistory()
   const dispatch = useDispatch()
   const {auth, alert} = useSelector((state) => state)
 
@@ -23,9 +23,9 @@ function Register() {
 
   useEffect(() => {
     if (auth.token) {
-      navigate('/')
+      history.push('/')
     }
-  }, [auth.token, navigate])
+  }, [auth.token, history])
 
   const handleChange = (e) => {
     const {name, value} = e.target

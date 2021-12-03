@@ -1,15 +1,18 @@
 import {useEffect} from 'react'
-import {Routes, Route} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Profile from './pages/Profile'
 import Post from './pages/Post'
-import Alert from './components/Alert'
+import Messages from './pages/Messages'
 
 import {refreshToken} from './redux/actions/authActions'
+import Alert from './components/Alert'
 import Navbar from './components/Navbar'
+import PriviteRouter from './utils/PriviteRouter'
 
 function App() {
   const {auth} = useSelector((state) => state)
@@ -22,12 +25,26 @@ function App() {
     <>
       <Alert />
       {auth.token && <Navbar />}
-      <Routes>
-        <Route path='/' element={auth.token ? <Home /> : <Login />} />
-        <Route path='/post/:id' element={<Post />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-      </Routes>
+      <Switch>
+        <Route path='/register'>
+          <Register />
+        </Route>
+        <Route exact path='/'>
+          {auth.token ? <Home /> : <Login />}
+        </Route>
+        <Route path='/login'>
+          <Login />
+        </Route>
+        <PriviteRouter path='/message'>
+          <Messages />
+        </PriviteRouter>
+        <PriviteRouter path='/post/:id'>
+          <Post />
+        </PriviteRouter>
+        <PriviteRouter path='/profile/:id'>
+          <Profile />
+        </PriviteRouter>
+      </Switch>
     </>
   )
 }

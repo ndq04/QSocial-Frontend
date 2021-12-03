@@ -1,47 +1,24 @@
-import {useEffect} from 'react'
-import {useState} from 'react'
-import axios from 'axios'
 import {Link} from 'react-router-dom'
-import {format} from 'timeago.js'
 import {Like} from '../data/Like'
 
-function Post({post}) {
-  const [like, setLike] = useState(post.likes.length)
-  const [isLiked, setIsLiked] = useState(false)
-  const [user, setUser] = useState({})
-
+function Post() {
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
-
-  const handleLike = () => {
-    setLike(isLiked ? like - 1 : like + 1)
-    setIsLiked(!isLiked)
-  }
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(
-        `users?userId=${post.userId}`
-      )
-      setUser(res.data.user)
-    }
-    fetchUser()
-  }, [post.userId])
 
   return (
     <div className='post w-[100%] mx-auto my-5 bg-white shadow-sm rounded-xl p-3'>
       <div className='post-heading flex items-center justify-between'>
         <div className='post-heading--left flex items-center'>
-          <Link to={`profile/${user.username}`}>
+          <Link to='/profile'>
             <img
-              src={user.avatar || 'user.png'}
+              src='user1.jpg'
               alt='avatar'
               className='w-11 h-11 object-cover rounded-full mr-2'
             />
           </Link>
           <div>
-            <p>{user.username}</p>
+            <p>Quang</p>
             <div className='flex text-gray-500 text-[13px] font-semibold'>
-              <span>{format(post.createdAt)}</span>
+              <span>1 ngày</span>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 className='h-5 w-5 ml-2'
@@ -70,12 +47,8 @@ function Post({post}) {
         </div>
       </div>
       <div className='post-body my-3'>
-        <p>{post.desc}</p>
-        <img
-          src={post.image}
-          alt='img'
-          className='w-full mt-3'
-        />
+        <p>Hello my friend</p>
+        <img src='user1.jpg' alt='img' className='w-full mt-3' />
       </div>
       <div className='post-footer'>
         <div className='flex items-center border-b pb-3 mb-3 border-gray-300'>
@@ -87,18 +60,13 @@ function Post({post}) {
               className='w-5 h-5 mr-1'
             />
           ))}
-          <p className='text-gray-600 text-sm'>
-            {like} người thích
-          </p>
+          <p className='text-gray-600 text-sm'>5 người thích</p>
         </div>
         <div className='flex'>
           <div
-            className={`flex items-center cursor-pointer
+            className='flex items-center cursor-pointer
          text-gray-500 hover:bg-gray-200 py-2 px-10 
-          rounded-md transition-colors duration-200 ${
-            isLiked && 'text-blue-600'
-          }`}
-            onClick={handleLike}
+          rounded-md transition-colors duration-200'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -108,9 +76,7 @@ function Post({post}) {
             >
               <path d='M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z' />
             </svg>
-            <span className='font-semibold ml-2'>
-              Thích
-            </span>
+            <span className='font-semibold ml-2'>Thích</span>
           </div>
         </div>
       </div>

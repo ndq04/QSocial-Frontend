@@ -12,9 +12,7 @@ const StatusContextProvider = ({children}) => {
     handleToggle,
   }
   return (
-    <StatusContext.Provider value={data}>
-      {children}
-    </StatusContext.Provider>
+    <StatusContext.Provider value={data}>{children}</StatusContext.Provider>
   )
 }
 

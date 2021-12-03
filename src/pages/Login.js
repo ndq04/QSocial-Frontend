@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {login} from '../redux/actions/authActions'
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -12,13 +12,13 @@ function Login() {
   const {email, password} = state
   const {auth, alert} = useSelector((state) => state)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const history = useHistory()
 
   useEffect(() => {
     if (auth.token) {
-      navigate('/')
+      history.push('/')
     }
-  }, [auth.token, navigate])
+  }, [auth.token, history])
 
   const handleChange = (e) => {
     const {name, value} = e.target
