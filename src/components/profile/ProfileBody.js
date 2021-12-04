@@ -1,12 +1,18 @@
-import Info from './Info'
+import About from './About'
+import Posts from './Posts'
 import ProfileStatus from './ProfileStatus'
 
-function ProfileBody({userData}) {
+function ProfileBody(data) {
   return (
-    <div className='profile-body flex max-w-[60%] mx-auto mt-4'>
-      <Info userData={userData} />
-      <div className='profile-feed rounded-lg w-[60%]'>
-        <ProfileStatus userData={userData} />
+    <div className='profilebody w-full px-4 grid grid-cols-5 gap-4 mt-4 '>
+      <div className='profilebody-left'>
+        <About {...data} />
+      </div>
+      <div className='profilebody-center col-span-2'>
+        <Posts {...data} />
+      </div>
+      <div className='profilebody-right rounded-lg col-span-2'>
+        <ProfileStatus {...data} />
       </div>
     </div>
   )

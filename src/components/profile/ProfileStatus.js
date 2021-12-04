@@ -2,7 +2,8 @@ import {useContext} from 'react'
 import {ModalData} from './../../data/Modal'
 import {StatusContext} from './../../contexts/StatusContext'
 
-function ProfileStatus({userData}) {
+function ProfileStatus(data) {
+  const {userData} = data
   const {handleToggle} = useContext(StatusContext)
   const ModalDataFilter = ModalData.filter((item) => item.id !== 4)
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER

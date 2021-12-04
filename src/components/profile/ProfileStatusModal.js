@@ -2,7 +2,8 @@ import {useContext} from 'react'
 import {ModalData} from './../../data/Modal'
 import {StatusContext} from './../../contexts/StatusContext'
 
-function ProfileStatusModal({userData}) {
+function ProfileStatusModal(data) {
+  const {userData} = data
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
   const {handleToggle} = useContext(StatusContext)
   return (

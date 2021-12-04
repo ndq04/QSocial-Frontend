@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import ProfileStatusModal from '../components/profile/ProfileStatusModal'
 import {useContext} from 'react'
 import {StatusContext} from '../contexts/StatusContext'
-import ProfileHead from '../components/profile/ProfileHead'
+import Info from '../components/profile/Info'
 import ProfileBody from '../components/profile/ProfileBody'
 import {getProfileUsers} from '../redux/actions/profileActions'
 
@@ -24,17 +24,18 @@ function Profile() {
       setUserData(newData)
     }
   }, [id, auth.user, auth, dispatch, profile.users])
-  console.log(userData)
+
+  const data = {userData, profile, auth, id}
   return (
     userData && (
       <>
         <div className='bg-[#f0f2f5] select-none pt-[60px]'>
           <div className='profile h-[calc(100vh-60px)] overflow-y-scroll'>
-            <ProfileHead userData={userData} />
-            <ProfileBody userData={userData} />
+            <Info {...data} />
+            <ProfileBody {...data} />
           </div>
         </div>
-        {isOpenModal && <ProfileStatusModal userData={userData} />}
+        {isOpenModal && <ProfileStatusModal {...data} />}
       </>
     )
   )

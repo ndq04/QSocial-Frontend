@@ -11,6 +11,12 @@ export const getProfileUsers =
           type: ACTION_TYPES.LOADING,
           payload: {loading: true},
         })
+        dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            loading: true,
+          },
+        })
         const res = await getDataApi(`user/${id}`, auth.token)
         dispatch({
           type: ACTION_TYPES.GET_USER,
@@ -19,6 +25,12 @@ export const getProfileUsers =
         dispatch({
           type: ACTION_TYPES.LOADING,
           payload: {loading: false},
+        })
+        dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            loading: false,
+          },
         })
       } catch (error) {
         dispatch({

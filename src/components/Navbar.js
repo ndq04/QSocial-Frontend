@@ -13,7 +13,6 @@ function Navbar() {
   const [load, setLoad] = useState(false)
 
   const {isOpen, handleToggle, handleClose} = useContext(AccountContext)
-  const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
 
   const dispatch = useDispatch()
   const {auth} = useSelector((state) => state)
@@ -57,10 +56,10 @@ function Navbar() {
       onClick={handleClose}
     >
       <div className='nav-left h-full flex items-center relative'>
-        <div className='flex-shrink-0'>
+        <div className='flex-shrink-0' onClick={handleCloseSearch}>
           <Link to='/'>
             <img
-              src={PublicFolder + 'logo.png'}
+              src='https://i.imgur.com/iDuSx6e.png'
               alt='logo'
               className='w-12 h-12 rounded-full hidden sm:block'
             />
@@ -143,25 +142,21 @@ function Navbar() {
           alt='home'
           className='w-8 h-8 rounded-full mr-2'
         />
-
         <img
           src='https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/duk32h44Y31.png'
           alt='watch'
           className='w-8 h-8 rounded-full mr-2'
         />
-
         <img
           src='https://static.xx.fbcdn.net/rsrc.php/v3/y1/r/l6e-P1BHJLy.png'
           alt='date'
           className='w-8 h-8 rounded-full mr-2'
         />
-
         <img
           src='https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/PrjLkDYpYbH.png'
           alt='group'
           className='w-8 h-8 rounded-full mr-2'
         />
-
         <img
           src='https://static.xx.fbcdn.net/rsrc.php/v3/y1/r/uGfRd5KPhOI.png'
           alt='video'
@@ -176,7 +171,7 @@ function Navbar() {
         >
           <Link to={`/profile/${auth.user._id}`} className='flex items-center'>
             <img
-              src={auth.user.avatar || PublicFolder + 'user.png'}
+              src={auth.user.avatar}
               alt='avatar'
               className='w-9 h-9 object-cover rounded-full mr-2'
             />
@@ -240,19 +235,21 @@ function Navbar() {
             bg-white rounded-lg shadow-md drop-shadow-lg p-2'
               >
                 <ul>
-                  <li
-                    className='flex items-center p-2 rounded-md 
-                  hover:bg-gray-200 cursor-pointer transition-colors'
-                  >
-                    <img
-                      src={auth.user.avatar || PublicFolder + 'user.png'}
-                      alt='avatar'
-                      className='w-16 h-16 object-cover rounded-full mr-3'
-                    />
-                    <p className='text-gray-800 font-semibold'>
-                      {auth.user.lastname}
-                    </p>
-                  </li>
+                  <Link to={`/profile/${auth.user._id}`}>
+                    <li
+                      className='flex items-center p-2 rounded-md 
+                    hover:bg-gray-200 cursor-pointer transition-colors'
+                    >
+                      <img
+                        src={auth.user.avatar}
+                        alt='avatar'
+                        className='w-16 h-16 object-cover rounded-full mr-3'
+                      />
+                      <p className='text-gray-800 font-semibold'>
+                        {auth.user.firstname} {auth.user.lastname}
+                      </p>
+                    </li>
+                  </Link>
                   <li className='m-3 w-[95%] mx-auto h-[0.5px] bg-gray-400'></li>
                   <li
                     className='flex items-center p-2 rounded-md 

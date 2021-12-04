@@ -8,7 +8,7 @@ function UserCard({user, handleCloseSearch}) {
       onClick={handleCloseSearch}
     >
       <img
-        src={user.avatar || PublicFolder + 'user.png'}
+        src={user.avatar || PublicFolder + 'logo.png'}
         alt='avatar'
         className='w-10 h-10 object-cover rounded-full'
       />
