@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import Content from '../components/Content'
 import Rightbar from '../components/Rightbar'
 import Sidebar from '../components/Sidebar'
-import Modal from '../components/StatusModal'
+import StatusModal from '../components/StatusModal'
 import {AccountContext} from '../contexts/AccountContext'
 import {StatusContext} from '../contexts/StatusContext'
 
@@ -19,7 +19,7 @@ function Home() {
         <Content />
         <Rightbar />
       </div>
-      {isOpenModal && <Modal />}
+      {isOpenModal && <StatusModal />}
     </>
   )
 }

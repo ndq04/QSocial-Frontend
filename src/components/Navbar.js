@@ -169,7 +169,7 @@ function Navbar() {
         />
       </div>
 
-      <div className='nav-right flex items-center'>
+      <div className='nav-right flex items-center justify-end'>
         <div
           className='user hover:bg-gray-100 
             cursor-pointer transition-colors py-1 px-2 rounded-full'

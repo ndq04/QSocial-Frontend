@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import {ModalData} from '../data/Modal'
 import {StatusContext} from '../contexts/StatusContext'
 
-function Modal() {
+function StatusModal() {
   const {handleToggle} = useContext(StatusContext)
   return (
     <div className='select-none'>
@@ -18,9 +18,7 @@ function Modal() {
           justify-center relative pb-4 border-b 
           border-gray-300'
         >
-          <h3 className='font-bold text-xl'>
-            Tạo bài viết
-          </h3>
+          <h3 className='font-bold text-xl'>Tạo bài viết</h3>
           <div
             className='absolute right-1 top-0 cursor-pointer w-9 h-9 
           bg-gray-200 hover:bg-gray-300 rounded-full flex'
@@ -50,9 +48,7 @@ function Modal() {
               alt='avatar'
               className='w-8 h-8 rounded-full mr-2'
             />
-            <p className='text-gray-800 font-semibold'>
-              Quang
-            </p>
+            <p className='text-gray-800 font-semibold'>Quang</p>
           </li>
         </div>
         <div
@@ -70,9 +66,7 @@ function Modal() {
           className='modal-option my-6 flex items-center 
           justify-around bg-white rounded-md py-3 shadow-md'
         >
-          <h3 className='font-semibold'>
-            Thêm vào bài viết
-          </h3>
+          <h3 className='font-semibold'>Thêm vào bài viết</h3>
           <ul className='flex items-center justify-between'>
             {ModalData.map((item) => (
               <li
@@ -96,4 +90,4 @@ function Modal() {
   )
 }
 
-export default Modal
+export default StatusModal

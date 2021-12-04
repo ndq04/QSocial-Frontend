@@ -21,29 +21,30 @@ function App() {
   useEffect(() => {
     dispatch(refreshToken())
   }, [dispatch])
+
   return (
     <>
       <Alert />
       {auth.token && <Navbar />}
       <Switch>
-        <Route path='/register'>
+        <Route exact path='/register'>
           <Register />
         </Route>
         <Route exact path='/'>
           {auth.token ? <Home /> : <Login />}
         </Route>
-        <Route path='/login'>
+        <Route exact path='/login'>
           <Login />
         </Route>
-        <PriviteRouter path='/message'>
+        <PriviteRouter exact path='/message'>
           <Messages />
         </PriviteRouter>
-        <PriviteRouter path='/post/:id'>
+        <PriviteRouter exact path='/post/:id'>
           <Post />
         </PriviteRouter>
-        <PriviteRouter path='/profile/:id'>
+        <Route exact path='/profile/:id'>
           <Profile />
-        </PriviteRouter>
+        </Route>
       </Switch>
     </>
   )
