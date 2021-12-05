@@ -1,6 +1,7 @@
 import {useSelector, useDispatch} from 'react-redux'
 import {ACTION_TYPES} from '../redux/actions/actionTypes'
 import Loading from './Loading'
+import LoadingImage from './profile/LoadingImage'
 import Toast from './Toast'
 
 function Alert() {
@@ -14,8 +15,9 @@ function Alert() {
     })
   }
   return (
-    <div className='absolute bg-red'>
+    <div className='absolute'>
       {alert.loading && <Loading />}
+      {alert.loadingImage && <LoadingImage />}
       {alert.error && (
         <Toast
           msg={{title: 'Có lỗi xảy ra', body: alert.error}}

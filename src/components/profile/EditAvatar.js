@@ -2,9 +2,9 @@ import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {ACTION_TYPES} from '../../redux/actions/actionTypes'
 import {checkimage} from '../../utils/imageupload'
+import {updateAvatar} from './../../redux/actions/profileActions'
 
 function EditAvatar({setOnEditAvatar}) {
-  const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
   const [avatar, setAvatar] = useState(false)
   const {auth} = useSelector((state) => state)
   const dispatch = useDispatch()
@@ -21,6 +21,12 @@ function EditAvatar({setOnEditAvatar}) {
     setAvatar(file)
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await dispatch(updateAvatar({avatar, auth}))
+    setOnEditAvatar()
+  }
+
   return (
     <div className='select-none'>
       <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-10'></div>
@@ -35,6 +41,7 @@ function EditAvatar({setOnEditAvatar}) {
           <button
             className='bg-blue-500 hover:bg-blue-700 py-2 px-4
               rounded-md text-white font-semibold text-sm'
+            onClick={handleSubmit}
           >
             Cập nhật
           </button>
@@ -63,21 +70,17 @@ function EditAvatar({setOnEditAvatar}) {
 
         <div className='modal-image w-full h-[80%] flex rounded-lg'>
           <img
-            src={
-              avatar
-                ? URL.createObjectURL(avatar)
-                : auth.user.avatar || PublicFolder + 'logo.png'
-            }
+            src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
             alt='avatar'
             className='w-full h-full m-auto object-cover rounded-md'
           />
         </div>
 
         <div className='modal-upload h-[10%] flex items-center justify-center my-4'>
-          <label htmlFor='upload' className='font-semibold w-[50%] block'>
+          <label htmlFor='upload' className='font-semibold w-full'>
             <div
               className='flex items-center justify-center p-2 
-              rounded-lg bg-blue-100 hover:bg-blue-200 cursor-pointer'
+              rounded-lg bg-green-200 hover:bg-green-300 cursor-pointer'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -91,7 +94,7 @@ function EditAvatar({setOnEditAvatar}) {
                   clipRule='evenodd'
                 />
               </svg>
-              <span className='text-blue-600'>Tải ảnh lên</span>
+              <span className='text-green-600 text-lg'>Tải ảnh lên</span>
             </div>
 
             <input

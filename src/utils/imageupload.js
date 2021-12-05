@@ -12,3 +12,30 @@ export const checkimage = (file) => {
   }
   return err
 }
+
+export const imageupload = async (images) => {
+  let imageArr = []
+  for (const image of images) {
+    const formData = new FormData()
+    formData.append('file', image)
+
+    formData.append('upload_preset', 'fcfm2sej')
+    formData.append('cloud_name', 'doltvro6d')
+
+    try {
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/doltvro6d/image/upload',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      )
+      const data = await res.json()
+      // console.log(data)
+      imageArr.push({public_id: data.public_id, secure_url: data.secure_url})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return imageArr
+}

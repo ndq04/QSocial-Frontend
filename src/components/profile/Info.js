@@ -4,7 +4,7 @@ import EditAvatar from './EditAvatar'
 import EditProfile from './EditProfile'
 
 function Info(data) {
-  const {userData, profile, auth, id} = data
+  const {userData, auth} = data
 
   const [onEditProfile, setOnEditProfile] = useState(false)
   const [onEditAvatar, setOnEditAvatar] = useState(false)
@@ -29,7 +29,7 @@ function Info(data) {
           <h3 className='text-[32px]'>
             {user.firstname} {user.lastname}
           </h3>
-          {auth.user._id !== user._id && (
+          {auth && user._id && auth.user._id !== user._id && (
             <button
               className='absolute py-2 px-3 bg-blue-500 hover:bg-blue-700 
             rounded-lg text-white font-semibold flex items-center right-[5%]'
@@ -65,7 +65,7 @@ function Info(data) {
               Bài viết <strong>0</strong>
             </p>
           </div>
-          {auth.user._id === user._id && (
+          {auth && user._id && auth.user._id === user._id && (
             <div>
               <button
                 className='py-1.5 px-3 bg-gray-300 hover:bg-gray-400 

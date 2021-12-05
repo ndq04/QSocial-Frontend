@@ -1,11 +1,13 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {updateProfile} from '../../redux/actions/profileActions'
 
 function EditProfile({setOnEditProfile, ...data}) {
   const {auth} = useSelector((state) => state)
+  const dispatch = useDispatch()
   const {userData} = data
 
-  const [state, setState] = useState({
+  const [editData, setEditData] = useState({
     firstname: '',
     lastname: '',
     livein: '',
@@ -14,18 +16,23 @@ function EditProfile({setOnEditProfile, ...data}) {
     gender: 'male',
   })
 
-  const {firstname, lastname, livein, from, job, gender} = state
+  const {firstname, lastname, livein, from, job} = editData
 
   useEffect(() => {
-    setState(auth.user)
+    setEditData(auth.user)
   }, [auth.user])
 
   const handleChange = (e) => {
     const {name, value} = e.target
-    setState({
-      ...state,
+    setEditData({
+      ...editData,
       [name]: value,
     })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(updateProfile({editData}))
   }
 
   return (
@@ -85,7 +92,6 @@ function EditProfile({setOnEditProfile, ...data}) {
                 type='text'
                 id='firstname'
                 name='firstname'
-                maxLength={10}
                 placeholder='Họ'
                 className='border-2 rounded-md focus:border-blue-500 
                 outline-none py-2.5 px-3 flex-1 w-full text-lg'
@@ -105,7 +111,6 @@ function EditProfile({setOnEditProfile, ...data}) {
                 type='text'
                 id='lastname'
                 name='lastname'
-                maxLength={10}
                 placeholder='Tên'
                 className='border-2 rounded-md focus:border-blue-500 
                 outline-none py-2.5 px-3 flex-1 w-full text-lg'
@@ -166,7 +171,10 @@ function EditProfile({setOnEditProfile, ...data}) {
             </label>
           </div>
 
-          <button className='bg-blue-500 hover:bg-blue-700 py-2 rounded-md text-white font-semibold'>
+          <button
+            className='bg-blue-500 hover:bg-blue-700 py-2 rounded-md text-white font-semibold'
+            onClick={handleSubmit}
+          >
             Cập nhật
           </button>
         </div>

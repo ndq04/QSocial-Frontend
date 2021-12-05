@@ -167,15 +167,17 @@ function Navbar() {
       <div className='nav-right flex items-center justify-end'>
         <div
           className='user hover:bg-gray-100 
-            cursor-pointer transition-colors py-1 px-2 rounded-full'
+            cursor-pointer transition-colors px-2 py-1 rounded-full'
         >
           <Link to={`/profile/${auth.user._id}`} className='flex items-center'>
             <img
               src={auth.user.avatar}
               alt='avatar'
-              className='w-9 h-9 object-cover rounded-full mr-2'
+              className='w-9 h-9 rounded-full object-cover flex-shrink-0'
             />
-            <p className='text-gray-600 font-semibold'>{auth.user.lastname}</p>
+            <p className='text-gray-600 font-semibold ml-2'>
+              {auth.user.lastname}
+            </p>
           </Link>
         </div>
 
