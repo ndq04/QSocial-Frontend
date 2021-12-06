@@ -5,7 +5,7 @@ function Friends(data) {
 
   return (
     userData.length > 0 &&
-    userData.map((user) => <FriendsCard key={user._id} user={user} />)
+    userData.map((user) => <FriendsCard key={user._id} user={user.friends} />)
   )
 }
 

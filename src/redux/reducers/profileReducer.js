@@ -19,12 +19,12 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         users: [...state.users, payload.user],
       }
-    case ACTION_TYPES.FRIEND:
+    case ACTION_TYPES.FOLLOW:
       return {
         ...state,
         users: EditData(state.users, payload._id, payload),
       }
-    case ACTION_TYPES.UNFRIEND:
+    case ACTION_TYPES.UNFOLLOW:
       return {
         ...state,
         users: EditData(state.users, payload._id, payload),

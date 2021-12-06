@@ -111,7 +111,7 @@ function Register() {
             </div>
             <div className='form-control mb-6 relative'>
               <input
-                type='text'
+                type='email'
                 placeholder='Email'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
                 outline-none p-2.5 text-lg ${alert.email && 'border-red-400'} ${

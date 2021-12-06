@@ -3,8 +3,8 @@ export const ACTION_TYPES = {
   ALERT: 'ALERT',
   LOADING: 'LOADING',
   GET_USER: 'GET_USER',
-  FRIEND: 'FRIEND',
-  UNFRIEND: 'UNFRIEND',
+  FOLLOW: 'FOLLOW',
+  UNFOLLOW: 'UNFOLLOW',
 }
 
 export const EditData = (data, id, post) => {

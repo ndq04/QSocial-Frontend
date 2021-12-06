@@ -1,17 +1,18 @@
+import {data} from 'autoprefixer'
 import About from './About'
 import Posts from './Posts'
 import ProfileStatus from './ProfileStatus'
 
-function ProfileBody(data) {
+function ProfileBody({handleToggle, ...data}) {
   return (
-    <div className='profilebody w-full px-4 grid grid-cols-5 gap-4'>
+    <div className='profilebody max-w-5xl m-auto grid grid-cols-3 gap-4'>
       <div className='profilebody-left'>
-        <About {...data} />
+        <About {...data} handleToggle={handleToggle} />
       </div>
-      <div className='profilebody-center col-span-2'>
+      <div className='profilebody-center'>
         <Posts {...data} />
       </div>
-      <div className='profilebody-right rounded-lg col-span-2'>
+      <div className='profilebody-right rounded-lg'>
         <ProfileStatus {...data} />
       </div>
     </div>

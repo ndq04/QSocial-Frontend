@@ -49,7 +49,7 @@ export const updateProfile =
   async (dispatch) => {
     // console.log({editData})
     try {
-      const {firstname, lastname, livein, from, job, password} = editData
+      const {firstname, lastname, livein, from, job} = editData
 
       if (!firstname) {
         return dispatch({
@@ -203,32 +203,56 @@ export const updateAvatar =
     }
   }
 
-export const addfriend =
-  ({users, user, auth}) =>
+export const updateCoverimage =
+  ({coverimage, auth}) =>
   async (dispatch) => {
-    const newUser = {...user, friends: [...user.friends, auth.user]}
-    // console.log(newUser)
-
-    dispatch({
-      type: ACTION_TYPES.FRIEND,
-      payload: newUser,
-    })
-
-    dispatch({
-      type: ACTION_TYPES.AUTH,
-      payload: {
-        ...auth,
-        user: {...auth.user, followings: [...auth.user.followings, newUser]},
-      },
-    })
-
     try {
+      let media
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          loadingImage: true,
+        },
+      })
+
+      if (coverimage) {
+        media = await imageupload([coverimage])
+      }
+
       const res = await patchDataApi(
-        `user/${user._id}/friend`,
-        {userId: auth.user._id},
+        'usercoverimage',
+        {
+          coverimage: coverimage ? media[0].secure_url : auth.user.coverimage,
+          userId: auth.user._id,
+        },
         auth.token
       )
-      console.log(res)
+      // console.log(res)
+
+      dispatch({
+        type: ACTION_TYPES.AUTH,
+        payload: {
+          ...auth,
+          user: {
+            ...auth.user,
+            coverimage: coverimage ? media[0].secure_url : auth.user.coverimage,
+          },
+        },
+      })
+
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          loadingImage: false,
+        },
+      })
+
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          success: res.data.message,
+        },
+      })
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -239,17 +263,58 @@ export const addfriend =
     }
   }
 
-export const unfriend =
+export const followfriend =
   ({users, user, auth}) =>
   async (dispatch) => {
     const newUser = {
       ...user,
-      friends: DeleteData(user.friends, auth.user._id),
+      followers: [...user.followers, auth.user],
     }
     // console.log(newUser)
 
     dispatch({
-      type: ACTION_TYPES.UNFRIEND,
+      type: ACTION_TYPES.FOLLOW,
+      payload: newUser,
+    })
+
+    dispatch({
+      type: ACTION_TYPES.AUTH,
+      payload: {
+        ...auth,
+        user: {
+          ...auth.user,
+          followings: [...auth.user.followings, newUser],
+        },
+      },
+    })
+
+    try {
+      await patchDataApi(
+        `user/${user._id}/follow`,
+        {userId: auth.user._id},
+        auth.token
+      )
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+
+export const unfollowfriend =
+  ({users, user, auth}) =>
+  async (dispatch) => {
+    const newUser = {
+      ...user,
+      followers: DeleteData(user.followers, auth.user._id),
+    }
+    // console.log(newUser)
+
+    dispatch({
+      type: ACTION_TYPES.UNFOLLOW,
       payload: newUser,
     })
 
@@ -265,7 +330,11 @@ export const unfriend =
     })
 
     try {
-      await patchDataApi(`user/${user._id}/unfriend`, null, auth.token)
+      await patchDataApi(
+        `user/${user._id}/unfollow`,
+        {userId: auth.user._id},
+        auth.token
+      )
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

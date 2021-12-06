@@ -3,11 +3,14 @@ import Avatar from './Avatar'
 import EditAvatar from './EditAvatar'
 import EditProfile from './EditProfile'
 import BtnEditProfile from './BtnEditProfile'
+import BtnEditCoverimage from './BtnEditCoverimage'
 import GlobalBtnFriend from './GlobalBtnFriend'
+import EditCoverimage from './EditCoverimage'
 
 function Info(data) {
   const [onEditProfile, setOnEditProfile] = useState(false)
   const [onEditAvatar, setOnEditAvatar] = useState(false)
+  const [onEditCoverimage, setOnEditCoverimage] = useState(false)
 
   const {userData, auth} = data
 
@@ -18,16 +21,19 @@ function Info(data) {
         key={user._id}
         className='profileinfo h-[60vh] bg-white shadow-sm border-b-2'
       >
-        <div className='relative max-w-5xl h-[80%] mx-auto'>
+        <div className='relative max-w-6xl h-[80%] mx-auto'>
           <img
             src={user.coverimage}
             alt='img'
             className='w-full h-[100%] object-cover rounded-b-lg'
           />
           <Avatar user={user} auth={auth} setOnEditAvatar={setOnEditAvatar} />
+          {auth && user._id && auth.user._id === user._id && (
+            <BtnEditCoverimage setOnEditCoverimage={setOnEditCoverimage} />
+          )}
         </div>
 
-        <div className='relative max-w-5xl h-[20%] m-auto flex items-center justify-center'>
+        <div className='relative max-w-6xl h-[20%] m-auto flex items-center justify-center'>
           {auth && user._id && auth.user._id === user._id ? (
             <BtnEditProfile setOnEditProfile={setOnEditProfile} />
           ) : (
@@ -35,9 +41,9 @@ function Info(data) {
           )}
           <div className='absolute left-0 flex items-center'>
             <p className='mr-3'>
-              <span className='mr-1'>Bạn bè</span>
+              <span className='mr-1'>Người theo dõi</span>
               <span className='font-semibold text-lg'>
-                {user.friends.length}
+                {user.followers.length}
               </span>
             </p>
             <p>
@@ -55,6 +61,9 @@ function Info(data) {
           <EditProfile {...data} setOnEditProfile={setOnEditProfile} />
         )}
         {onEditAvatar && <EditAvatar setOnEditAvatar={setOnEditAvatar} />}
+        {onEditCoverimage && (
+          <EditCoverimage setOnEditCoverimage={setOnEditCoverimage} />
+        )}
       </div>
     ))
   )

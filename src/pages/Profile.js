@@ -19,7 +19,7 @@ function Profile() {
   const dispatch = useDispatch()
 
   const [showAccount, setShowAccount] = useState(true)
-  const [showFriens, setShowFriens] = useState(false)
+  const [showFriends, setShowFriends] = useState(false)
   const [showFollowings, setShowFollowings] = useState(false)
   const [showSaved, setShowSaved] = useState(false)
 
@@ -27,25 +27,25 @@ function Profile() {
     switch (value) {
       case 'showAccount':
         setShowAccount(true)
-        setShowFriens(false)
+        setShowFriends(false)
         setShowFollowings(false)
         setShowSaved(false)
         break
-      case 'showFriens':
+      case 'showFriends':
         setShowAccount(false)
-        setShowFriens(true)
+        setShowFriends(true)
         setShowFollowings(false)
         setShowSaved(false)
         break
       case 'showFollowings':
         setShowAccount(false)
-        setShowFriens(false)
+        setShowFriends(false)
         setShowFollowings(true)
         setShowSaved(false)
         break
       default:
         setShowAccount(false)
-        setShowFriens(false)
+        setShowFriends(false)
         setShowFollowings(false)
         setShowSaved(true)
         break
@@ -95,7 +95,7 @@ function Profile() {
               <div
                 className='flex flex-1 h-full border-r-2 border-gray-300
               hover:bg-gray-300 cursor-pointer transition-colors'
-                onClick={() => handleToggle('showFriens')}
+                onClick={() => handleToggle('showFriends')}
               >
                 <img
                   src='https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png'
@@ -131,8 +131,10 @@ function Profile() {
                 />
               </div>
             </div>
-            {showAccount && <ProfileBody {...data} />}
-            {showFriens && <Friends {...data} />}
+            {showAccount && (
+              <ProfileBody {...data} handleToggle={handleToggle} />
+            )}
+            {showFriends && <Friends {...data} />}
             {showFollowings && <Followings {...data} />}
             {showSaved && <Saved />}
           </div>
