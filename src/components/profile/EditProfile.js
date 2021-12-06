@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {updateProfile} from '../../redux/actions/profileActions'
 
 function EditProfile({setOnEditProfile, ...data}) {
-  const {auth} = useSelector((state) => state)
+  // const {auth} = useSelector((state) => state)
   const dispatch = useDispatch()
-  const {userData} = data
+  const {userData, auth} = data
 
   const [editData, setEditData] = useState({
     firstname: '',
@@ -13,7 +13,6 @@ function EditProfile({setOnEditProfile, ...data}) {
     livein: '',
     from: '',
     job: '',
-    gender: 'male',
   })
 
   const {firstname, lastname, livein, from, job} = editData
@@ -32,7 +31,7 @@ function EditProfile({setOnEditProfile, ...data}) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(updateProfile({editData}))
+    dispatch(updateProfile({editData, auth}))
   }
 
   return (
@@ -84,13 +83,9 @@ function EditProfile({setOnEditProfile, ...data}) {
               </p>
             </div>
 
-            <label
-              htmlFor='firstname'
-              className='form-control flex items-center justify-between mt-4 mb-6 relative'
-            >
+            <label className='form-control flex items-center justify-between mt-4 mb-6 relative'>
               <input
                 type='text'
-                id='firstname'
                 name='firstname'
                 placeholder='Họ'
                 className='border-2 rounded-md focus:border-blue-500 
@@ -103,13 +98,9 @@ function EditProfile({setOnEditProfile, ...data}) {
               </span>
             </label>
 
-            <label
-              htmlFor='lastname'
-              className='form-control flex items-center justify-between mb-6 relative'
-            >
+            <label className='form-control flex items-center justify-between mb-6 relative'>
               <input
                 type='text'
-                id='lastname'
                 name='lastname'
                 placeholder='Tên'
                 className='border-2 rounded-md focus:border-blue-500 
@@ -122,13 +113,9 @@ function EditProfile({setOnEditProfile, ...data}) {
               </span>
             </label>
 
-            <label
-              htmlFor='livein'
-              className='form-control flex items-center justify-between mb-6'
-            >
+            <label className='form-control flex items-center justify-between mb-6'>
               <input
                 type='text'
-                id='livein'
                 name='livein'
                 placeholder='Sống tại'
                 className='border-2 rounded-md focus:border-blue-500 
@@ -138,13 +125,9 @@ function EditProfile({setOnEditProfile, ...data}) {
               />
             </label>
 
-            <label
-              htmlFor='from'
-              className='form-control flex items-center justify-between mb-6'
-            >
+            <label className='form-control flex items-center justify-between mb-6'>
               <input
                 type='text'
-                id='from'
                 name='from'
                 placeholder='Đến từ'
                 className='border-2 rounded-md focus:border-blue-500 
@@ -154,10 +137,7 @@ function EditProfile({setOnEditProfile, ...data}) {
               />
             </label>
 
-            <label
-              htmlFor='job'
-              className='form-control flex items-center justify-between mb-8'
-            >
+            <label className='form-control flex items-center justify-between mb-8'>
               <input
                 type='text'
                 id='job'

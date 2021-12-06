@@ -167,7 +167,7 @@ function Navbar() {
       <div className='nav-right flex items-center justify-end'>
         <div
           className='user hover:bg-gray-100 
-            cursor-pointer transition-colors px-2 py-1 rounded-full'
+            cursor-pointer transition-colors px-2 py-1 rounded-full min-w-[30%]'
         >
           <Link to={`/profile/${auth.user._id}`} className='flex items-center'>
             <img

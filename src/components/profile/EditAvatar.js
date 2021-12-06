@@ -24,7 +24,7 @@ function EditAvatar({setOnEditAvatar}) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await dispatch(updateAvatar({avatar, auth}))
-    setOnEditAvatar()
+    setOnEditAvatar(false)
   }
 
   return (
@@ -38,13 +38,6 @@ function EditAvatar({setOnEditAvatar}) {
           className='modal-head flex items-center 
             justify-between h-[10%] mb-4'
         >
-          <button
-            className='bg-blue-500 hover:bg-blue-700 py-2 px-4
-              rounded-md text-white font-semibold text-sm'
-            onClick={handleSubmit}
-          >
-            Cập nhật
-          </button>
           <h3 className='font-bold text-xl'>Cập nhật ảnh đại diện</h3>
           <div
             className='cursor-pointer w-9 h-9 
@@ -76,10 +69,10 @@ function EditAvatar({setOnEditAvatar}) {
           />
         </div>
 
-        <div className='modal-upload h-[10%] flex items-center justify-center my-4'>
-          <label htmlFor='upload' className='font-semibold w-full'>
+        <div className='modal-upload h-[10%] flex items-center justify-between my-4'>
+          <label htmlFor='upload' className='font-semibold flex-1 mr-5'>
             <div
-              className='flex items-center justify-center p-2 
+              className='flex items-center justify-center p-2
               rounded-lg bg-green-200 hover:bg-green-300 cursor-pointer'
             >
               <svg
@@ -105,6 +98,13 @@ function EditAvatar({setOnEditAvatar}) {
               className='hidden'
             />
           </label>
+          <button
+            className='bg-blue-500 hover:bg-blue-700 py-2 px-4
+              rounded-md text-white font-semibold min-w-[20%]'
+            onClick={handleSubmit}
+          >
+            Cập nhật
+          </button>
         </div>
       </div>
     </div>

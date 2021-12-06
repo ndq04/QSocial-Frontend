@@ -1,4 +1,4 @@
-import {ACTION_TYPES} from '../actions/actionTypes'
+import {ACTION_TYPES, EditData} from '../actions/actionTypes'
 
 const initialState = {
   loading: false,
@@ -18,6 +18,16 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         users: [...state.users, payload.user],
+      }
+    case ACTION_TYPES.FRIEND:
+      return {
+        ...state,
+        users: EditData(state.users, payload._id, payload),
+      }
+    case ACTION_TYPES.UNFRIEND:
+      return {
+        ...state,
+        users: EditData(state.users, payload._id, payload),
       }
     default:
       return state

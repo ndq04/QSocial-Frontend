@@ -1,6 +1,6 @@
 import {getDataApi, patchDataApi} from '../../utils/fetchDataApi'
 import {imageupload} from '../../utils/imageupload'
-import {ACTION_TYPES} from './actionTypes'
+import {ACTION_TYPES, DeleteData} from './actionTypes'
 
 export const getProfileUsers =
   ({users, id, auth}) =>
@@ -45,36 +45,94 @@ export const getProfileUsers =
   }
 
 export const updateProfile =
-  ({editData}) =>
+  ({editData, auth}) =>
   async (dispatch) => {
-    // console.log({editData, avatar})
-
-    if (!editData.firstname) {
-      return dispatch({
-        type: ACTION_TYPES.ALERT,
-        payload: {error: 'Họ không được để trống'},
-      })
-    }
-    if (!editData.lastname) {
-      return dispatch({
-        type: ACTION_TYPES.ALERT,
-        payload: {error: 'Tên không được để trống'},
-      })
-    }
-    if (editData.firstname.length > 10) {
-      return dispatch({
-        type: ACTION_TYPES.ALERT,
-        payload: {error: 'Họ không được vượt quá 10 ký tự'},
-      })
-    }
-    if (editData.lastname.length > 10) {
-      return dispatch({
-        type: ACTION_TYPES.ALERT,
-        payload: {error: 'Tên không được vượt quá 10 ký tự'},
-      })
-    }
-
+    // console.log({editData})
     try {
+      const {firstname, lastname, livein, from, job, password} = editData
+
+      if (!firstname) {
+        return dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            error: 'Họ không được để trống',
+          },
+        })
+      }
+      if (firstname.length > 10) {
+        return dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            error: 'Họ không được vượt quá 10 ký tự',
+          },
+        })
+      }
+      if (!lastname) {
+        return dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            error: 'Tên không được để trống',
+          },
+        })
+      }
+      if (lastname.length > 10) {
+        return dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            error: 'Tên không được vượt quá 10 ký tự',
+          },
+        })
+      }
+
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          loadingImage: true,
+        },
+      })
+      const res = await patchDataApi(
+        'userprofile',
+        {
+          firstname,
+          lastname,
+          livein,
+          from,
+          job,
+          userId: auth.user._id,
+        },
+        auth.token
+      )
+      // console.log(res)
+
+      dispatch({
+        type: ACTION_TYPES.AUTH,
+        payload: {
+          ...auth,
+          user: {
+            ...auth.user,
+            ...editData,
+            firstname,
+            lastname,
+            livein,
+            from,
+            job,
+          },
+        },
+      })
+
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          loadingImage: false,
+        },
+      })
+
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          success: res.data.message,
+        },
+      })
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -88,24 +146,28 @@ export const updateProfile =
 export const updateAvatar =
   ({avatar, auth}) =>
   async (dispatch) => {
-    let media
-    dispatch({
-      type: ACTION_TYPES.ALERT,
-      payload: {
-        loadingImage: true,
-      },
-    })
-
     try {
+      let media
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          loadingImage: true,
+        },
+      })
+
       if (avatar) {
         media = await imageupload([avatar])
       }
-      // console.log(media)
+
       const res = await patchDataApi(
         'useravatar',
-        {avatar: avatar ? media[0].secure_url : auth.user.avatar},
+        {
+          avatar: avatar ? media[0].secure_url : auth.user.avatar,
+          userId: auth.user._id,
+        },
         auth.token
       )
+      // console.log(res)
 
       dispatch({
         type: ACTION_TYPES.AUTH,
@@ -131,6 +193,79 @@ export const updateAvatar =
           success: res.data.message,
         },
       })
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+
+export const addfriend =
+  ({users, user, auth}) =>
+  async (dispatch) => {
+    const newUser = {...user, friends: [...user.friends, auth.user]}
+    // console.log(newUser)
+
+    dispatch({
+      type: ACTION_TYPES.FRIEND,
+      payload: newUser,
+    })
+
+    dispatch({
+      type: ACTION_TYPES.AUTH,
+      payload: {
+        ...auth,
+        user: {...auth.user, followings: [...auth.user.followings, newUser]},
+      },
+    })
+
+    try {
+      const res = await patchDataApi(
+        `user/${user._id}/friend`,
+        {userId: auth.user._id},
+        auth.token
+      )
+      console.log(res)
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+
+export const unfriend =
+  ({users, user, auth}) =>
+  async (dispatch) => {
+    const newUser = {
+      ...user,
+      friends: DeleteData(user.friends, auth.user._id),
+    }
+    // console.log(newUser)
+
+    dispatch({
+      type: ACTION_TYPES.UNFRIEND,
+      payload: newUser,
+    })
+
+    dispatch({
+      type: ACTION_TYPES.AUTH,
+      payload: {
+        ...auth,
+        user: {
+          ...auth.user,
+          followings: DeleteData(auth.user.followings, newUser._id),
+        },
+      },
+    })
+
+    try {
+      await patchDataApi(`user/${user._id}/unfriend`, null, auth.token)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

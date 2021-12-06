@@ -4,7 +4,7 @@ import ProfileStatus from './ProfileStatus'
 
 function ProfileBody(data) {
   return (
-    <div className='profilebody w-full px-4 grid grid-cols-5 gap-4 mt-4 '>
+    <div className='profilebody w-full px-4 grid grid-cols-5 gap-4'>
       <div className='profilebody-left'>
         <About {...data} />
       </div>
