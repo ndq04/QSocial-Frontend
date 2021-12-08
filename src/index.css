@@ -65,6 +65,10 @@
   display: none;
 }
 
+.modal-text::-webkit-scrollbar {
+  display: block;
+}
+
 .logout-icon {
   background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/5AbLIFMspEl.png');
   background-position: 0px -74px;

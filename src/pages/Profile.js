@@ -69,73 +69,89 @@ function Profile() {
         <div className='bg-[#f0f2f5] select-none pt-[60px]'>
           <div className='profile h-[calc(100vh-60px)] overflow-y-scroll'>
             <Info {...data} />
-            <div
-              className='profileheader bg-white max-w-5xl h-[60px] shadow-md
-              mx-auto mb-4 rounded-lg flex items-center justify-between overflow-hidden'
-            >
+            {auth && auth.user && id === auth.user._id && (
               <div
-                className='flex flex-1 h-full border-r-2 border-gray-300 
-              hover:bg-gray-300 cursor-pointer transition-colors'
-                onClick={() => handleToggle('showAccount')}
+                className='profileheader bg-white max-w-5xl h-[50px] shadow-md
+              mx-auto rounded-b-lg flex items-center justify-between overflow-hidden'
               >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='h-9 w-9 text-blue-500 m-auto'
-                  viewBox='0 0 20 20'
-                  fill='currentColor'
+                <div
+                  className={`flex flex-1 h-full border-r-2 border-gray-300 
+                cursor-pointer transition-colors ${
+                  showAccount && 'border-t-[3px] border-t-purple-500'
+                }`}
+                  onClick={() => handleToggle('showAccount')}
                 >
-                  <path
-                    fillRule='evenodd'
-                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z'
-                    clipRule='evenodd'
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-8 w-8 text-blue-500 m-auto'
+                    viewBox='0 0 20 20'
+                    fill='currentColor'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                </div>
+
+                <div
+                  className={`flex items-center justify-center flex-1 h-full border-r-2 border-gray-300 
+                cursor-pointer transition-colors ${
+                  showFriends && 'border-t-[3px] border-t-purple-500'
+                }`}
+                  onClick={() => handleToggle('showFriends')}
+                >
+                  <img
+                    src='https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png'
+                    alt='friend'
+                    className='w-8 h-8 mx-2'
                   />
-                </svg>
-              </div>
+                  <p className='font-semibold text-purple-800'>
+                    Người theo dõi
+                  </p>
+                </div>
 
-              <div
-                className='flex flex-1 h-full border-r-2 border-gray-300
-              hover:bg-gray-300 cursor-pointer transition-colors'
-                onClick={() => handleToggle('showFriends')}
-              >
-                <img
-                  src='https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png'
-                  alt='friend'
-                  className='m-auto'
-                />
-              </div>
-
-              <div
-                className='flex flex-1 h-full border-r-2 border-gray-300
-              hover:bg-gray-300 cursor-pointer transition-colors'
-                onClick={() => handleToggle('showFollowings')}
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='h-9 w-9 text-blue-500 m-auto'
-                  viewBox='0 0 20 20'
-                  fill='currentColor'
+                <div
+                  className={`flex items-center justify-center flex-1 h-full border-r-2 border-gray-300 
+                cursor-pointer transition-colors ${
+                  showFollowings && 'border-t-[3px] border-t-purple-500'
+                }`}
+                  onClick={() => handleToggle('showFollowings')}
                 >
-                  <path d='M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z' />
-                </svg>
-              </div>
+                  <img
+                    src='https://static.xx.fbcdn.net/rsrc.php/v3/yV/r/6U-6vx-bOzP.png'
+                    alt='following'
+                    className='w-[22px] h-[22px] mx-2'
+                  />
+                  <p className='font-semibold text-purple-800'>Đang theo dõi</p>
+                </div>
 
-              <div
-                className='flex flex-1 h-full hover:bg-gray-300 cursor-pointer 
-                transition-colors'
-                onClick={() => handleToggle('showSaved')}
-              >
-                <img
-                  src='https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png'
-                  alt='save'
-                  className='m-auto'
-                />
+                <div
+                  className={`flex items-center justify-center flex-1 h-full border-r-2 border-gray-300 
+                cursor-pointer transition-colors ${
+                  showSaved && 'border-t-[3px] border-t-purple-500'
+                }`}
+                  onClick={() => handleToggle('showSaved')}
+                >
+                  <img
+                    src='https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png'
+                    alt='save'
+                    className='w-7 h-7 mx-2'
+                  />
+                  <p className='font-semibold text-purple-800'>Đã lưu</p>
+                </div>
               </div>
-            </div>
+            )}
             {showAccount && (
               <ProfileBody {...data} handleToggle={handleToggle} />
             )}
-            {showFriends && <Friends {...data} />}
-            {showFollowings && <Followings {...data} />}
+            {showFriends && auth && auth.user && id === auth.user._id && (
+              <Friends {...data} />
+            )}
+            {showFollowings && auth && auth.user && id === auth.user._id && (
+              <Followings {...data} />
+            )}
             {showSaved && <Saved />}
           </div>
         </div>

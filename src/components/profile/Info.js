@@ -39,20 +39,26 @@ function Info(data) {
           ) : (
             <GlobalBtnFriend user={user} />
           )}
-          <div className='absolute left-0 flex items-center'>
-            <p className='mr-3'>
-              <span className='mr-1'>Người theo dõi</span>
-              <span className='font-semibold text-lg'>
-                {user.followers.length}
-              </span>
-            </p>
-            <p>
-              <span className='mr-1'>Đang theo dõi</span>
-              <span className='font-semibold text-lg'>
-                {user.followings.length}
-              </span>
-            </p>
-          </div>
+          {auth && user._id && auth.user._id === user._id && (
+            <div className='absolute left-0 flex items-center'>
+              <p className='mr-3'>
+                <span className='mr-1 font-semibold text-gray-600'>
+                  Người theo dõi
+                </span>
+                <span className='font-semibold text-lg'>
+                  <span className='text-red-500'>{user.friends.length}</span>
+                </span>
+              </p>
+              <p>
+                <span className='mr-1 font-semibold text-gray-600'>
+                  Đang theo dõi
+                </span>
+                <span className='font-semibold text-lg'>
+                  <span className='text-red-500'>{user.followings.length}</span>
+                </span>
+              </p>
+            </div>
+          )}
           <h3 className='text-[32px] font-bold'>
             {user.firstname} {user.lastname}
           </h3>

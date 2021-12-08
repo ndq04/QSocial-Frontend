@@ -13,6 +13,7 @@ import {refreshToken} from './redux/actions/authActions'
 import Alert from './components/Alert'
 import Navbar from './components/Navbar'
 import PriviteRouter from './utils/PriviteRouter'
+import {getPost} from './redux/actions/postActions'
 
 function App() {
   const {auth} = useSelector((state) => state)
@@ -21,6 +22,10 @@ function App() {
   useEffect(() => {
     dispatch(refreshToken())
   }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getPost(auth.token))
+  }, [auth.token, dispatch])
 
   return (
     <>

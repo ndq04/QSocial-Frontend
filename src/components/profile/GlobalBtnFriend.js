@@ -1,35 +1,35 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {followfriend, unfollowfriend} from '../../redux/actions/profileActions'
+import {addfriend, unfriend} from '../../redux/actions/profileActions'
 
-function GlobalBtnFriend({user}) {
-  const [isFollow, setIsFollow] = useState(false)
+function GlobalBtnFriend({user, follow}) {
+  const [friend, setFriend] = useState(false)
   const {auth, profile} = useSelector((state) => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (auth.user.followings.find((item) => item._id === user._id)) {
-      setIsFollow(true)
+      setFriend(true)
     }
   }, [auth.user.followings, user._id])
 
-  const follow = () => {
-    dispatch(followfriend({users: profile.users, user, auth}))
-    setIsFollow(true)
+  const addFriend = () => {
+    setFriend(true)
+    dispatch(addfriend({users: profile.users, user, auth}))
   }
 
-  const unfollow = () => {
-    dispatch(unfollowfriend({users: profile.users, user, auth}))
-    setIsFollow(false)
+  const unFiend = () => {
+    setFriend(false)
+    dispatch(unfriend({users: profile.users, user, auth}))
   }
 
   return (
-    <div className='absolute right-[5%] flex'>
-      {isFollow ? (
+    <div className={`absolute right-[5%] flex ${follow && 'relative'}`}>
+      {friend ? (
         <button
           className='py-2 px-3 bg-red-500 hover:bg-red-600 
           rounded-lg font-semibold flex items-center text-white'
-          onClick={unfollow}
+          onClick={unFiend}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -45,7 +45,7 @@ function GlobalBtnFriend({user}) {
         <button
           className=' py-2 px-3 bg-blue-500 hover:bg-blue-700 
           rounded-lg text-white font-semibold flex items-center'
-          onClick={follow}
+          onClick={addFriend}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

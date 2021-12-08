@@ -28,7 +28,7 @@ export const login = (data) => async (dispatch) => {
       },
     })
   } catch (error) {
-    console.log(error.response.data.message)
+    // console.log(error.response.data.message)
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {
@@ -64,7 +64,7 @@ export const refreshToken = () => async (dispatch) => {
         },
       })
     } catch (error) {
-      console.log(error.response.data.message)
+      // console.log(error.response.data.message)
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {

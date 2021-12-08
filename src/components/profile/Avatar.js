@@ -1,6 +1,6 @@
 function Avatar({user, auth, setOnEditAvatar}) {
   return (
-    <div className='absolute left-[50%] -translate-x-1/2 top-[45%] w-52 h-52 rounded-full flex'>
+    <div className='absolute left-[50%] -translate-x-1/2 bottom-[-10%] w-52 h-52 rounded-full flex'>
       <img
         src={user.avatar}
         alt='img'

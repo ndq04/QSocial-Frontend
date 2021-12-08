@@ -6,7 +6,7 @@ function ProfileStatus(data) {
   const {userData} = data
   const {handleToggle} = useContext(StatusContext)
   const ModalDataFilter = ModalData.filter((item) => item.id !== 4)
-  const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
+
   return (
     userData.length > 0 &&
     userData.map((user) => (
@@ -16,7 +16,7 @@ function ProfileStatus(data) {
       >
         <div className='flex items-center cursor-pointer border-b border-gray-300 pb-4 mb-4'>
           <img
-            src={user.avatar || PublicFolder + 'user.png'}
+            src={user.avatar}
             alt='avatar'
             className='w-10 h-10 rounded-full mr-2'
           />

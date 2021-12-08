@@ -34,12 +34,13 @@ export const getProfileUsers =
           },
         })
       } catch (error) {
-        dispatch({
-          type: ACTION_TYPES.ALERT,
-          payload: {
-            error: error.response.data.message,
-          },
-        })
+        console.log(error.response.data.message)
+        // dispatch({
+        //   type: ACTION_TYPES.ALERT,
+        //   payload: {
+        //     error: error.response.data.message,
+        //   },
+        // })
       }
     }
   }
@@ -263,20 +264,19 @@ export const updateCoverimage =
     }
   }
 
-export const followfriend =
+export const addfriend =
   ({users, user, auth}) =>
   async (dispatch) => {
     const newUser = {
       ...user,
-      followers: [...user.followers, auth.user],
+      friends: [...user.friends, auth.user],
     }
     // console.log(newUser)
 
     dispatch({
-      type: ACTION_TYPES.FOLLOW,
+      type: ACTION_TYPES.FRIEND,
       payload: newUser,
     })
-
     dispatch({
       type: ACTION_TYPES.AUTH,
       payload: {
@@ -287,13 +287,18 @@ export const followfriend =
         },
       },
     })
-
     try {
-      await patchDataApi(
-        `user/${user._id}/follow`,
-        {userId: auth.user._id},
+      const res = await patchDataApi(
+        `user/${user._id}/friend`,
+        {_id: auth.user._id},
         auth.token
       )
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          success: res.data.message,
+        },
+      })
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -304,17 +309,17 @@ export const followfriend =
     }
   }
 
-export const unfollowfriend =
+export const unfriend =
   ({users, user, auth}) =>
   async (dispatch) => {
     const newUser = {
       ...user,
-      followers: DeleteData(user.followers, auth.user._id),
+      friends: DeleteData(user.friends, auth.user._id),
     }
     // console.log(newUser)
 
     dispatch({
-      type: ACTION_TYPES.UNFOLLOW,
+      type: ACTION_TYPES.UNFRIEND,
       payload: newUser,
     })
 
@@ -328,13 +333,18 @@ export const unfollowfriend =
         },
       },
     })
-
     try {
-      await patchDataApi(
-        `user/${user._id}/unfollow`,
-        {userId: auth.user._id},
+      const res = await patchDataApi(
+        `user/${user._id}/unfriend`,
+        {_id: auth.user._id},
         auth.token
       )
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          success: res.data.message,
+        },
+      })
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

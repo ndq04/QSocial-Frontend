@@ -9,15 +9,15 @@ import DataProvider from './redux/store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <DataProvider>
-        <StatusContextProvider>
-          <AccountContextProvider>
+    <DataProvider>
+      <StatusContextProvider>
+        <AccountContextProvider>
+          <Router>
             <App />
-          </AccountContextProvider>
-        </StatusContextProvider>
-      </DataProvider>
-    </Router>
+          </Router>
+        </AccountContextProvider>
+      </StatusContextProvider>
+    </DataProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
