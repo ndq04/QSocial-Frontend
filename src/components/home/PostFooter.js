@@ -1,12 +1,37 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {Like} from '../../data/Like'
 import LikePost from './LikePost'
+import {Like} from '../../data/Like'
+import {likepost, unlikepost} from '../../redux/actions/postActions'
 
 function PostFooter({pos}) {
   const [isLike, setIsLike] = useState(false)
-  const handleLike = () => {}
-  const handleUnLike = () => {}
+  const [load, setLoad] = useState(false)
+
+  const dispatch = useDispatch(0)
+  const {auth} = useSelector((state) => state)
+
+  useEffect(() => {
+    if (pos.likes.find((like) => like._id === auth.user._id)) {
+      setIsLike(true)
+    }
+  }, [pos.likes, auth.user._id])
+
+  const handleLike = async () => {
+    if (load) return
+    setIsLike(true)
+    setLoad(true)
+    dispatch(likepost({pos, auth}))
+    setLoad(false)
+  }
+  const handleUnLike = async () => {
+    if (load) return
+    setIsLike(false)
+    setLoad(true)
+    dispatch(unlikepost({pos, auth}))
+    setLoad(false)
+  }
   const likeData = {isLike, handleLike, handleUnLike}
   return (
     <div className='post-footer p-3'>

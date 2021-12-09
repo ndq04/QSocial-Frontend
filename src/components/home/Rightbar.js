@@ -19,7 +19,7 @@ function Rightbar() {
               <img
                 src={rightbar.value.img}
                 alt={rightbar.value.title}
-                className='w-[130px] h-[130px] rounded-lg mr-4'
+                className='w-[130px] h-[130px] object-cover rounded-lg mr-4'
               />
               <div>
                 <p className='text-gray-800 font-semibold'>

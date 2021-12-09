@@ -134,3 +134,58 @@ export const updatePost =
       })
     }
   }
+
+export const likepost =
+  ({pos, auth}) =>
+  async (dispatch) => {
+    const newPost = {...pos, likes: [...pos.likes, auth.user]}
+    dispatch({
+      type: ACTION_TYPES.UPDATE_POST,
+      payload: newPost,
+    })
+    try {
+      await patchDataApi(`post/${pos._id}/like`, null, auth.token)
+      // dispatch({
+      //   type: ACTION_TYPES.ALERT,
+      //   payload: {
+      //     success: res.data.message,
+      //   },
+      // })
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+export const unlikepost =
+  ({pos, auth}) =>
+  async (dispatch) => {
+    const newPost = {
+      ...pos,
+      likes: pos.likes.filter((like) => like._id !== auth.user._id),
+    }
+
+    dispatch({
+      type: ACTION_TYPES.UPDATE_POST,
+      payload: newPost,
+    })
+    try {
+      await patchDataApi(`post/${pos._id}/unlike`, null, auth.token)
+      // dispatch({
+      //   type: ACTION_TYPES.ALERT,
+      //   payload: {
+      //     success: res.data.message,
+      //   },
+      // })
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
