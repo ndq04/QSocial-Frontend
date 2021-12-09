@@ -24,6 +24,12 @@ export const login = (data) => async (dispatch) => {
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {
+        loading: false,
+      },
+    })
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
         success: res.data.message,
       },
     })
@@ -57,6 +63,13 @@ export const refreshToken = () => async (dispatch) => {
           user: res.data.user,
         },
       })
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          loading: false,
+        },
+      })
+
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
@@ -105,7 +118,7 @@ export const register = (data) => async (dispatch) => {
       })
     }
   } catch (error) {
-    console.log(error.response.data.message)
+    // console.log(error.response.data.message)
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {
@@ -121,7 +134,7 @@ export const logout = () => async (dispatch) => {
     await postDataApi('logout')
     window.location.href = '/'
   } catch (error) {
-    console.log(error.response.data.message)
+    // console.log(error.response.data.message)
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {

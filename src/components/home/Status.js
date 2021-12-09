@@ -1,10 +1,10 @@
 import {useContext} from 'react'
 import {useSelector} from 'react-redux'
-import {ModalData} from './../data/Modal'
-import {StatusContext} from '../contexts/StatusContext'
+import {ModalData} from '../../data/Modal'
+import {StatusContext} from '../../contexts/StatusContext'
 
 function Status() {
-  const {handleToggle} = useContext(StatusContext)
+  const {toggleStatusModal} = useContext(StatusContext)
   const ModalDataFilter = ModalData.filter((item) => item.id !== 4)
 
   const {auth} = useSelector((state) => state)
@@ -20,7 +20,7 @@ function Status() {
         <p
           className='text-gray-600 text-lg bg-gray-100 
           hover:bg-gray-200 flex-1 px-3 py-2 rounded-full'
-          onClick={handleToggle}
+          onClick={toggleStatusModal}
         >
           {`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}
         </p>
@@ -30,8 +30,8 @@ function Status() {
           <li
             key={item.id}
             className='flex items-center p-2 rounded-md 
-              hover:bg-gray-200 cursor-pointer'
-            onClick={handleToggle}
+          hover:bg-gray-200 cursor-pointer'
+            onClick={toggleStatusModal}
           >
             {item.img}
             <p className='ml-2'>{item.title}</p>

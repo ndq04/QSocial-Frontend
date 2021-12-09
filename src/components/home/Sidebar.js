@@ -1,13 +1,13 @@
 import {useState} from 'react'
 import {useSelector} from 'react-redux'
-import {SidebarData, SidebarMore} from '../data/Sidebar'
+import {SidebarData, SidebarMore} from '../../data/Sidebar'
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
   const {auth} = useSelector((state) => state)
   return (
     <div className='sidebar h-[calc(100vh-60px)] py-4 overflow-y-scroll'>
-      <ul>
+      <ul className='border-b border-gray-300'>
         <li className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer'>
           <img
             src={auth.user.avatar}

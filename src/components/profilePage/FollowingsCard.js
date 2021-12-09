@@ -1,7 +1,6 @@
 import GlobalCard from './GlobalCard'
 
 function FollowingsCard({user}) {
-  console.log(user)
   return (
     <>
       <h3 className='text-xl font-bold'>

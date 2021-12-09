@@ -1,5 +1,14 @@
 export const Like = [
-  {id: 1, img: 'thich.png'},
-  {id: 2, img: 'tim.png'},
-  {id: 3, img: 'thuong.png'},
+  {
+    id: 1,
+    img: 'https://res.cloudinary.com/doltvro6d/image/upload/v1638971144/qsocial/thich_vjy4ss.png',
+  },
+  {
+    id: 2,
+    img: 'https://res.cloudinary.com/doltvro6d/image/upload/v1638971144/qsocial/tim_cli82p.png',
+  },
+  {
+    id: 3,
+    img: 'https://res.cloudinary.com/doltvro6d/image/upload/v1638971143/qsocial/thuong_osembp.png',
+  },
 ]

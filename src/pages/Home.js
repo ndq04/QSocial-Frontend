@@ -1,13 +1,13 @@
 import {useContext} from 'react'
-import Content from '../components/Content'
-import Rightbar from '../components/Rightbar'
-import Sidebar from '../components/Sidebar'
-import StatusModal from '../components/StatusModal'
+import Content from '../components/home/Content'
+import Rightbar from '../components/home/Rightbar'
+import Sidebar from '../components/home/Sidebar'
 import {AccountContext} from '../contexts/AccountContext'
 import {StatusContext} from '../contexts/StatusContext'
+import StatusModal from '../components/home/StatusModal'
 
 function Home() {
-  const {isOpenModal} = useContext(StatusContext)
+  const {showStatus} = useContext(StatusContext)
   const {handleClose} = useContext(AccountContext)
   return (
     <>
@@ -19,7 +19,7 @@ function Home() {
         <Content />
         <Rightbar />
       </div>
-      {isOpenModal && <StatusModal />}
+      {showStatus && <StatusModal />}
     </>
   )
 }

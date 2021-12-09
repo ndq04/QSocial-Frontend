@@ -4,12 +4,12 @@ import {useState} from 'react'
 export const StatusContext = createContext()
 
 const StatusContextProvider = ({children}) => {
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const handleToggle = () => setIsOpenModal(!isOpenModal)
+  const [showStatus, setShowStatus] = useState(false)
+  const toggleStatusModal = () => setShowStatus(!showStatus)
 
   const data = {
-    isOpenModal,
-    handleToggle,
+    showStatus,
+    toggleStatusModal,
   }
   return (
     <StatusContext.Provider value={data}>{children}</StatusContext.Provider>

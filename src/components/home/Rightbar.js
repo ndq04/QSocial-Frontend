@@ -1,6 +1,6 @@
-import {Users} from '../data/TestData'
-import {RightbarPR} from './../data/Rightbar'
-import OnlineFriend from './OnlineFriend'
+import {Users} from '../../data/TestData'
+import {RightbarPR} from '../../data/Rightbar'
+import OnlineFriend from '../OnlineFriend'
 
 function Rightbar() {
   return (

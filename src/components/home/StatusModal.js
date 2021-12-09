@@ -1,16 +1,29 @@
-import {useContext, useState} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {StatusContext} from '../contexts/StatusContext'
-import {ACTION_TYPES} from '../redux/actions/actionTypes'
-import {createPost} from '../redux/actions/postActions'
+import Picker from 'emoji-picker-react'
+import {StatusContext} from '../../contexts/StatusContext'
+import {ACTION_TYPES} from '../../redux/actions/actionTypes'
+import {createPost, updatePost} from '../../redux/actions/postActions'
 
 function StatusModal() {
   const [content, setContent] = useState('')
   const [images, setImages] = useState([])
-  const {handleToggle} = useContext(StatusContext)
+  const {toggleStatusModal} = useContext(StatusContext)
+  const [showPicker, setShowPicker] = useState(false)
 
-  const {auth} = useSelector((state) => state)
+  const {auth, status} = useSelector((state) => state)
   const dispatch = useDispatch()
+
+  const onEmojiClick = (e, emojiObject) => {
+    setContent((prevInput) => prevInput + emojiObject.emoji)
+    // setShowPicker(false)
+  }
+  useEffect(() => {
+    if (status.edit) {
+      setContent(status.content)
+      setImages(status.images)
+    }
+  }, [status.edit, status.content, status.images])
 
   const uploadImages = (e) => {
     const files = [...e.target.files]
@@ -48,24 +61,54 @@ function StatusModal() {
     setImages([])
   }
 
-  const handleSubmit = async () => {
-    await dispatch(createPost({content, images, auth}))
-    handleToggle()
+  const handleCloseModal = () => {
+    dispatch({
+      type: ACTION_TYPES.STATUS,
+      payload: {
+        edit: false,
+      },
+    })
+    toggleStatusModal()
+  }
+
+  const handleSubmit = () => {
+    if (status.edit) {
+      dispatch(updatePost({content, images, auth, status}))
+      dispatch({
+        type: ACTION_TYPES.STATUS,
+        payload: {
+          edit: false,
+        },
+      })
+      toggleStatusModal()
+    } else {
+      dispatch(createPost({content, images, auth}))
+      toggleStatusModal()
+    }
   }
 
   return (
     <div className='select-none'>
-      <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-10'></div>
+      <div
+        className='modal fixed inset-0 bg-gray-500 opacity-50 z-10'
+        onClick={() => setShowPicker(false)}
+      ></div>
       <div
         className='inner w-[500px] bg-white h-[80%] shadow-lg absolute top-1/2 -translate-y-1/2 
         -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col p-4'
       >
-        <div className='modal-head flex items-center justify-center h-[10%] relative pb-4 border-b border-gray-300'>
-          <h3 className='font-bold text-xl'>Tạo bài viết</h3>
+        <div
+          className='modal-head flex items-center justify-center h-[10%] 
+          relative pb-4 border-b border-gray-300'
+          onClick={() => setShowPicker(false)}
+        >
+          <h3 className='font-bold text-xl'>
+            {status.edit ? 'Cập nhật bài viết' : 'Tạo bài viết'}
+          </h3>
           <div
             className='absolute right-1 top-0 cursor-pointer p-1.5 
           bg-red-500 hover:bg-red-600 rounded-full flex '
-            onClick={handleToggle}
+            onClick={handleCloseModal}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -85,7 +128,10 @@ function StatusModal() {
         </div>
 
         <div className='modal-name flex items-center justify-between h-[10%]'>
-          <div className='flex items-center py-2'>
+          <div
+            className='flex items-center py-2'
+            onClick={() => setShowPicker(false)}
+          >
             <img
               src={auth.user.avatar}
               alt='avatar'
@@ -95,15 +141,38 @@ function StatusModal() {
               {auth.user.firstname} {auth.user.lastname}
             </p>
           </div>
-          <p className='font-semibold text-gray-500'>
+          <div className='font-semibold text-gray-500 relative flex items-center'>
+            <span>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-7 w-7 text-yellow-500 cursor-pointer mr-1'
+                viewBox='0 0 20 20'
+                fill='currentColor'
+                onClick={() => setShowPicker(!showPicker)}
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z'
+                  clipRule='evenodd'
+                />
+              </svg>
+            </span>
+            {showPicker && (
+              <div className='absolute translate-x-[-90%] translate-y-[77%] z-10'>
+                <Picker onEmojiClick={onEmojiClick} />
+              </div>
+            )}
             <span className='font-bold text-blue-700'>{content?.length}</span>
-          </p>
+          </div>
         </div>
 
-        <div className='modal-text overflow-y-scroll h-[60%] mb-auto'>
+        <div
+          className='modal-text overflow-y-scroll h-[60%] mb-auto'
+          onClick={() => setShowPicker(false)}
+        >
           <textarea
             className={`w-full h-full outline-none resize-none bg-white text-2xl ${
-              images.length > 0 && 'h-[22%] text-base mb-3'
+              images.length > 0 && 'h-[50%] text-base mb-3'
             }`}
             placeholder={`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}
             value={content}
@@ -113,13 +182,17 @@ function StatusModal() {
           {images && images.length > 0 && (
             <div
               className={`w-full rounded-lg p-2 ${
-                images.length > 0 && 'border border-gray-400 min-h-[70%]'
+                images.length > 0 && 'border border-gray-400'
               }`}
             >
               {images.map((image, index) => (
                 <div key={index} className='relative'>
                   <img
-                    src={URL.createObjectURL(image)}
+                    src={
+                      image.secure_url
+                        ? image.secure_url
+                        : URL.createObjectURL(image)
+                    }
                     alt={'image_' + index}
                     className='w-full h-[250px] object-cover rounded-md'
                   />
@@ -147,7 +220,11 @@ function StatusModal() {
           )}
         </div>
 
-        <div className='modal-option flex items-center border border-gray-400 rounded-lg p-3 my-4 bg-white h-[10%]'>
+        <div
+          className='modal-option flex items-center border border-gray-400 rounded-lg 
+          p-3 my-4 bg-white h-[10%]'
+          onClick={() => setShowPicker(false)}
+        >
           <p className='font-semibold text-gray-600'>Thêm ảnh/video</p>
           <label
             htmlFor='status'
@@ -191,7 +268,7 @@ function StatusModal() {
           onClick={handleSubmit}
           disabled={content.length > 0 || images.length > 0 ? false : true}
         >
-          Đăng
+          {status.edit ? 'Cập nhật' : 'Đăng'}
         </button>
       </div>
     </div>

@@ -46,7 +46,7 @@ function GlobalCard({user}) {
             user.gender === 'female' ? 'text-red-700' : 'text-blue-700'
           }  text-center my-2`}
         >
-          <h3 className='hover:underline cursor-pointer'>
+          <h3>
             {user.firstname} {user.lastname}
           </h3>
           {showInfo && (

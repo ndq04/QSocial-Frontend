@@ -1,5 +1,9 @@
 function Post() {
-  return <div>single post</div>
+  return (
+    <div className='pt-[60px]'>
+      <h1>single post</h1>
+    </div>
+  )
 }
 
 export default Post
