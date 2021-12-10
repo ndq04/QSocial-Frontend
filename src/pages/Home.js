@@ -1,10 +1,10 @@
 import {useContext} from 'react'
-import Content from '../components/home/Content'
+import Content from '../components/home/post/Content'
 import Rightbar from '../components/home/Rightbar'
 import Sidebar from '../components/home/Sidebar'
 import {AccountContext} from '../contexts/AccountContext'
 import {StatusContext} from '../contexts/StatusContext'
-import StatusModal from '../components/home/StatusModal'
+import StatusModal from '../components/home/post/StatusModal'
 
 function Home() {
   const {showStatus} = useContext(StatusContext)

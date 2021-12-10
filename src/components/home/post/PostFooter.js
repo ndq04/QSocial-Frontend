@@ -1,13 +1,11 @@
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Like} from '../../../data/Like'
+import {likepost, unlikepost} from '../../../redux/actions/postActions'
 import LikePost from './LikePost'
-import {Like} from '../../data/Like'
-import {likepost, unlikepost} from '../../redux/actions/postActions'
 
-function PostFooter({pos}) {
+function PostFooter({pos, setShowComment}) {
   const [isLike, setIsLike] = useState(false)
-  const [load, setLoad] = useState(false)
 
   const dispatch = useDispatch(0)
   const {auth} = useSelector((state) => state)
@@ -19,23 +17,18 @@ function PostFooter({pos}) {
   }, [pos.likes, auth.user._id])
 
   const handleLike = async () => {
-    if (load) return
     setIsLike(true)
-    setLoad(true)
     dispatch(likepost({pos, auth}))
-    setLoad(false)
   }
   const handleUnLike = async () => {
-    if (load) return
     setIsLike(false)
-    setLoad(true)
+
     dispatch(unlikepost({pos, auth}))
-    setLoad(false)
   }
   const likeData = {isLike, handleLike, handleUnLike}
   return (
-    <div className='post-footer p-3'>
-      <div className='flex items-center justify-between border-b pb-3 mb-3 border-gray-300'>
+    <div className='post-footer px-3 pt-3'>
+      <div className='post-footer--top flex items-center justify-between border-gray-300'>
         <div className='flex items-center'>
           {Like.map((item) => (
             <img
@@ -53,28 +46,30 @@ function PostFooter({pos}) {
           {pos.comments.length} <span>bình luận</span>
         </p>
       </div>
-      <div className='flex items-center justify-between'>
+
+      <div className='post-footer--bottom flex items-center justify-between text-sm border-t border-gray-300 mt-3 py-1'>
         <LikePost likeData={likeData} />
-        <Link to={`/post/${pos._id}`}>
-          <div
-            className='flex items-center cursor-pointer text-gray-500 hover:bg-gray-200 py-2 px-10 
-          rounded-md transition-colors duration-200'
-          >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6'
-              viewBox='0 0 20 20'
-              fill='currentColor'
-            >
-              <path d='M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z' />
-              <path d='M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z' />
-            </svg>
-            <span className='font-semibold ml-2'>Bình luận</span>
-          </div>
-        </Link>
+
         <div
-          className='flex items-center cursor-pointer text-gray-500 hover:bg-gray-200 py-2 px-10 
-          rounded-md transition-colors duration-200'
+          className='comment-post flex items-center justify-center cursor-pointer text-gray-500 hover:bg-gray-100 py-1.5 px-10 
+            rounded-md transition-colors duration-200 flex-1'
+          onClick={() => setShowComment(true)}
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            className='h-6 w-6'
+            viewBox='0 0 20 20'
+            fill='currentColor'
+          >
+            <path d='M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z' />
+            <path d='M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z' />
+          </svg>
+          <span className='font-semibold ml-2'>Bình luận</span>
+        </div>
+
+        <div
+          className='save-post flex items-center justify-center cursor-pointer text-gray-500 hover:bg-gray-100 py-1.5 px-10 
+          rounded-md transition-colors duration-200 flex-1'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

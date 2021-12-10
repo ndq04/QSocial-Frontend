@@ -2,11 +2,12 @@ import {useState, useContext} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import moment from 'moment'
-import {ACTION_TYPES} from '../../redux/actions/actionTypes'
-import {StatusContext} from './../../contexts/StatusContext'
+import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
+import {StatusContext} from '../../../contexts/StatusContext'
 
 function PostHeader({pos, index}) {
   const [isOpen, setIsOpen] = useState(false)
+  const [showInfo, setShowInfo] = useState(false)
   const handleToggleDrop = () => setIsOpen(!isOpen)
   const {toggleStatusModal} = useContext(StatusContext)
 
@@ -27,8 +28,12 @@ function PostHeader({pos, index}) {
 
   return (
     <div className='post-header flex items-center justify-between p-3'>
-      <div className='post-heading--left flex items-center'>
-        <Link to={`/profile/${pos.user._id}`}>
+      <div className='post-heading--left flex items-center relative'>
+        <Link
+          to={`/profile/${pos.user._id}`}
+          onMouseOver={() => setShowInfo(true)}
+          onMouseOut={() => setShowInfo(false)}
+        >
           <img
             src={pos.user.avatar}
             alt={pos.user.firstname}
@@ -36,9 +41,14 @@ function PostHeader({pos, index}) {
           />
         </Link>
         <div>
-          <p>
+          <Link
+            to={`/profile/${pos.user._id}`}
+            className='hover:underline font-semibold text-gray-800'
+            onMouseOver={() => setShowInfo(true)}
+            onMouseOut={() => setShowInfo(false)}
+          >
             {pos.user.firstname} {pos.user.lastname}
-          </p>
+          </Link>
           <div className='flex text-gray-500 text-[13px] font-semibold'>
             <span>{moment(pos.createdAt).fromNow()}</span>
             <svg
@@ -55,6 +65,77 @@ function PostHeader({pos, index}) {
             </svg>
           </div>
         </div>
+        {showInfo && (
+          <div className='absolute w-[400px] bg-white p-4 rounded-lg shadow-lg border top-[100%] left-[-50%] z-10'>
+            <div className='flex items-start'>
+              <img
+                src={pos.user.avatar}
+                alt={pos.user.firstname}
+                className='w-24 h-24 object-cover rounded-full mr-4'
+              />
+
+              <div>
+                <p className='text-2xl font-bold text-gray-900 pb-3'>
+                  {pos.user.firstname} {pos.user.lastname}
+                </p>
+                <div className='flex items-center mt-2  text-gray-600 text-sm'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-6 w-6 mr-2'
+                    viewBox='0 0 20 20'
+                    fill='currentColor'
+                  >
+                    <path d='M9 2a1 1 0 000 2h2a1 1 0 100-2H9z' />
+                    <path
+                      fillRule='evenodd'
+                      d='M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                  <p>
+                    Đang theo dõi
+                    <span className='text-gray-800 font-semibold ml-1'>
+                      {pos.user.followings.length}
+                    </span>
+                  </p>
+                </div>
+                <div className='flex items-center mt-2 text-gray-600 text-sm'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-6 w-6 mr-2'
+                    viewBox='0 0 20 20'
+                    fill='currentColor'
+                  >
+                    <path d='M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z' />
+                  </svg>
+                  <p>
+                    Người theo dõi
+                    <span className='text-gray-800 font-semibold ml-1'>
+                      {pos.user.friends.length}
+                    </span>
+                  </p>
+                </div>
+                <div className='flex items-center mt-2 text-gray-600 text-sm'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-6 w-6 mr-2'
+                    viewBox='0 0 20 20'
+                    fill='currentColor'
+                  >
+                    <path d='M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z' />
+                  </svg>
+                  <p>
+                    Sống tại
+                    <span className='text-gray-800 font-semibold ml-1'>
+                      {pos.user.livein}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div></div>
+          </div>
+        )}
       </div>
 
       <div className='w-[60%] post-heading--right relative cursor-pointer flex justify-end z-10'>

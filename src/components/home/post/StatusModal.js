@@ -1,9 +1,9 @@
 import {useContext, useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import Picker from 'emoji-picker-react'
-import {StatusContext} from '../../contexts/StatusContext'
-import {ACTION_TYPES} from '../../redux/actions/actionTypes'
-import {createPost, updatePost} from '../../redux/actions/postActions'
+import {StatusContext} from '../../../contexts/StatusContext'
+import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
+import {createPost, updatePost} from '../../../redux/actions/postActions'
 
 function StatusModal() {
   const [content, setContent] = useState('')
@@ -90,12 +90,14 @@ function StatusModal() {
   return (
     <div className='select-none'>
       <div
-        className='modal fixed inset-0 bg-gray-500 opacity-50 z-10'
+        className='modal fixed inset-0 bg-gray-200 opacity-70 z-10'
         onClick={() => setShowPicker(false)}
       ></div>
       <div
-        className='inner w-[500px] bg-white h-[80%] shadow-lg absolute top-1/2 -translate-y-1/2 
-        -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col p-4'
+        className={`inner w-[500px] bg-white shadow-lg absolute top-1/2 -translate-y-1/2 
+        -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col p-4 ${
+          images.length > 0 ? 'max-h-[80%]' : 'h-[60%]'
+        }`}
       >
         <div
           className='modal-head flex items-center justify-center h-[10%] 
@@ -127,7 +129,11 @@ function StatusModal() {
           </div>
         </div>
 
-        <div className='modal-name flex items-center justify-between h-[10%]'>
+        <div
+          className={`modal-name flex items-center justify-between ${
+            images.length > 0 ? 'h-[10%]' : 'h-[15%]'
+          }`}
+        >
           <div
             className='flex items-center py-2'
             onClick={() => setShowPicker(false)}
@@ -135,7 +141,7 @@ function StatusModal() {
             <img
               src={auth.user.avatar}
               alt='avatar'
-              className='w-10 h-10 rounded-full mr-2'
+              className='w-10 h-10 object-cover rounded-full mr-2'
             />
             <p className='text-gray-800 font-semibold'>
               {auth.user.firstname} {auth.user.lastname}
@@ -158,7 +164,7 @@ function StatusModal() {
               </svg>
             </span>
             {showPicker && (
-              <div className='absolute translate-x-[-90%] translate-y-[77%] z-10'>
+              <div className='absolute top-[100%] right-0 z-10'>
                 <Picker onEmojiClick={onEmojiClick} />
               </div>
             )}
@@ -171,8 +177,8 @@ function StatusModal() {
           onClick={() => setShowPicker(false)}
         >
           <textarea
-            className={`w-full h-full outline-none resize-none bg-white text-2xl ${
-              images.length > 0 && 'h-[50%] text-base mb-3'
+            className={`w-full outline-none resize-none bg-white text-2xl ${
+              images.length > 0 ? 'h-[110px] text-base mb-3' : 'h-full'
             }`}
             placeholder={`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}
             value={content}
@@ -181,7 +187,7 @@ function StatusModal() {
 
           {images && images.length > 0 && (
             <div
-              className={`w-full rounded-lg p-2 ${
+              className={`w-full rounded-lg p-2 grid grid-cols-3 ${
                 images.length > 0 && 'border border-gray-400'
               }`}
             >
@@ -194,7 +200,7 @@ function StatusModal() {
                         : URL.createObjectURL(image)
                     }
                     alt={'image_' + index}
-                    className='w-full h-[250px] object-cover rounded-md'
+                    className='w-full h-[150px] object-cover rounded-md'
                   />
                   <p
                     className='absolute right-2 top-2 p-1 rounded-full cursor-pointer

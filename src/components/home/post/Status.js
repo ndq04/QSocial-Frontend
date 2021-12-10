@@ -1,7 +1,7 @@
 import {useContext} from 'react'
 import {useSelector} from 'react-redux'
-import {ModalData} from '../../data/Modal'
-import {StatusContext} from '../../contexts/StatusContext'
+import {ModalData} from '../../../data/Modal'
+import {StatusContext} from '../../../contexts/StatusContext'
 
 function Status() {
   const {toggleStatusModal} = useContext(StatusContext)
@@ -15,10 +15,10 @@ function Status() {
         <img
           src={auth.user.avatar}
           alt='avatar'
-          className='w-10 h-10 rounded-full mr-2'
+          className='w-10 h-10 object-cover rounded-full mr-2'
         />
         <p
-          className='text-gray-600 text-lg bg-gray-100 
+          className='text-gray-600 text-lg bg-[#f0f2f5]
           hover:bg-gray-200 flex-1 px-3 py-2 rounded-full'
           onClick={toggleStatusModal}
         >

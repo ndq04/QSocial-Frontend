@@ -88,7 +88,7 @@ function Navbar() {
           <input
             type='text'
             placeholder='Tìm kiếm trên QSocial'
-            className='bg-gray-100 outline-none border-0 focus:outline-none pl-3 pr-10 text-lg w-full'
+            className='bg-[#f0f2f5] outline-none border-0 focus:outline-none pl-3 pr-10 text-lg w-full'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -166,7 +166,7 @@ function Navbar() {
 
       <div className='nav-right flex items-center justify-end'>
         <div
-          className='user hover:bg-gray-100 
+          className='user hover:bg-[#f0f2f5] 
             cursor-pointer transition-colors px-2 py-1 rounded-full min-w-[30%]'
         >
           <Link to={`/profile/${auth.user._id}`} className='flex items-center'>
@@ -182,7 +182,7 @@ function Navbar() {
         </div>
 
         <div
-          className='message ml-5 bg-gray-100 rounded-full 
+          className='message ml-5 bg-[#f0f2f5] rounded-full 
             hover:bg-gray-200 cursor-pointer border'
         >
           <Link to='/message' className='flex w-10 h-10'>
@@ -199,7 +199,7 @@ function Navbar() {
         </div>
 
         <div
-          className='notify ml-4 bg-gray-100 rounded-full 
+          className='notify ml-4 bg-[#f0f2f5] rounded-full 
             hover:bg-gray-200 cursor-pointer border'
         >
           <Link to='/notify' className='flex w-10 h-10 '>
@@ -216,7 +216,7 @@ function Navbar() {
         </div>
 
         <div
-          className={`account ml-4 bg-gray-100 rounded-full
+          className={`account ml-4 bg-[#f0f2f5] rounded-full
             hover:bg-gray-200 cursor-pointer border relative ${
               isOpen && 'bg-blue-500 hover:bg-blue-500'
             }`}
@@ -240,7 +240,7 @@ function Navbar() {
                   <Link to={`/profile/${auth.user._id}`}>
                     <li
                       className='flex items-center p-2 rounded-md 
-                    hover:bg-gray-200 cursor-pointer transition-colors'
+                    hover:bg-[#f0f2f5] cursor-pointer transition-colors'
                     >
                       <img
                         src={auth.user.avatar}
@@ -255,7 +255,7 @@ function Navbar() {
                   <li className='m-3 w-[95%] mx-auto h-[0.5px] bg-gray-400'></li>
                   <li
                     className='flex items-center p-2 rounded-md 
-                    hover:bg-gray-200 cursor-pointer transition-colors'
+                    hover:bg-[#f0f2f5] cursor-pointer transition-colors'
                     onClick={handleLogout}
                   >
                     <p className='flex w-8 h-8 rounded-full bg-gray-400 mr-6'>
