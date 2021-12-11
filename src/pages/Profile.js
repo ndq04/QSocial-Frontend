@@ -72,7 +72,7 @@ function Profile() {
             {auth && auth.user && id === auth.user._id && (
               <div
                 className='profileheader bg-white max-w-5xl h-[50px] shadow-md
-              mx-auto rounded-b-lg flex items-center justify-between overflow-hidden'
+                mx-auto rounded-b-lg flex items-center justify-between overflow-hidden mb-4'
               >
                 <div
                   className={`flex flex-1 h-full border-r-2 border-gray-300 

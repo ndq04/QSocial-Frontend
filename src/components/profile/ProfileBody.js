@@ -3,7 +3,7 @@ import ProfileStatus from './ProfileStatus'
 
 function ProfileBody({handleToggle, ...data}) {
   return (
-    <div className='profilebody max-w-5xl mx-auto mt-4 grid grid-cols-3 gap-4'>
+    <div className='profilebody max-w-5xl mx-auto grid grid-cols-3 gap-4'>
       <div className='profilebody-left'>
         <About {...data} handleToggle={handleToggle} />
       </div>

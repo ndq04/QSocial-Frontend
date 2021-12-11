@@ -35,7 +35,7 @@ function InputPostComment({pos}) {
         onClick={() => setShowPicker(false)}
       />
       <form
-        className='flex-1 bg-[#f0f2f5] flex items-center px-4 rounded-full shadow-sm h-9 relative'
+        className='flex-1 bg-[#f0f2f5] flex items-center px-4 rounded-full shadow-sm h-9 relative z-20'
         onSubmit={handleSubmit}
       >
         <input

@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {SidebarData, SidebarMore} from '../../data/Sidebar'
 
 function Sidebar() {
@@ -8,16 +9,18 @@ function Sidebar() {
   return (
     <div className='sidebar h-[calc(100vh-60px)] py-4 overflow-y-scroll'>
       <ul className='border-b border-gray-300'>
-        <li className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer'>
-          <img
-            src={auth.user.avatar}
-            alt='avatar'
-            className='w-8 h-8 rounded-full mr-2'
-          />
-          <p className='text-gray-800 font-semibold'>
-            {auth.user.firstname} {auth.user.lastname}
-          </p>
-        </li>
+        <Link to={`/profile/${auth.user._id}`}>
+          <li className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200'>
+            <img
+              src={auth.user.avatar}
+              alt='avatar'
+              className='w-8 h-8 object-cover rounded-full mr-2'
+            />
+            <p className='text-gray-800 font-semibold'>
+              {auth.user.firstname} {auth.user.lastname}
+            </p>
+          </li>
+        </Link>
         {SidebarData.map((sidebar) => (
           <li
             key={sidebar.id}

@@ -16,13 +16,12 @@ function PostFooter({pos, setShowComment}) {
     }
   }, [pos.likes, auth.user._id])
 
-  const handleLike = async () => {
+  const handleLike = () => {
     setIsLike(true)
     dispatch(likepost({pos, auth}))
   }
-  const handleUnLike = async () => {
+  const handleUnLike = () => {
     setIsLike(false)
-
     dispatch(unlikepost({pos, auth}))
   }
   const likeData = {isLike, handleLike, handleUnLike}

@@ -5,12 +5,17 @@ import moment from 'moment'
 import Picker from 'emoji-picker-react'
 import LikeComment from './LikeComment'
 import CommentMenu from './CommentMenu'
-import {updateComment} from '../../../redux/actions/commentActions'
+import {
+  updateComment,
+  likeComment,
+  unLikeComment,
+} from '../../../redux/actions/commentActions'
 
 function PostCommentItem({comment, pos}) {
   const [content, setContent] = useState('')
   const [readMore, setReadMore] = useState(false)
   const [isLike, setIsLike] = useState(false)
+  const [load, setLoad] = useState(false)
   const [onEdit, setOnEdit] = useState(false)
   const [showPicker, setShowPicker] = useState(false)
 
@@ -21,15 +26,30 @@ function PostCommentItem({comment, pos}) {
     setContent((prevInput) => prevInput + emojiObject.emoji)
     // setShowPicker(false)
   }
+  useEffect(() => {
+    setContent(comment.content)
+    if (comment.likes.find((like) => like._id === auth.user._id)) {
+      setIsLike(true)
+    }
+  }, [comment.content, comment.likes, auth.user._id])
 
-  const handleLike = async () => {
+  const handleLike = () => {
+    if (load) return
     setIsLike(true)
-    // dispatch(likepost({pos, auth}))
+    setLoad(true)
+    dispatch(likeComment({comment, pos, auth}))
+    setLoad(false)
   }
-  const handleUnLike = async () => {
+  const handleUnLike = () => {
+    if (load) return
     setIsLike(false)
-    // dispatch(unlikepost({pos, auth}))
+    setLoad(true)
+    dispatch(unLikeComment({comment, pos, auth}))
+    setLoad(false)
   }
+
+  const likeData = {isLike, handleLike, handleUnLike}
+
   const handleUpdateComment = () => {
     if (comment.content === content) {
       setOnEdit(false)
@@ -38,11 +58,6 @@ function PostCommentItem({comment, pos}) {
       setOnEdit(false)
     }
   }
-  const likeData = {isLike, handleLike, handleUnLike}
-
-  useEffect(() => {
-    setContent(comment.content)
-  }, [comment.content])
 
   return (
     <div className='flex items-start mb-3'>

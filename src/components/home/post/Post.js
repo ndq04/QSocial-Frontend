@@ -11,7 +11,7 @@ function Post({pos, index}) {
       <PostHeader pos={pos} index={index} />
       <PostBody pos={pos} />
       <PostFooter pos={pos} setShowComment={setShowComment} />
-      {showComment && <Comment pos={pos} />}
+      {showComment && <Comment pos={pos} setShowComment={setShowComment} />}
     </div>
   )
 }
