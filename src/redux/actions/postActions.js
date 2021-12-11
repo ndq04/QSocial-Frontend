@@ -80,6 +80,36 @@ export const getPost = (token) => async (dispatch) => {
   }
 }
 
+export const getUserPost =
+  ({id, token}) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: ACTION_TYPES.LOADING_POSTS,
+        payload: true,
+      })
+      const res = await getDataApi(`userposts/${id}`, token)
+      // console.log(res)
+
+      dispatch({
+        type: ACTION_TYPES.GET_USERPOSTS,
+        payload: res.data,
+      })
+      dispatch({
+        type: ACTION_TYPES.LOADING_POSTS,
+        payload: false,
+      })
+    } catch (error) {
+      console.log(error.response.data.message)
+      // dispatch({
+      //   type: ACTION_TYPES.ALERT,
+      //   payload: {
+      //     error: error.response.data.message,
+      //   },
+      // })
+    }
+  }
+
 export const updatePost =
   ({content, images, auth, status}) =>
   async (dispatch) => {
@@ -139,10 +169,17 @@ export const likepost =
   ({pos, auth}) =>
   async (dispatch) => {
     const newPost = {...pos, likes: [...pos.likes, auth.user]}
+
+    dispatch({
+      type: ACTION_TYPES.UPDATE_USERPOST,
+      payload: newPost,
+    })
+
     dispatch({
       type: ACTION_TYPES.UPDATE_POST,
       payload: newPost,
     })
+
     try {
       await patchDataApi(`post/${pos._id}/like`, null, auth.token)
       // dispatch({
@@ -169,9 +206,15 @@ export const unlikepost =
     }
 
     dispatch({
+      type: ACTION_TYPES.UPDATE_USERPOST,
+      payload: newPost,
+    })
+
+    dispatch({
       type: ACTION_TYPES.UPDATE_POST,
       payload: newPost,
     })
+
     try {
       await patchDataApi(`post/${pos._id}/unlike`, null, auth.token)
       // dispatch({

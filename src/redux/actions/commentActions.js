@@ -9,6 +9,10 @@ export const createComment =
       type: ACTION_TYPES.UPDATE_POST,
       payload: newPost,
     })
+    dispatch({
+      type: ACTION_TYPES.UPDATE_USERPOST,
+      payload: newPost,
+    })
     try {
       const data = {...comment, postId: pos._id}
       await postDataApi('comment', data, auth.token)
@@ -34,6 +38,10 @@ export const updateComment =
       type: ACTION_TYPES.UPDATE_POST,
       payload: newComment,
     })
+    dispatch({
+      type: ACTION_TYPES.UPDATE_USERPOST,
+      payload: newComment,
+    })
     try {
       await patchDataApi(`comment/${comment._id}`, {content}, auth.token)
     } catch (error) {
@@ -56,6 +64,11 @@ export const likeComment =
 
     dispatch({
       type: ACTION_TYPES.UPDATE_POST,
+      payload: newPost,
+    })
+
+    dispatch({
+      type: ACTION_TYPES.UPDATE_USERPOST,
       payload: newPost,
     })
 
@@ -84,6 +97,10 @@ export const unLikeComment =
 
     dispatch({
       type: ACTION_TYPES.UPDATE_POST,
+      payload: newPost,
+    })
+    dispatch({
+      type: ACTION_TYPES.UPDATE_USERPOST,
       payload: newPost,
     })
     try {

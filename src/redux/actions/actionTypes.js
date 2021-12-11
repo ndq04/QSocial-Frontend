@@ -10,7 +10,9 @@ export const ACTION_TYPES = {
   CREATE_POST: 'CREATE_POST',
   GET_POSTS: 'GET_POSTS',
   UPDATE_POST: 'UPDATE_POST',
+  UPDATE_USERPOST: 'UPDATE_USERPOST',
   IMAGES: 'IMAGES',
+  GET_USERPOSTS: 'GET_USERPOSTS',
 }
 
 export const EditData = (data, id, post) => {

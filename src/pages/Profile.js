@@ -10,12 +10,14 @@ import {getProfileUsers} from '../redux/actions/profileActions'
 import Friends from './../components/profilePage/Friends'
 import Followings from './../components/profilePage/Followings'
 import Saved from './../components/profilePage/Saved'
+import {getUserPost} from '../redux/actions/postActions'
 
 function Profile() {
   const {isOpenModal} = useContext(StatusContext)
   const [userData, setUserData] = useState([])
+  const [userPosts, setUserPosts] = useState([])
   const {id} = useParams()
-  const {auth, profile} = useSelector((state) => state)
+  const {auth, profile, homePost} = useSelector((state) => state)
   const dispatch = useDispatch()
 
   const [showAccount, setShowAccount] = useState(true)
@@ -53,16 +55,22 @@ function Profile() {
   }
 
   useEffect(() => {
+    dispatch(getUserPost({id, token: auth.token}))
+  }, [dispatch, auth.token, id])
+
+  useEffect(() => {
     if (auth && auth.user && id === auth.user._id) {
       setUserData([auth.user])
+      setUserPosts(homePost.userpost)
     } else {
       dispatch(getProfileUsers({users: profile.users, id, auth}))
       const newData = profile.users.filter((user) => user._id === id)
       setUserData(newData)
+      setUserPosts(homePost.userpost)
     }
-  }, [id, auth.user, auth, dispatch, profile.users])
+  }, [id, auth.user, auth, dispatch, profile.users, homePost.userpost])
 
-  const data = {userData, profile, auth, id}
+  const data = {userData, profile, auth, id, userPosts}
   return (
     userData && (
       <>
