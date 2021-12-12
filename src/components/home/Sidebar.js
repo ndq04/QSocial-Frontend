@@ -7,7 +7,7 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
   const {auth} = useSelector((state) => state)
   return (
-    <div className='sidebar h-[calc(100vh-60px)] py-4 overflow-y-scroll'>
+    <div className='sidebar h-[calc(100vh-60px)] py-4 overflow-y-scroll hidden sm:block'>
       <ul className='border-b border-gray-300'>
         <Link to={`/profile/${auth.user._id}`}>
           <li className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200'>

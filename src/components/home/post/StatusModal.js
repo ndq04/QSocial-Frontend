@@ -1,6 +1,6 @@
-import {useContext, useState, useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
 import Picker from 'emoji-picker-react'
+import {useContext, useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {StatusContext} from '../../../contexts/StatusContext'
 import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
 import {createPost, updatePost} from '../../../redux/actions/postActions'
@@ -94,7 +94,7 @@ function StatusModal() {
         onClick={() => setShowPicker(false)}
       ></div>
       <div
-        className={`inner w-[500px] bg-white shadow-lg absolute top-1/2 -translate-y-1/2 
+        className={`inner w-full sm:w-[500px] bg-white shadow-lg absolute top-1/2 -translate-y-1/2 
         -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col p-4 ${
           images.length > 0 ? 'max-h-[80%]' : 'h-[60%]'
         }`}

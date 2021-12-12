@@ -2,8 +2,8 @@ function LikePost({likeData}) {
   const {isLike, handleLike, handleUnLike} = likeData
   return isLike ? (
     <div
-      className='like-post flex items-center justify-center cursor-pointer text-blue-500 hover:bg-gray-100 py-1.5 px-10 
-      rounded-md transition-colors duration-200 flex-1'
+      className='like-post flex items-center justify-center cursor-pointer text-blue-500 hover:bg-gray-100 py-1.5 
+      rounded-md transition-colors duration-200 px-2'
       onClick={handleUnLike}
     >
       <svg

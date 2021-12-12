@@ -1,9 +1,9 @@
-import {useState, useContext} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {Link} from 'react-router-dom'
 import moment from 'moment'
-import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
+import {useContext, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {StatusContext} from '../../../contexts/StatusContext'
+import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
 
 function PostHeader({pos, index}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -138,7 +138,7 @@ function PostHeader({pos, index}) {
         )}
       </div>
 
-      <div className='w-[60%] post-heading--right relative cursor-pointer flex justify-end z-10'>
+      <div className='w-[50%] sm:w-[60%] post-heading--right relative cursor-pointer flex justify-end z-10'>
         <div
           className='w-10 h-10 rounded-full hover:bg-gray-100 flex'
           onClick={handleToggleDrop}

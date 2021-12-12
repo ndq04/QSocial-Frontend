@@ -46,12 +46,12 @@ function PostFooter({pos, setShowComment}) {
         </p>
       </div>
 
-      <div className='post-footer--bottom flex items-center justify-between text-sm border-t border-gray-300 mt-3 py-1'>
+      <div className='post-footer--bottom grid grid-cols-3 text-sm border-t border-gray-300 mt-3 py-1'>
         <LikePost likeData={likeData} />
 
         <div
-          className='comment-post flex items-center justify-center cursor-pointer text-gray-500 hover:bg-gray-100 py-1.5 px-10 
-            rounded-md transition-colors duration-200 flex-1'
+          className='comment-post flex items-center justify-center cursor-pointer text-gray-500 hover:bg-gray-100 py-1.5 
+            rounded-md transition-colors duration-200'
           onClick={() => setShowComment(true)}
         >
           <svg
@@ -67,8 +67,8 @@ function PostFooter({pos, setShowComment}) {
         </div>
 
         <div
-          className='save-post flex items-center justify-center cursor-pointer text-gray-500 hover:bg-gray-100 py-1.5 px-10 
-          rounded-md transition-colors duration-200 flex-1'
+          className='save-post flex items-center justify-center cursor-pointer text-gray-500 hover:bg-gray-100 py-1.5
+          rounded-md transition-colors duration-200'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

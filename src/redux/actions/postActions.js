@@ -29,6 +29,10 @@ export const createPost =
         payload: {...res.data.newPost, user: auth.user},
       })
       dispatch({
+        type: ACTION_TYPES.CREATE_USERPOST,
+        payload: {...res.data.newPost, user: auth.user},
+      })
+      dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
           loadingImage: false,
@@ -144,6 +148,10 @@ export const updatePost =
         payload: res.data.updatePost,
       })
       dispatch({
+        type: ACTION_TYPES.UPDATE_USERPOST,
+        payload: res.data.updatePost,
+      })
+      dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
           loadingImage: false,
@@ -197,6 +205,7 @@ export const likepost =
       })
     }
   }
+
 export const unlikepost =
   ({pos, auth}) =>
   async (dispatch) => {

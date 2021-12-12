@@ -17,6 +17,11 @@ export const postReducer = (state = initialState, action) => {
         ...state,
         post: [payload, ...state.post],
       }
+    case ACTION_TYPES.CREATE_USERPOST:
+      return {
+        ...state,
+        userpost: [payload, ...state.userpost],
+      }
     case ACTION_TYPES.LOADING_POSTS:
       return {
         ...state,

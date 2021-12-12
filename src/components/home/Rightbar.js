@@ -1,10 +1,10 @@
-import {Users} from '../../data/TestData'
 import {RightbarPR} from '../../data/Rightbar'
+import {Users} from '../../data/TestData'
 import OnlineFriend from '../OnlineFriend'
 
 function Rightbar() {
   return (
-    <div className='rightbar h-[calc(100vh-60px)] py-4 overflow-y-scroll'>
+    <div className='rightbar h-[calc(100vh-60px)] py-4 overflow-y-scroll hidden xl:block'>
       <h3 className='mb-1 px-2 py-1 text-gray-500 font-semibold'>
         Được tài trợ
       </h3>

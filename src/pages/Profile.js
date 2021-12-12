@@ -1,19 +1,18 @@
-import {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import {useContext, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import ProfileStatusModal from '../components/profile/ProfileStatusModal'
-import {useContext} from 'react'
-import {StatusContext} from '../contexts/StatusContext'
+import {useParams} from 'react-router-dom'
+import StatusModal from '../components/home/post/StatusModal'
 import Info from '../components/profile/Info'
 import ProfileBody from '../components/profile/ProfileBody'
-import {getProfileUsers} from '../redux/actions/profileActions'
-import Friends from './../components/profilePage/Friends'
-import Followings from './../components/profilePage/Followings'
-import Saved from './../components/profilePage/Saved'
+import {StatusContext} from '../contexts/StatusContext'
 import {getUserPost} from '../redux/actions/postActions'
+import {getProfileUsers} from '../redux/actions/profileActions'
+import Followings from './../components/profilePage/Followings'
+import Friends from './../components/profilePage/Friends'
+import Saved from './../components/profilePage/Saved'
 
 function Profile() {
-  const {isOpenModal} = useContext(StatusContext)
+  const {showStatus} = useContext(StatusContext)
   const [userData, setUserData] = useState([])
   const [userPosts, setUserPosts] = useState([])
   const {id} = useParams()
@@ -163,7 +162,7 @@ function Profile() {
             {showSaved && <Saved />}
           </div>
         </div>
-        {isOpenModal && <ProfileStatusModal {...data} />}
+        {showStatus && <StatusModal />}
       </>
     )
   )

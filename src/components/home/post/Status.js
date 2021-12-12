@@ -1,7 +1,8 @@
 import {useContext} from 'react'
 import {useSelector} from 'react-redux'
-import {ModalData} from '../../../data/Modal'
+import {Link} from 'react-router-dom'
 import {StatusContext} from '../../../contexts/StatusContext'
+import {ModalData} from '../../../data/Modal'
 
 function Status() {
   const {toggleStatusModal} = useContext(StatusContext)
@@ -10,19 +11,21 @@ function Status() {
   const {auth} = useSelector((state) => state)
 
   return (
-    <div className='status w-[100%] m-auto bg-white shadow-md rounded-xl p-3'>
-      <div className='flex items-center cursor-pointer border-b border-gray-300 pb-4 mb-4'>
-        <img
-          src={auth.user.avatar}
-          alt='avatar'
-          className='w-10 h-10 object-cover rounded-full mr-2'
-        />
+    <div className='status w-[100%] m-auto bg-white shadow-md sm:rounded-xl p-3'>
+      <div className='flex items-center sm:cursor-pointer border-b border-gray-300 pb-4 mb-4'>
+        <Link to={`/profile/${auth.user._id}`}>
+          <img
+            src={auth.user.avatar}
+            alt='avatar'
+            className='w-10 h-10 object-cover rounded-full mr-2'
+          />
+        </Link>
         <p
           className='text-gray-600 text-lg bg-[#f0f2f5]
           hover:bg-gray-200 flex-1 px-3 py-2 rounded-full'
           onClick={toggleStatusModal}
         >
-          {`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}
+          <span> {`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}</span>
         </p>
       </div>
       <ul className='flex flex-col'>
