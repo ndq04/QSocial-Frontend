@@ -1,13 +1,13 @@
 function BtnEditCoverimage({setOnEditCoverimage}) {
   return (
     <button
-      className='absolute right-[5%] bottom-[20%] p-2 bg-white hover:bg-gray-50 
-      cursor-pointer rounded-lg font-semibold flex items-center'
+      className='absolute right-[10%] bottom-[10%] p-2 bg-white hover:bg-gray-50 
+      cursor-pointer rounded-full md:rounded-lg font-semibold flex items-center'
       onClick={() => setOnEditCoverimage(true)}
     >
       <svg
         xmlns='http://www.w3.org/2000/svg'
-        className='h-6 w-6 mr-1'
+        className='h-6 w-6 md:mr-1'
         viewBox='0 0 20 20'
         fill='currentColor'
       >
@@ -17,7 +17,7 @@ function BtnEditCoverimage({setOnEditCoverimage}) {
           clipRule='evenodd'
         />
       </svg>
-      <span>Chỉnh sửa ảnh bìa</span>
+      <span className='hidden md:block'>Chỉnh sửa ảnh bìa</span>
     </button>
   )
 }

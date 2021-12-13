@@ -1,7 +1,6 @@
 import {Link, useParams} from 'react-router-dom'
 
-function About({handleToggle, ...data}) {
-  const {userData, auth} = data
+function About({handleToggle, userData, auth}) {
   const {id} = useParams()
 
   const getGender = (value) => {
@@ -17,7 +16,7 @@ function About({handleToggle, ...data}) {
     userData.length > 0 &&
     userData.map((user, i) => (
       <div key={i}>
-        <div className='profile-info--intro rounded-lg p-3 bg-white shadow-lg'>
+        <div className='profile-info--intro md:rounded-lg p-3 bg-white shadow-lg'>
           <h3 className='font-bold text-xl'>Giới thiệu</h3>
           <div className='flex items-center py-3'>
             <svg
@@ -91,7 +90,7 @@ function About({handleToggle, ...data}) {
           </div>
         </div>
         {auth && auth.user && id === auth.user._id && (
-          <div className='profile-info--followings rounded-lg p-3 bg-white mt-4 shadow-lg'>
+          <div className='profile-info--followings md:rounded-lg p-3 bg-white mt-[1.5px] md:mt-4 md:shadow-lg'>
             <div className='my-3 flex items-center justify-between'>
               <h3 className='relative font-bold text-xl flex items-center'>
                 Đang theo dõi
@@ -109,7 +108,7 @@ function About({handleToggle, ...data}) {
                 Xem tất cả
               </p>
             </div>
-            <div className='grid grid-cols-3 gap-x-3 gap-y-9 mt-4 h-[300px] overflow-y-scroll'>
+            <div className='grid grid-cols-3 gap-x-3 gap-y-9 mt-4 h-[300px] sm:h-[480px] lg:h-[300px] overflow-y-scroll'>
               {user &&
                 user.followings.length > 0 &&
                 user.followings.map((follow, i) => (
@@ -117,7 +116,7 @@ function About({handleToggle, ...data}) {
                     <img
                       src={follow.avatar}
                       alt='avatar'
-                      className='rounded-lg w-full h-[108px] object-cover'
+                      className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[100px] object-cover'
                     />
                     <p className='font-medium text-sm text-gray-700 text-center'>
                       {follow.firstname} {follow.lastname}
@@ -128,7 +127,7 @@ function About({handleToggle, ...data}) {
           </div>
         )}
         {auth && auth.user && id === auth.user._id && (
-          <div className='profile-info--followings rounded-lg p-3 bg-white mt-4 shadow-lg'>
+          <div className='profile-info--followings md:rounded-lg p-3 bg-white mt-[2px] md:mt-4 md:shadow-lg'>
             <div className='my-3 flex items-center justify-between'>
               <h3 className='relative font-bold text-xl flex items-center'>
                 Người theo dõi
@@ -144,7 +143,7 @@ function About({handleToggle, ...data}) {
                 Xem tất cả
               </p>
             </div>
-            <div className='grid grid-cols-3 gap-x-3 gap-y-9 mt-4 h-[300px] overflow-y-scroll'>
+            <div className='grid grid-cols-3 gap-x-3 gap-y-9 mt-4 h-[300px] sm:h-[480px] lg:h-[300px] overflow-y-scroll'>
               {user &&
                 user.friends.length > 0 &&
                 user.friends.map((friend, i) => (
@@ -152,7 +151,7 @@ function About({handleToggle, ...data}) {
                     <img
                       src={friend.avatar}
                       alt='avatar'
-                      className='rounded-lg w-full h-[108px] object-cover'
+                      className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[100px] object-cover'
                     />
                     <p className='font-medium text-sm text-gray-700 text-center'>
                       {friend.firstname} {friend.lastname}

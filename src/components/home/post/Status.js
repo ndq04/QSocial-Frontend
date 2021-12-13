@@ -11,7 +11,7 @@ function Status() {
   const {auth} = useSelector((state) => state)
 
   return (
-    <div className='status w-[100%] m-auto bg-white shadow-md sm:rounded-xl p-3'>
+    <div className='status w-[100%] m-auto bg-white md:shadow-md md:rounded-xl p-3'>
       <div className='flex items-center sm:cursor-pointer border-b border-gray-300 pb-4 mb-4'>
         <Link to={`/profile/${auth.user._id}`}>
           <img

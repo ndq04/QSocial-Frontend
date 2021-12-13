@@ -1,11 +1,11 @@
 import {useState} from 'react'
 import Avatar from './Avatar'
-import EditAvatar from './EditAvatar'
-import EditProfile from './EditProfile'
-import BtnEditProfile from './BtnEditProfile'
 import BtnEditCoverimage from './BtnEditCoverimage'
-import GlobalBtnFriend from './GlobalBtnFriend'
+import BtnEditProfile from './BtnEditProfile'
+import EditAvatar from './EditAvatar'
 import EditCoverimage from './EditCoverimage'
+import EditProfile from './EditProfile'
+import GlobalBtnFriend from './GlobalBtnFriend'
 
 function Info(data) {
   const [onEditProfile, setOnEditProfile] = useState(false)
@@ -19,13 +19,13 @@ function Info(data) {
     userData.map((user) => (
       <div
         key={user._id}
-        className='profileinfo h-[60vh] bg-white shadow-sm border-b-2'
+        className='profileinfo h-[60vh] bg-white sm:shadow-sm sm:border-b-2 border-b-[1px]'
       >
-        <div className='relative max-w-6xl h-[80%] mx-auto'>
+        <div className='relative sm:max-w-6xl h-[70%] sm:h-[80%] mt-[1px] sm:mt-0 mx-auto p-3 sm:p-0'>
           <img
             src={user.coverimage}
             alt='img'
-            className='w-full h-[100%] object-cover rounded-b-lg'
+            className='w-full h-full object-cover rounded-t-xl sm:rounded-t-none sm:rounded-b-xl'
           />
           <Avatar user={user} auth={auth} setOnEditAvatar={setOnEditAvatar} />
           {auth && user._id && auth.user._id === user._id && (
@@ -33,14 +33,14 @@ function Info(data) {
           )}
         </div>
 
-        <div className='relative max-w-6xl h-[20%] m-auto flex items-center justify-center'>
+        <div className='relative max-w-6xl h-[30%] mt-5 sm:h-[20%] sm:m-auto flex items-center justify-center'>
           {auth && user._id && auth.user._id === user._id ? (
             <BtnEditProfile setOnEditProfile={setOnEditProfile} />
           ) : (
             <GlobalBtnFriend user={user} />
           )}
           {auth && user._id && auth.user._id === user._id && (
-            <div className='absolute left-0 flex items-center'>
+            <div className='absolute hidden  lg:left-[5%] left-0 lg:flex items-center'>
               <p className='mr-3'>
                 <span className='mr-1 font-semibold text-gray-600'>
                   Người theo dõi

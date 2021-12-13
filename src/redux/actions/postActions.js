@@ -173,6 +173,58 @@ export const updatePost =
     }
   }
 
+export const savedPost =
+  ({pos, auth}) =>
+  async (dispatch) => {
+    console.log({pos, auth})
+    // let media = []
+    // try {
+    //   dispatch({
+    //     type: ACTION_TYPES.ALERT,
+    //     payload: {
+    //       loadingImage: true,
+    //     },
+    //   })
+
+    //   if (images.length > 0) {
+    //     media = await imageupload(images)
+    //   }
+    //   const res = await postDataApi(
+    //     'posts',
+    //     {content, images: media, user: auth.user._id},
+    //     auth.token
+    //   )
+    //   // console.log(res)
+    //   dispatch({
+    //     type: ACTION_TYPES.CREATE_POST,
+    //     payload: {...res.data.newPost, user: auth.user},
+    //   })
+    //   dispatch({
+    //     type: ACTION_TYPES.CREATE_USERPOST,
+    //     payload: {...res.data.newPost, user: auth.user},
+    //   })
+    //   dispatch({
+    //     type: ACTION_TYPES.ALERT,
+    //     payload: {
+    //       loadingImage: false,
+    //     },
+    //   })
+    //   dispatch({
+    //     type: ACTION_TYPES.ALERT,
+    //     payload: {
+    //       success: res.data.message,
+    //     },
+    //   })
+    // } catch (error) {
+    //   dispatch({
+    //     type: ACTION_TYPES.ALERT,
+    //     payload: {
+    //       error: error.response.data.message,
+    //     },
+    //   })
+    // }
+  }
+
 export const likepost =
   ({pos, auth}) =>
   async (dispatch) => {

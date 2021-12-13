@@ -76,90 +76,17 @@ function Profile() {
         <div className='bg-[#f0f2f5] select-none pt-[60px]'>
           <div className='profile h-[calc(100vh-60px)] overflow-y-scroll'>
             <Info {...data} />
-            {auth && auth.user && id === auth.user._id && (
-              <div
-                className='profileheader bg-white max-w-5xl h-[50px] shadow-md
-                mx-auto rounded-b-lg flex items-center justify-between overflow-hidden mb-4'
-              >
-                <div
-                  className={`flex flex-1 h-full border-r-2 border-gray-300 
-                cursor-pointer transition-colors ${
-                  showAccount && 'border-t-[3px] border-t-purple-500'
-                }`}
-                  onClick={() => handleToggle('showAccount')}
-                >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-8 w-8 text-blue-500 m-auto'
-                    viewBox='0 0 20 20'
-                    fill='currentColor'
-                  >
-                    <path
-                      fillRule='evenodd'
-                      d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
-                </div>
 
-                <div
-                  className={`flex items-center justify-center flex-1 h-full border-r-2 border-gray-300 
-                cursor-pointer transition-colors ${
-                  showFriends && 'border-t-[3px] border-t-purple-500'
-                }`}
-                  onClick={() => handleToggle('showFriends')}
-                >
-                  <img
-                    src='https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png'
-                    alt='friend'
-                    className='w-8 h-8 mx-2'
-                  />
-                  <p className='font-semibold text-purple-800'>
-                    Người theo dõi
-                  </p>
-                </div>
-
-                <div
-                  className={`flex items-center justify-center flex-1 h-full border-r-2 border-gray-300 
-                cursor-pointer transition-colors ${
-                  showFollowings && 'border-t-[3px] border-t-purple-500'
-                }`}
-                  onClick={() => handleToggle('showFollowings')}
-                >
-                  <img
-                    src='https://static.xx.fbcdn.net/rsrc.php/v3/yV/r/6U-6vx-bOzP.png'
-                    alt='following'
-                    className='w-[22px] h-[22px] mx-2'
-                  />
-                  <p className='font-semibold text-purple-800'>Đang theo dõi</p>
-                </div>
-
-                <div
-                  className={`flex items-center justify-center flex-1 h-full border-r-2 border-gray-300 
-                cursor-pointer transition-colors ${
-                  showSaved && 'border-t-[3px] border-t-purple-500'
-                }`}
-                  onClick={() => handleToggle('showSaved')}
-                >
-                  <img
-                    src='https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png'
-                    alt='save'
-                    className='w-7 h-7 mx-2'
-                  />
-                  <p className='font-semibold text-purple-800'>Đã lưu</p>
-                </div>
-              </div>
-            )}
             {showAccount && (
               <ProfileBody {...data} handleToggle={handleToggle} />
             )}
             {showFriends && auth && auth.user && id === auth.user._id && (
-              <Friends {...data} />
+              <Friends {...data} handleToggle={handleToggle} />
             )}
             {showFollowings && auth && auth.user && id === auth.user._id && (
-              <Followings {...data} />
+              <Followings {...data} handleToggle={handleToggle} />
             )}
-            {showSaved && <Saved />}
+            {showSaved && <Saved {...data} handleToggle={handleToggle} />}
           </div>
         </div>
         {showStatus && <StatusModal />}

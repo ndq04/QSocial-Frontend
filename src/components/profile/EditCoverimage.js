@@ -1,8 +1,8 @@
 import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {ACTION_TYPES} from '../../redux/actions/actionTypes'
-import {checkimage} from '../../utils/imageupload'
 import {updateCoverimage} from '../../redux/actions/profileActions'
+import {checkimage} from '../../utils/imageupload'
 
 function EditCoverimage({setOnEditCoverimage}) {
   const [coverimage, setCoverimage] = useState(false)
@@ -29,10 +29,10 @@ function EditCoverimage({setOnEditCoverimage}) {
 
   return (
     <div className='select-none'>
-      <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-10'></div>
+      <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-20'></div>
       <div
-        className='inner w-[80%] bg-[#f0f2f5] h-[90%] shadow-lg absolute top-1/2 -translate-y-1/2 
-          -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col px-4 pt-4'
+        className='inner w-full sm:w-[80%] bg-[#f0f2f5] sm:h-[90%] h-[80%] shadow-lg absolute top-[50%] -translate-y-1/2 
+          -translate-x-1/2 left-1/2 z-30 rounded-lg flex flex-col px-4 pt-4'
       >
         <div
           className='modal-head flex items-center 
@@ -61,7 +61,7 @@ function EditCoverimage({setOnEditCoverimage}) {
           </div>
         </div>
 
-        <div className='modal-image w-full h-[80%] flex rounded-lg'>
+        <div className='modal-image w-full h-[60%] sm:h-[80%] flex rounded-lg'>
           <img
             src={
               coverimage
@@ -73,8 +73,8 @@ function EditCoverimage({setOnEditCoverimage}) {
           />
         </div>
 
-        <div className='modal-upload h-[10%] flex items-center justify-between my-4'>
-          <label htmlFor='upload' className='font-semibold flex-1 mr-5'>
+        <div className='modal-upload h-[20%] sm:h-[10%] flex flex-col sm:flex-row items-center justify-between my-4'>
+          <label htmlFor='upload' className='font-semibold flex-1 sm:mr-5'>
             <div
               className='flex items-center justify-center p-2
               rounded-lg bg-green-200 hover:bg-green-300 cursor-pointer'
@@ -104,7 +104,7 @@ function EditCoverimage({setOnEditCoverimage}) {
           </label>
           <button
             className='bg-blue-500 hover:bg-blue-700 py-2 px-4
-              rounded-md text-white font-semibold min-w-[20%]'
+              rounded-md text-white font-semibold min-w-full sm:min-w-[30%]'
             onClick={handleSubmit}
           >
             Cập nhật

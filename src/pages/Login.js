@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {Link, useHistory} from 'react-router-dom'
 import {login} from '../redux/actions/authActions'
-import {useDispatch, useSelector} from 'react-redux'
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
@@ -30,9 +30,9 @@ function Login() {
     dispatch(login(state))
   }
   return (
-    <div className='login bg-[#f0f2f5] select-none h-screen flex items-center'>
-      <div className='login-content m-auto flex items-center'>
-        <div className='login-left flex flex-col bg-white rounded-lg shadow-md px-4 py-10 w-[40%] mr-10'>
+    <div className='login bg-[#f0f2f5] select-none min-h-screen flex items-center'>
+      <div className='login-content mx-5 sm:mx-10 md:m-auto flex items-center flex-col-reverse md:flex-row w-full'>
+        <div className='login-left flex flex-col bg-white rounded-lg shadow-md px-4 py-10 w-full xl:w-[40%] m-auto md:ml-10 md:mr-5 xl:ml-32'>
           <form
             className='flex flex-col border-b border-gray-300 pb-5 mb-5'
             onSubmit={handleSubmit}
@@ -91,9 +91,11 @@ function Login() {
             <p>Tạo tài khoản mới</p>
           </Link>
         </div>
-        <div className='login-right w-[50%]'>
-          <p className='font-bold text-6xl text-blue-500'>Q Social</p>
-          <p className='text-2xl font-medium mt-5'>
+        <div className='login-right w-full xl:w-[40%] px-4 mb-10 md:m-auto'>
+          <p className='font-bold text-4xl md:text-5xl text-blue-500 text-center'>
+            Q Social
+          </p>
+          <p className='text-2xl font-medium mt-5 hidden md:block text-center'>
             Q Social giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống
             của bạn.
           </p>

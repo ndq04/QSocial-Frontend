@@ -1,5 +1,4 @@
-function LikePost({likeData}) {
-  const {isLike, handleLike, handleUnLike} = likeData
+function LikePost({isLike, handleLike, handleUnLike}) {
   return isLike ? (
     <div
       className='like-post flex items-center justify-center cursor-pointer text-blue-500 hover:bg-gray-100 py-1.5 

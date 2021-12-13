@@ -29,10 +29,10 @@ function EditAvatar({setOnEditAvatar}) {
 
   return (
     <div className='select-none'>
-      <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-10'></div>
+      <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-20'></div>
       <div
-        className='inner w-[40%] bg-[#f0f2f5] h-[90%] shadow-lg absolute top-1/2 -translate-y-1/2 
-          -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col px-4 pt-4'
+        className='inner w-full lg:w-[40%] sm:w-[70%] bg-[#f0f2f5] h-[70%] sm:h-[90%] shadow-lg absolute top-[50%] -translate-y-1/2 
+          -translate-x-1/2 left-1/2 z-30 rounded-lg flex flex-col px-4 pt-4'
       >
         <div
           className='modal-head flex items-center 
@@ -61,7 +61,7 @@ function EditAvatar({setOnEditAvatar}) {
           </div>
         </div>
 
-        <div className='modal-image w-full h-[80%] flex rounded-lg'>
+        <div className='modal-image w-full h-[70%] sm:h-[80%] flex rounded-lg'>
           <img
             src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
             alt='avatar'

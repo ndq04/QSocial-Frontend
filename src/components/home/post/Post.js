@@ -7,7 +7,7 @@ import PostHeader from './PostHeader'
 function Post({pos, index}) {
   const [showComment, setShowComment] = useState(false)
   return (
-    <div className='post w-[100%] mx-auto my-4 bg-white shadow-sm sm:rounded-xl'>
+    <div className='post w-[100%] mx-auto bg-white shadow-sm sm:rounded-xl'>
       <PostHeader pos={pos} index={index} />
       <PostBody pos={pos} />
       <PostFooter pos={pos} setShowComment={setShowComment} />

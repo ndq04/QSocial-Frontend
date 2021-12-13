@@ -1,9 +1,8 @@
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {updateProfile} from '../../redux/actions/profileActions'
 
 function EditProfile({setOnEditProfile, ...data}) {
-  // const {auth} = useSelector((state) => state)
   const dispatch = useDispatch()
   const {userData, auth} = data
 
@@ -32,16 +31,17 @@ function EditProfile({setOnEditProfile, ...data}) {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(updateProfile({editData, auth}))
+    setOnEditProfile(false)
   }
 
   return (
     userData.length > 0 &&
     userData.map((user) => (
       <div key={user._id} className='select-none'>
-        <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-10'></div>
+        <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-20'></div>
         <div
-          className='inner w-[32%] bg-[#f0f2f5] h-[85%] shadow-lg absolute top-1/2 -translate-y-1/2 
-          -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col p-4'
+          className='inner w-full xl:w-[32%] sm:w-[80%] md:w-[50%] bg-[#f0f2f5] h-[80%] sm:h-[85%] shadow-lg absolute top-[50%] -translate-y-1/2 
+          -translate-x-1/2 left-1/2 z-30 rounded-lg flex flex-col p-4'
         >
           <div
             className='modal-head flex items-center 
@@ -89,7 +89,7 @@ function EditProfile({setOnEditProfile, ...data}) {
                 name='firstname'
                 placeholder='Họ'
                 className='border-2 rounded-md focus:border-blue-500 
-                outline-none py-2.5 px-3 flex-1 w-full text-lg'
+                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg'
                 value={firstname}
                 onChange={handleChange}
               />
@@ -104,7 +104,7 @@ function EditProfile({setOnEditProfile, ...data}) {
                 name='lastname'
                 placeholder='Tên'
                 className='border-2 rounded-md focus:border-blue-500 
-                outline-none py-2.5 px-3 flex-1 w-full text-lg'
+                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg'
                 value={lastname}
                 onChange={handleChange}
               />
@@ -119,7 +119,7 @@ function EditProfile({setOnEditProfile, ...data}) {
                 name='livein'
                 placeholder='Sống tại'
                 className='border-2 rounded-md focus:border-blue-500 
-                outline-none py-2.5 px-3 flex-1 w-full text-lg'
+                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg'
                 value={livein}
                 onChange={handleChange}
               />
@@ -131,7 +131,7 @@ function EditProfile({setOnEditProfile, ...data}) {
                 name='from'
                 placeholder='Đến từ'
                 className='border-2 rounded-md focus:border-blue-500 
-                outline-none py-2.5 px-3 flex-1 w-full text-lg'
+                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg'
                 value={from}
                 onChange={handleChange}
               />
@@ -144,7 +144,7 @@ function EditProfile({setOnEditProfile, ...data}) {
                 name='job'
                 placeholder='Nghề nghiệp'
                 className='border-2 rounded-md focus:border-blue-500 
-                outline-none py-2.5 px-3 flex-1 w-full text-lg'
+                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg'
                 value={job}
                 onChange={handleChange}
               />

@@ -96,7 +96,7 @@ function StatusModal() {
       <div
         className={`inner w-full sm:w-[500px] bg-white shadow-lg absolute top-1/2 -translate-y-1/2 
         -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col p-4 ${
-          images.length > 0 ? 'max-h-[80%]' : 'h-[60%]'
+          images.length > 0 ? 'max-h-[70%] sm:max-h-[80%]' : 'h-[60%]'
         }`}
       >
         <div
@@ -187,7 +187,7 @@ function StatusModal() {
 
           {images && images.length > 0 && (
             <div
-              className={`w-full rounded-lg p-2 grid grid-cols-3 ${
+              className={`w-full rounded-lg p-2 grid grid-cols-3 gap-2 ${
                 images.length > 0 && 'border border-gray-400'
               }`}
             >
@@ -200,7 +200,7 @@ function StatusModal() {
                         : URL.createObjectURL(image)
                     }
                     alt={'image_' + index}
-                    className='w-full h-[150px] object-cover rounded-md'
+                    className='w-full h-[100px] sm:h-[150px] object-cover rounded-md'
                   />
                   <p
                     className='absolute right-2 top-2 p-1 rounded-full cursor-pointer
@@ -228,7 +228,7 @@ function StatusModal() {
 
         <div
           className='modal-option flex items-center border border-gray-400 rounded-lg 
-          p-3 my-4 bg-white h-[10%]'
+          pl-3 py-1 my-3 sm:my-4 bg-white h-[10%]'
           onClick={() => setShowPicker(false)}
         >
           <p className='font-semibold text-gray-600'>Thêm ảnh/video</p>

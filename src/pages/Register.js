@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {Link, useHistory} from 'react-router-dom'
 import {register} from '../redux/actions/authActions'
-import {useSelector, useDispatch} from 'react-redux'
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false)
@@ -42,15 +42,17 @@ function Register() {
 
   return (
     <div className='register bg-[#f0f2f5] select-none h-screen flex items-center'>
-      <div className='register-content m-auto flex items-center max-w-5xl'>
-        <div className='register-left w-[45%] mx-auto'>
-          <p className='font-bold text-6xl text-blue-500'>Q Social</p>
-          <p className='text-2xl font-medium mt-5'>
+      <div className='register-content sm:mx-20 md:mx-auto flex items-center flex-col md:flex-row w-full md:max-w-5xl'>
+        <div className='register-left w-full md:w-[40%] mx-auto mb-5'>
+          <p className='font-bold text-4xl md:text-5xl text-blue-500 text-center'>
+            Q Social
+          </p>
+          <p className='text-2xl font-medium mt-5 text-center hidden md:block'>
             Q Social giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống
             của bạn.
           </p>
         </div>
-        <div className='register-right w-[45%] mx-auto flex flex-col bg-white rounded-lg shadow-md p-4'>
+        <div className='register-righ w-full md:w-[50%] md:mx-auto flex flex-col bg-white rounded-lg shadow-md p-4'>
           <form
             className='flex flex-col border-b border-gray-300 pb-3 mb-5'
             onSubmit={handleSubmit}
@@ -60,7 +62,7 @@ function Register() {
                 type='text'
                 placeholder='Họ'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-2.5 text-lg ${
+                outline-none p-1 sm:p-2 md:p-2.5 text-lg ${
                   alert.firstname && 'border-red-400'
                 } ${alert.firstname && 'focus:border-red-400'}`}
                 value={firstname.trim(/ /g, '')}
@@ -78,7 +80,7 @@ function Register() {
                 type='text'
                 placeholder='Tên'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-2.5 text-lg ${
+                outline-none p-1 sm:p-2 md:p-2.5 text-lg ${
                   alert.lastname && 'border-red-400'
                 } ${alert.lastname && 'focus:border-red-400'}`}
                 value={lastname.trim(/ /g, '')}
@@ -96,7 +98,7 @@ function Register() {
                 type='text'
                 placeholder='Tên đăng nhập'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-2.5 text-lg ${
+                outline-none p-1 sm:p-2 md:p-2.5 text-lg ${
                   alert.username && 'border-red-400'
                 }  ${alert.username && 'focus:border-red-400'}`}
                 value={username.toLowerCase().trim(/ /g, '')}
@@ -114,9 +116,9 @@ function Register() {
                 type='email'
                 placeholder='Email'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-2.5 text-lg ${alert.email && 'border-red-400'} ${
-                  alert.email && 'focus:border-red-400'
-                }`}
+                outline-none p-1 sm:p-2 md:p-2.5 text-lg ${
+                  alert.email && 'border-red-400'
+                } ${alert.email && 'focus:border-red-400'}`}
                 value={email.trim(/ /g, '')}
                 name='email'
                 onChange={handleChange}
@@ -132,7 +134,7 @@ function Register() {
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Mật khẩu'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-2.5 text-lg ${
+                outline-none p-1 sm:p-2 md:p-2.5 text-lg ${
                   alert.password && 'border-red-400'
                 } ${alert.password && 'focus:border-red-400'}`}
                 value={password.trim(/ /g, '')}
@@ -160,7 +162,7 @@ function Register() {
                 type={showCfPassword ? 'text' : 'password'}
                 placeholder='Nhập lại mật khẩu'
                 className={`border-2 rounded-md w-full focus:border-blue-500 
-                outline-none p-2.5 text-lg ${
+                outline-none p-1 sm:p-2 md:p-2.5 text-lg ${
                   alert.cfPassword && 'border-red-400'
                 } ${alert.cfPassword && 'focus:border-red-400'}`}
                 value={cfPassword.trim(/ /g, '')}
@@ -202,7 +204,7 @@ function Register() {
             <button
               type='submit'
               className='bg-[#00a400] hover:bg-[#048004]
-            text-white text-lg font-semibold py-2.5 rounded-lg'
+            text-white text-lg font-semibold py-2 rounded-lg'
             >
               Đăng ký
             </button>
@@ -210,7 +212,7 @@ function Register() {
           <Link
             to='/login'
             className='bg-blue-500 hover:bg-blue-600
-            text-white font-semibold py-2 rounded-lg text-center w-[50%] mx-auto'
+            text-white font-semibold py-2 rounded-lg text-center w-full sm:w-[50%] mx-auto'
           >
             <p>Đăng nhập tài khoản</p>
           </Link>
