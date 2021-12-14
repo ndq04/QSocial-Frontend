@@ -5,9 +5,9 @@ import {ACTION_TYPES, DeleteData} from './actionTypes'
 export const getProfileUsers =
   ({users, id, auth}) =>
   async (dispatch) => {
-    // console.log({users, id, auth})
     if (users.every((user) => user._id !== id)) {
       try {
+        dispatch({type: ACTION_TYPES.GET_IDS, payload: id})
         dispatch({
           type: ACTION_TYPES.LOADING,
           payload: {loading: true},
@@ -18,10 +18,16 @@ export const getProfileUsers =
             loading: true,
           },
         })
-        const res = await getDataApi(`user/${id}`, auth.token)
+        const user = await getDataApi(`user/${id}`, auth.token)
+        const posts = await getDataApi(`post/${id}/userpost`, auth.token)
+
         dispatch({
           type: ACTION_TYPES.GET_USER,
-          payload: res.data,
+          payload: user.data.user,
+        })
+        dispatch({
+          type: ACTION_TYPES.USERPOSTS,
+          payload: {...posts.data.posts, _id: id, result: posts.data.result},
         })
         dispatch({
           type: ACTION_TYPES.LOADING,

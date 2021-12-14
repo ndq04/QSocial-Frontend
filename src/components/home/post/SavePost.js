@@ -1,8 +1,9 @@
-function SavePost({saved, handleSaved}) {
+function SavePost({saved, handleSaved, handleUnSaved}) {
   return saved ? (
     <div
       className='save-post flex items-center justify-center cursor-pointer text-purple-600 py-1.5
     rounded-md transition-colors duration-200'
+      onClick={handleUnSaved}
     >
       <svg
         xmlns='http://www.w3.org/2000/svg'

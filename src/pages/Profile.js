@@ -62,12 +62,25 @@ function Profile() {
       setUserData([auth.user])
       setUserPosts(homePost.userpost)
     } else {
-      dispatch(getProfileUsers({users: profile.users, id, auth}))
+      if (profile.ids.every((item) => item !== id))
+        dispatch(getProfileUsers({users: profile.users, id, auth}))
       const newData = profile.users.filter((user) => user._id === id)
       setUserData(newData)
+
+      const newPosts = profile.userposts.filter((item) => item._id === id)
+      setUserPosts(newPosts)
       setUserPosts(homePost.userpost)
     }
-  }, [id, auth.user, auth, dispatch, profile.users, homePost.userpost])
+  }, [
+    id,
+    auth.user,
+    auth,
+    dispatch,
+    profile.users,
+    profile.ids,
+    profile.userposts,
+    homePost.userpost,
+  ])
 
   const data = {userData, profile, auth, id, userPosts}
   return (
@@ -76,7 +89,6 @@ function Profile() {
         <div className='bg-[#f0f2f5] select-none pt-[60px]'>
           <div className='profile h-[calc(100vh-60px)] overflow-y-scroll'>
             <Info {...data} />
-
             {showAccount && (
               <ProfileBody {...data} handleToggle={handleToggle} />
             )}

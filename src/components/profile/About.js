@@ -116,7 +116,7 @@ function About({handleToggle, userData, auth}) {
                     <img
                       src={follow.avatar}
                       alt='avatar'
-                      className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[100px] object-cover'
+                      className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[108px] object-cover'
                     />
                     <p className='font-medium text-sm text-gray-700 text-center'>
                       {follow.firstname} {follow.lastname}
@@ -151,7 +151,7 @@ function About({handleToggle, userData, auth}) {
                     <img
                       src={friend.avatar}
                       alt='avatar'
-                      className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[100px] object-cover'
+                      className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[108px] object-cover'
                     />
                     <p className='font-medium text-sm text-gray-700 text-center'>
                       {friend.firstname} {friend.lastname}

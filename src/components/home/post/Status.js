@@ -6,12 +6,11 @@ import {ModalData} from '../../../data/Modal'
 
 function Status() {
   const {toggleStatusModal} = useContext(StatusContext)
-  const ModalDataFilter = ModalData.filter((item) => item.id !== 4)
 
   const {auth} = useSelector((state) => state)
 
   return (
-    <div className='status w-[100%] m-auto bg-white md:shadow-md md:rounded-xl p-3'>
+    <div className='status w-[100%] m-auto bg-white md:shadow-md md:rounded-xl p-3 mb-4'>
       <div className='flex items-center sm:cursor-pointer border-b border-gray-300 pb-4 mb-4'>
         <Link to={`/profile/${auth.user._id}`}>
           <img
@@ -28,11 +27,11 @@ function Status() {
           <span> {`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}</span>
         </p>
       </div>
-      <ul className='flex flex-col'>
-        {ModalDataFilter.map((item) => (
+      <ul className='grid grid-cols-3'>
+        {ModalData.map((item) => (
           <li
             key={item.id}
-            className='flex items-center p-2 rounded-md 
+            className='flex items-center p-1.5 rounded-md 
           hover:bg-gray-200 cursor-pointer'
             onClick={toggleStatusModal}
           >

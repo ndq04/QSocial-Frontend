@@ -7,6 +7,7 @@ const initialState = {
   page: 0,
   userpost: [],
   resultUserPost: 0,
+  loadingUserPost: false,
 }
 
 export const postReducer = (state = initialState, action) => {
@@ -26,6 +27,11 @@ export const postReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: payload,
+      }
+    case ACTION_TYPES.LOADING_USERPOSTS:
+      return {
+        ...state,
+        loadingUserPost: payload,
       }
     case ACTION_TYPES.GET_POSTS:
       return {

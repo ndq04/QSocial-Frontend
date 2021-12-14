@@ -5,6 +5,7 @@ import {
   likepost,
   savedPost,
   unlikepost,
+  unsavedPost,
 } from '../../../redux/actions/postActions'
 import LikePost from './LikePost'
 import SavePost from './SavePost'
@@ -22,6 +23,12 @@ function PostFooter({pos, setShowComment}) {
     }
   }, [pos.likes, auth.user._id])
 
+  useEffect(() => {
+    if (auth.user.saved.find((id) => id === pos._id)) {
+      setSaved(true)
+    }
+  }, [auth.user.saved, pos._id])
+
   const handleLike = () => {
     setIsLike(true)
     dispatch(likepost({pos, auth}))
@@ -35,9 +42,13 @@ function PostFooter({pos, setShowComment}) {
     setSaved(true)
     dispatch(savedPost({pos, auth}))
   }
+  const handleUnSaved = () => {
+    setSaved(false)
+    dispatch(unsavedPost({pos, auth}))
+  }
 
   const likeData = {isLike, handleLike, handleUnLike}
-  const saveData = {saved, handleSaved}
+  const saveData = {saved, handleSaved, handleUnSaved}
 
   return (
     <div className='post-footer px-3 pt-3'>

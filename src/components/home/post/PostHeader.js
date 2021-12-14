@@ -66,7 +66,7 @@ function PostHeader({pos, index}) {
           </div>
         </div>
         {showInfo && (
-          <div className='absolute w-[400px] bg-white p-4 rounded-lg shadow-lg border top-[100%] left-[-50%] z-10'>
+          <div className='absolute w-[400px] bg-white p-4 rounded-lg shadow-lg border top-[100%] left-0 xl:left-[-50%] z-10'>
             <div className='flex items-start'>
               <img
                 src={pos.user.avatar}

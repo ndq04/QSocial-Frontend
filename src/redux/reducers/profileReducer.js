@@ -4,6 +4,8 @@ const initialState = {
   loading: false,
   users: [],
   posts: [],
+  ids: [],
+  userposts: [],
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -17,7 +19,17 @@ export const profileReducer = (state = initialState, action) => {
     case ACTION_TYPES.GET_USER:
       return {
         ...state,
-        users: [...state.users, payload.user],
+        users: [...state.users, payload],
+      }
+    case ACTION_TYPES.GET_IDS:
+      return {
+        ...state,
+        ids: [...state.ids, payload],
+      }
+    case ACTION_TYPES.USERPOSTS:
+      return {
+        ...state,
+        userposts: [...state.userposts, payload],
       }
     case ACTION_TYPES.FRIEND:
       return {

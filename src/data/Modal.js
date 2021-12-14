@@ -51,42 +51,20 @@ const Emoji = () => {
   )
 }
 
-const Location = () => {
-  return (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='h-7 w-7 text-red-500'
-      viewBox='0 0 20 20'
-      fill='currentColor'
-    >
-      <path
-        fillRule='evenodd'
-        d='M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z'
-        clipRule='evenodd'
-      />
-    </svg>
-  )
-}
-
 export const ModalData = [
   {
     id: 1,
-    title: 'Ảnh/Video',
+    title: 'Ảnh',
     img: <Photo />,
   },
   {
     id: 2,
-    title: 'Gắn thẻ bạn bè',
+    title: 'Gắn thẻ',
     img: <Tag />,
   },
   {
     id: 3,
-    title: 'Cảm xúc/Hoạt động',
+    title: 'Cảm xúc',
     img: <Emoji />,
-  },
-  {
-    id: 4,
-    title: 'Check in',
-    img: <Location />,
   },
 ]

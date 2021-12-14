@@ -1,4 +1,4 @@
-import Post from '../home/post/Post'
+import Post from './../home/post/Post'
 
 function SingleUserPosts({userPosts}) {
   return (
