@@ -10,48 +10,17 @@ import {getProfileUsers} from '../redux/actions/profileActions'
 import Followings from './../components/profilePage/Followings'
 import Friends from './../components/profilePage/Friends'
 import Saved from './../components/profilePage/Saved'
+import {ProfileContext} from './../contexts/ProfileContext'
 
 function Profile() {
   const {showStatus} = useContext(StatusContext)
+  const {showAccount, showFriends, showFollowings, showSaved} =
+    useContext(ProfileContext)
   const [userData, setUserData] = useState([])
   const [userPosts, setUserPosts] = useState([])
   const {id} = useParams()
   const {auth, profile, homePost} = useSelector((state) => state)
   const dispatch = useDispatch()
-
-  const [showAccount, setShowAccount] = useState(true)
-  const [showFriends, setShowFriends] = useState(false)
-  const [showFollowings, setShowFollowings] = useState(false)
-  const [showSaved, setShowSaved] = useState(false)
-
-  const handleToggle = (value) => {
-    switch (value) {
-      case 'showAccount':
-        setShowAccount(true)
-        setShowFriends(false)
-        setShowFollowings(false)
-        setShowSaved(false)
-        break
-      case 'showFriends':
-        setShowAccount(false)
-        setShowFriends(true)
-        setShowFollowings(false)
-        setShowSaved(false)
-        break
-      case 'showFollowings':
-        setShowAccount(false)
-        setShowFriends(false)
-        setShowFollowings(true)
-        setShowSaved(false)
-        break
-      default:
-        setShowAccount(false)
-        setShowFriends(false)
-        setShowFollowings(false)
-        setShowSaved(true)
-        break
-    }
-  }
 
   useEffect(() => {
     dispatch(getUserPost({id, token: auth.token}))
@@ -89,16 +58,14 @@ function Profile() {
         <div className='bg-[#f0f2f5] select-none pt-[60px]'>
           <div className='profile h-[calc(100vh-60px)] overflow-y-scroll'>
             <Info {...data} />
-            {showAccount && (
-              <ProfileBody {...data} handleToggle={handleToggle} />
-            )}
+            {showAccount && <ProfileBody {...data} />}
             {showFriends && auth && auth.user && id === auth.user._id && (
-              <Friends {...data} handleToggle={handleToggle} />
+              <Friends {...data} />
             )}
             {showFollowings && auth && auth.user && id === auth.user._id && (
-              <Followings {...data} handleToggle={handleToggle} />
+              <Followings {...data} />
             )}
-            {showSaved && <Saved {...data} handleToggle={handleToggle} />}
+            {showSaved && <Saved {...data} />}
           </div>
         </div>
         {showStatus && <StatusModal />}

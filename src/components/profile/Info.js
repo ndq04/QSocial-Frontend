@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useContext, useState} from 'react'
+import {ProfileContext} from '../../contexts/ProfileContext'
 import Avatar from './Avatar'
 import BtnEditCoverimage from './BtnEditCoverimage'
 import BtnEditProfile from './BtnEditProfile'
@@ -11,6 +12,7 @@ function Info(data) {
   const [onEditProfile, setOnEditProfile] = useState(false)
   const [onEditAvatar, setOnEditAvatar] = useState(false)
   const [onEditCoverimage, setOnEditCoverimage] = useState(false)
+  const {handleToggle} = useContext(ProfileContext)
 
   const {userData, auth} = data
 
@@ -40,24 +42,41 @@ function Info(data) {
             <GlobalBtnFriend user={user} />
           )}
           {auth && user._id && auth.user._id === user._id && (
-            <div className='absolute hidden  lg:left-[5%] left-0 lg:flex items-center'>
-              <p className='mr-3'>
-                <span className='mr-1 font-semibold text-gray-600'>
-                  Người theo dõi
-                </span>
-                <span className='font-semibold text-lg'>
-                  <span className='text-red-500'>{user.friends.length}</span>
-                </span>
-              </p>
-              <p>
-                <span className='mr-1 font-semibold text-gray-600'>
-                  Đang theo dõi
-                </span>
-                <span className='font-semibold text-lg'>
-                  <span className='text-red-500'>{user.followings.length}</span>
-                </span>
-              </p>
-            </div>
+            <>
+              <div className='absolute hidden  left-0 lg:left-[5%] lg:flex items-center'>
+                <p className='mr-3'>
+                  <span className='mr-1 font-semibold text-gray-600'>
+                    Người theo dõi
+                  </span>
+                  <span className='font-semibold text-lg'>
+                    <span className='text-red-500'>{user.friends.length}</span>
+                  </span>
+                </p>
+                <p className='mr-3'>
+                  <span className='mr-1 font-semibold text-gray-600'>
+                    Đang theo dõi
+                  </span>
+                  <span className='font-semibold text-lg'>
+                    <span className='text-red-500'>
+                      {user.followings.length}
+                    </span>
+                  </span>
+                </p>
+              </div>
+
+              <div
+                className='absolute left-[5%] lg:left-[31%] sm:cursor-pointer flex 
+                items-center font-semibold text-gray-600'
+              >
+                <span className='hidden sm:block'>Đã lưu</span>
+                <img
+                  src='https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png'
+                  alt='saved'
+                  className='w-8'
+                  onClick={() => handleToggle('showSaved')}
+                />
+              </div>
+            </>
           )}
           <h3 className='text-[32px] font-bold'>
             {user.firstname} {user.lastname}

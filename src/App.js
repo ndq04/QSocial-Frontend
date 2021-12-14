@@ -1,19 +1,17 @@
 import {useEffect} from 'react'
-import {Switch, Route} from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux'
-
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Profile from './pages/Profile'
-import Post from './pages/Post'
-import Messages from './pages/Messages'
-
-import {refreshToken} from './redux/actions/authActions'
+import {useDispatch, useSelector} from 'react-redux'
+import {Route, Switch} from 'react-router-dom'
 import Alert from './components/Alert'
 import Navbar from './components/Navbar'
-import PriviteRouter from './utils/PriviteRouter'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Messages from './pages/Messages'
+import Profile from './pages/Profile'
+import Register from './pages/Register'
+import SinglePost from './pages/SinglePost'
+import {refreshToken} from './redux/actions/authActions'
 import {getPost} from './redux/actions/postActions'
+import PriviteRouter from './utils/PriviteRouter'
 
 function App() {
   const {auth} = useSelector((state) => state)
@@ -44,9 +42,9 @@ function App() {
         <PriviteRouter exact path='/message'>
           <Messages />
         </PriviteRouter>
-        <PriviteRouter exact path='/post/:id'>
-          <Post />
-        </PriviteRouter>
+        <Route exact path='/post/:id'>
+          <SinglePost />
+        </Route>
         <Route exact path='/profile/:id'>
           <Profile />
         </Route>

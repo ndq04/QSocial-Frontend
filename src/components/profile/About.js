@@ -1,7 +1,10 @@
+import {useContext} from 'react'
 import {Link, useParams} from 'react-router-dom'
+import {ProfileContext} from '../../contexts/ProfileContext'
 
-function About({handleToggle, userData, auth}) {
+function About({userData, auth}) {
   const {id} = useParams()
+  const {handleToggle} = useContext(ProfileContext)
 
   const getGender = (value) => {
     switch (value) {

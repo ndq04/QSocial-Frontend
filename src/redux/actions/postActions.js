@@ -84,6 +84,24 @@ export const getPost = (token) => async (dispatch) => {
   }
 }
 
+export const getSinglePost =
+  ({detailPost, auth, id}) =>
+  async (dispatch) => {
+    // console.log({detailPost, auth, id})
+    if (detailPost.every((item) => item._id !== id)) {
+      try {
+        const res = await getDataApi(`/post/${id}/singlepost`, auth.token)
+        console.log(res)
+        dispatch({
+          type: ACTION_TYPES.GET_POST,
+          payload: res.data.post,
+        })
+      } catch (error) {
+        console.log(error.response.data.message)
+      }
+    }
+  }
+
 export const getUserPost =
   ({id, token}) =>
   async (dispatch) => {

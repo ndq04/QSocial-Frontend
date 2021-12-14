@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux'
-import {authReducer} from './authReducer'
 import {alertReducer} from './alertReducer'
-import {statusReducer} from './statusReducer'
-import {profileReducer} from './profileReducer'
+import {authReducer} from './authReducer'
+import {detailPostReducer} from './detailPostReducer'
 import {postReducer} from './postReducer'
+import {profileReducer} from './profileReducer'
+import {statusReducer} from './statusReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   status: statusReducer,
   profile: profileReducer,
   homePost: postReducer,
+  detailPost: detailPostReducer,
 })

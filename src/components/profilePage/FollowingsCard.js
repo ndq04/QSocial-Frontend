@@ -1,6 +1,9 @@
+import {useContext} from 'react'
+import {ProfileContext} from '../../contexts/ProfileContext'
 import GlobalCard from './GlobalCard'
 
-function FollowingsCard({user, handleToggle}) {
+function FollowingsCard({user}) {
+  const {handleToggle} = useContext(ProfileContext)
   return (
     <>
       <h3 className='text-xl font-bold flex items-center'>
