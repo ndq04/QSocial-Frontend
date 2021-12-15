@@ -1,9 +1,16 @@
 import {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import {deleteComment} from '../../../redux/actions/commentActions'
 
-function CommentMenu({onEdit, setOnEdit}) {
+function CommentMenu({setOnEdit, comment, pos, auth}) {
   const [menuItem, setMenuItem] = useState(false)
+  const dispatch = useDispatch()
+
   const handleEdit = () => {
     setOnEdit(true)
+  }
+  const handleRemove = () => {
+    dispatch(deleteComment({comment, pos, auth}))
   }
   return (
     <div
@@ -55,6 +62,7 @@ function CommentMenu({onEdit, setOnEdit}) {
           <li
             className='p-2 hover:bg-red-500 font-semibold hover:text-white 
         text-gray-700 rounded-md flex items-center'
+            onClick={handleRemove}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'

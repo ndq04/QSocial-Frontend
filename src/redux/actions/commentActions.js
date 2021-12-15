@@ -1,4 +1,8 @@
-import {patchDataApi, postDataApi} from '../../utils/fetchDataApi'
+import {
+  deleteDataApi,
+  patchDataApi,
+  postDataApi,
+} from '../../utils/fetchDataApi'
 import {ACTION_TYPES, DeleteData, EditData} from './actionTypes'
 
 export const createComment =
@@ -14,7 +18,7 @@ export const createComment =
       payload: newPost,
     })
     try {
-      const data = {...comment, postId: pos._id}
+      const data = {...comment, postId: pos._id, postUserId: pos.user._id}
       await postDataApi('comment', data, auth.token)
     } catch (error) {
       dispatch({
@@ -105,6 +109,42 @@ export const unLikeComment =
     })
     try {
       await patchDataApi(`comment/${comment._id}/unlike`, null, auth.token)
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+
+export const deleteComment =
+  ({comment, pos, auth}) =>
+  async (dispatch) => {
+    const deleteArr = [
+      ...pos.comments.filter((cm) => cm.reply === comment._id),
+      comment,
+    ]
+    const newPost = {
+      ...pos,
+      comments: pos.comments.filter(
+        (cm) => !deleteArr.find((da) => cm._id === da._id)
+      ),
+    }
+    dispatch({
+      type: ACTION_TYPES.UPDATE_POST,
+      payload: newPost,
+    })
+    dispatch({
+      type: ACTION_TYPES.UPDATE_USERPOST,
+      payload: newPost,
+    })
+
+    try {
+      deleteArr.forEach((item) => {
+        deleteDataApi(`comment/${item._id}`, auth.token)
+      })
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

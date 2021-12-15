@@ -1,15 +1,15 @@
-import {useState, useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {Link} from 'react-router-dom'
-import moment from 'moment'
 import Picker from 'emoji-picker-react'
-import LikeComment from './LikeComment'
-import CommentMenu from './CommentMenu'
+import moment from 'moment'
+import {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {
-  updateComment,
   likeComment,
   unLikeComment,
+  updateComment,
 } from '../../../redux/actions/commentActions'
+import CommentMenu from './CommentMenu'
+import LikeComment from './LikeComment'
 
 function PostCommentItem({comment, pos}) {
   const [content, setContent] = useState('')
@@ -58,6 +58,8 @@ function PostCommentItem({comment, pos}) {
       setOnEdit(false)
     }
   }
+
+  const commentData = {setOnEdit, comment, pos, auth}
 
   return (
     <div className='flex items-start mb-3'>
@@ -152,7 +154,7 @@ function PostCommentItem({comment, pos}) {
             </div>
           )}
           {comment.user._id === auth.user._id && !onEdit && (
-            <CommentMenu setOnEdit={setOnEdit} />
+            <CommentMenu {...commentData} />
           )}
         </div>
 
