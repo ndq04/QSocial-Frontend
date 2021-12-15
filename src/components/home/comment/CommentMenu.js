@@ -2,7 +2,9 @@ import {useState} from 'react'
 
 function CommentMenu({onEdit, setOnEdit}) {
   const [menuItem, setMenuItem] = useState(false)
-
+  const handleEdit = () => {
+    setOnEdit(true)
+  }
   return (
     <div
       className='comment-menu hover:bg-[#f0f2f5] cursor-pointer p-2 rounded-full
@@ -38,7 +40,7 @@ function CommentMenu({onEdit, setOnEdit}) {
           <li
             className='p-2 hover:bg-blue-500 font-semibold hover:text-white 
           text-gray-700 rounded-md flex items-center'
-            onClick={() => setOnEdit(true)}
+            onClick={handleEdit}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'

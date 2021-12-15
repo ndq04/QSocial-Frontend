@@ -7,6 +7,7 @@ function ProfileContextProvider({children}) {
   const [showFriends, setShowFriends] = useState(false)
   const [showFollowings, setShowFollowings] = useState(false)
   const [showSaved, setShowSaved] = useState(false)
+  const [showPhotos, setShowPhotos] = useState(false)
 
   const handleToggle = (value) => {
     switch (value) {
@@ -15,24 +16,35 @@ function ProfileContextProvider({children}) {
         setShowFriends(false)
         setShowFollowings(false)
         setShowSaved(false)
+        setShowPhotos(false)
         break
       case 'showFriends':
         setShowAccount(false)
         setShowFriends(true)
         setShowFollowings(false)
         setShowSaved(false)
+        setShowPhotos(false)
         break
       case 'showFollowings':
         setShowAccount(false)
         setShowFriends(false)
         setShowFollowings(true)
         setShowSaved(false)
+        setShowPhotos(false)
+        break
+      case 'showSaved':
+        setShowAccount(false)
+        setShowFriends(false)
+        setShowFollowings(false)
+        setShowSaved(true)
+        setShowPhotos(false)
         break
       default:
         setShowAccount(false)
         setShowFriends(false)
         setShowFollowings(false)
-        setShowSaved(true)
+        setShowSaved(false)
+        setShowPhotos(true)
         break
     }
   }
@@ -42,6 +54,7 @@ function ProfileContextProvider({children}) {
     showFriends,
     showFollowings,
     showSaved,
+    showPhotos,
     handleToggle,
   }
 

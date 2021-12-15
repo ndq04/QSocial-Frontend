@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import {Link, useParams} from 'react-router-dom'
 import {ProfileContext} from '../../contexts/ProfileContext'
 
-function About({userData, auth}) {
+function About({userData, auth, photos}) {
   const {id} = useParams()
   const {handleToggle} = useContext(ProfileContext)
 
@@ -90,6 +90,40 @@ function About({userData, auth}) {
             <span className='font-semibold text-gray-900'>
               {user.createdAt}
             </span>
+          </div>
+        </div>
+        <div className='profile-info--followings md:rounded-lg p-3 bg-white mt-[1.5px] md:mt-4 md:shadow-lg'>
+          <div className='my-3 flex items-center justify-between'>
+            <h3 className='relative font-bold text-xl flex items-center'>
+              Ảnh
+              <span className='ml-2 flex w-6 h-6 bg-red-500 text-white rounded-full'>
+                <span className='m-auto text-sm'>{photos.length + 1}</span>
+              </span>
+            </h3>
+            <p
+              className='py-1.5 px-4 hover:bg-gray-300 
+                rounded-md cursor-pointer text-blue-600'
+              onClick={() => handleToggle('showPhotos')}
+            >
+              Xem tất cả
+            </p>
+          </div>
+          <div className='grid grid-cols-3 gap-x-3 gap-y-9 mt-4 h-[270px] sm:h-[480px] lg:h-[270px] overflow-y-scroll'>
+            {photos &&
+              photos.length > 0 &&
+              photos.map((photo, i) => (
+                <img
+                  key={i}
+                  src={photo[0].secure_url}
+                  alt=''
+                  className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[108px] object-cover'
+                />
+              ))}
+            <img
+              src={userData[0].avatar}
+              alt=''
+              className='rounded-lg w-full h-[108px] sm:h-[200px] lg:h-[108px] object-cover'
+            />
           </div>
         </div>
         {auth && auth.user && id === auth.user._id && (

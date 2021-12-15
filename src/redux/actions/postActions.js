@@ -96,7 +96,6 @@ export const getSinglePost =
     if (detailPost.every((item) => item._id !== id)) {
       try {
         const res = await getDataApi(`/post/${id}/singlepost`, auth.token)
-        console.log(res)
         dispatch({
           type: ACTION_TYPES.GET_POST,
           payload: res.data.post,

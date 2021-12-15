@@ -40,7 +40,7 @@ function GlobalCard({user}) {
           bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 '
         />
       </div>
-      <div className='card-body pt-[3rem]'>
+      <div className='card-body pt-[3rem] group'>
         <div
           className={`relative text-xl font-bold ${
             user.gender === 'female' ? 'text-red-700' : 'text-blue-700'
@@ -52,7 +52,7 @@ function GlobalCard({user}) {
           {showInfo && (
             <div
               className='p-1 bg-gray-200 hover:bg-gray-300 
-              absolute right-1 top-0 rounded-full cursor-pointer'
+              absolute right-1 top-0 rounded-full cursor-pointer hidden group-hover:block'
               onClick={() => toggleShowInfo('showInfoAbout')}
             >
               <svg
@@ -72,7 +72,7 @@ function GlobalCard({user}) {
           {showInfoAbout && (
             <div
               className='p-1 bg-gray-200 hover:bg-gray-300 
-              absolute left-1 top-0 rounded-full cursor-pointer'
+              absolute left-1 top-0 rounded-full cursor-pointer hidden group-hover:block'
               onClick={() => toggleShowInfo('showInfo')}
             >
               <svg

@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom'
 import StatusModal from '../components/home/post/StatusModal'
 import Info from '../components/profile/Info'
 import ProfileBody from '../components/profile/ProfileBody'
+import Photos from '../components/profilePage/Photos'
 import {StatusContext} from '../contexts/StatusContext'
 import {getUserPost} from '../redux/actions/postActions'
 import {getProfileUsers} from '../redux/actions/profileActions'
@@ -14,10 +15,12 @@ import {ProfileContext} from './../contexts/ProfileContext'
 
 function Profile() {
   const {showStatus} = useContext(StatusContext)
-  const {showAccount, showFriends, showFollowings, showSaved} =
+  const {showAccount, showFriends, showFollowings, showSaved, showPhotos} =
     useContext(ProfileContext)
   const [userData, setUserData] = useState([])
   const [userPosts, setUserPosts] = useState([])
+  const [photos, setPhotos] = useState([])
+
   const {id} = useParams()
   const {auth, profile, homePost} = useSelector((state) => state)
   const dispatch = useDispatch()
@@ -25,6 +28,12 @@ function Profile() {
   useEffect(() => {
     dispatch(getUserPost({id, token: auth.token}))
   }, [dispatch, auth.token, id])
+
+  useEffect(() => {
+    const filterImages = userPosts.filter((item) => item.images.length > 0)
+    const profileImages = filterImages.map((item) => item.images)
+    setPhotos(profileImages)
+  }, [userPosts])
 
   useEffect(() => {
     if (auth && auth.user && id === auth.user._id) {
@@ -58,7 +67,7 @@ function Profile() {
         <div className='bg-[#f0f2f5] select-none pt-[60px]'>
           <div className='profile h-[calc(100vh-60px)] overflow-y-scroll'>
             <Info {...data} />
-            {showAccount && <ProfileBody {...data} />}
+            {showAccount && <ProfileBody {...data} photos={photos} />}
             {showFriends && auth && auth.user && id === auth.user._id && (
               <Friends {...data} />
             )}
@@ -66,6 +75,7 @@ function Profile() {
               <Followings {...data} />
             )}
             {showSaved && <Saved {...data} />}
+            {showPhotos && <Photos photos={photos} userData={userData} />}
           </div>
         </div>
         {showStatus && <StatusModal />}

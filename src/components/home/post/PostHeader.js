@@ -5,6 +5,7 @@ import {Link, useHistory} from 'react-router-dom'
 import {StatusContext} from '../../../contexts/StatusContext'
 import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
 import {deletePost} from '../../../redux/actions/postActions'
+import {BASE_URL} from '../../../utils/config'
 
 function PostHeader({pos, index}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -36,6 +37,17 @@ function PostHeader({pos, index}) {
     }
     setIsOpen(false)
     history.push('/')
+  }
+
+  const handleCopyPostLink = () => {
+    navigator.clipboard.writeText(`${BASE_URL}/post/${pos._id}`)
+    setIsOpen(false)
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
+        success: 'Copy link bài viết thành công',
+      },
+    })
   }
 
   return (
@@ -248,7 +260,10 @@ function PostHeader({pos, index}) {
                   </svg>
                   Xóa bài viết
                 </li>
-                <li className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'>
+                <li
+                  className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'
+                  onClick={handleCopyPostLink}
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-5 w-5 mr-1'
@@ -261,12 +276,15 @@ function PostHeader({pos, index}) {
                       clipRule='evenodd'
                     />
                   </svg>
-                  Copy bài viết
+                  Copy link bài viết
                 </li>
               </>
             ) : (
               <>
-                <li className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'>
+                <li
+                  className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'
+                  onClick={handleCopyPostLink}
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-5 w-5 mr-1'
@@ -279,18 +297,7 @@ function PostHeader({pos, index}) {
                       clipRule='evenodd'
                     />
                   </svg>
-                  Copy bài viết
-                </li>
-                <li className='p-2 hover:bg-purple-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-5 w-5 mr-1'
-                    viewBox='0 0 20 20'
-                    fill='currentColor'
-                  >
-                    <path d='M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z' />
-                  </svg>
-                  Lưu bài viết
+                  Copy link bài viết
                 </li>
               </>
             )}

@@ -231,7 +231,7 @@ function StatusModal() {
           pl-3 py-1 my-3 sm:my-4 bg-white h-[10%]'
           onClick={() => setShowPicker(false)}
         >
-          <p className='font-semibold text-gray-600'>Thêm ảnh/video</p>
+          <p className='font-semibold text-gray-600'>Thêm ảnh</p>
           <label
             htmlFor='status'
             className='p-2 rounded-full hover:bg-gray-200 cursor-pointer ml-3'
