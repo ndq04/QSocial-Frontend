@@ -1,9 +1,10 @@
 import moment from 'moment'
 import {useContext, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {StatusContext} from '../../../contexts/StatusContext'
 import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
+import {deletePost} from '../../../redux/actions/postActions'
 
 function PostHeader({pos, index}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,6 +14,7 @@ function PostHeader({pos, index}) {
 
   const {auth} = useSelector((state) => state)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleEdit = (edit) => {
     dispatch({
@@ -24,6 +26,16 @@ function PostHeader({pos, index}) {
     })
     setIsOpen(false)
     toggleStatusModal()
+  }
+
+  const handleDelete = () => {
+    if (
+      window.confirm('Thao tác này không thể quay lại. Bạn có muốn tiếp tục ?')
+    ) {
+      dispatch(deletePost({pos, auth}))
+    }
+    setIsOpen(false)
+    history.push('/')
   }
 
   return (
@@ -218,7 +230,10 @@ function PostHeader({pos, index}) {
                   </svg>
                   Sửa bài viết
                 </li>
-                <li className='p-2 hover:bg-red-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'>
+                <li
+                  className='p-2 hover:bg-red-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'
+                  onClick={handleDelete}
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-5 w-5 mr-1'

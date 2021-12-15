@@ -1,4 +1,4 @@
-import {ACTION_TYPES, EditData} from '../actions/actionTypes'
+import {ACTION_TYPES, DeleteData, EditData} from '../actions/actionTypes'
 
 const initialState = {
   post: [],
@@ -55,11 +55,16 @@ export const postReducer = (state = initialState, action) => {
         ...state,
         userpost: EditData(state.userpost, payload._id, payload),
       }
-    // case ACTION_TYPES.IMAGES:
-    //   return {
-    //     ...state,
-    //     images: [...state.images, payload],
-    //   }
+    case ACTION_TYPES.DELETE_POST:
+      return {
+        ...state,
+        post: DeleteData(state.post, payload._id),
+      }
+    case ACTION_TYPES.DELETE_USERPOST:
+      return {
+        ...state,
+        userpost: DeleteData(state.userpost, payload._id),
+      }
     default:
       return state
   }

@@ -1,4 +1,9 @@
-import {getDataApi, patchDataApi, postDataApi} from '../../utils/fetchDataApi'
+import {
+  deleteDataApi,
+  getDataApi,
+  patchDataApi,
+  postDataApi,
+} from '../../utils/fetchDataApi'
 import {imageupload} from '../../utils/imageupload'
 import {ACTION_TYPES} from './actionTypes'
 
@@ -311,6 +316,35 @@ export const unlikepost =
       //     success: res.data.message,
       //   },
       // })
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+
+export const deletePost =
+  ({pos, auth}) =>
+  async (dispatch) => {
+    dispatch({
+      type: ACTION_TYPES.DELETE_POST,
+      payload: pos,
+    })
+    dispatch({
+      type: ACTION_TYPES.DELETE_USERPOST,
+      payload: pos,
+    })
+    try {
+      const res = await deleteDataApi(`/post/${pos._id}`, auth.token)
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          success: res.data.message,
+        },
+      })
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
