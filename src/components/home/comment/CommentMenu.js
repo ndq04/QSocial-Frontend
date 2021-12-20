@@ -1,27 +1,28 @@
 import {useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {deleteComment} from '../../../redux/actions/commentActions'
 
 function CommentMenu({setOnEdit, comment, pos, auth}) {
   const [menuItem, setMenuItem] = useState(false)
   const dispatch = useDispatch()
+  const {socket} = useSelector((state) => state)
 
   const handleEdit = () => {
     setOnEdit(true)
   }
   const handleRemove = () => {
-    dispatch(deleteComment({comment, pos, auth}))
+    dispatch(deleteComment({comment, pos, auth, socket}))
   }
   return (
     <div
-      className='comment-menu hover:bg-[#f0f2f5] cursor-pointer p-2 rounded-full
+      className='comment-menu hover:bg-[#f0f2f5] cursor-pointer p-2 rounded-full dark:hover:bg-[#3a3b3c]
      text-gray-500 ml-1 relative z-10 flex-shrink-0'
       onClick={() => setMenuItem(!menuItem)}
     >
       {!menuItem && (
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-4 w-4'
+          className='h-4 w-4 dark:text-gray-300'
           viewBox='0 0 20 20'
           fill='currentColor'
         >
@@ -31,7 +32,7 @@ function CommentMenu({setOnEdit, comment, pos, auth}) {
       {menuItem && (
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-4 w-4'
+          className='h-4 w-4 dark:text-gray-300'
           viewBox='0 0 20 20'
           fill='currentColor'
         >
@@ -43,7 +44,7 @@ function CommentMenu({setOnEdit, comment, pos, auth}) {
         </svg>
       )}
       {menuItem && (
-        <ul className='absolute w-[200px] right-0 top-[150%] p-2 bg-white shadow-lg rounded-md border'>
+        <ul className='absolute w-[200px] right-0 top-[150%] p-2 bg-white shadow-lg rounded-md border dark:bg-[#3a3b3c] dark:border-gray-600'>
           <li
             className='p-2 hover:bg-blue-500 font-semibold hover:text-white 
           text-gray-700 rounded-md flex items-center'
@@ -51,13 +52,13 @@ function CommentMenu({setOnEdit, comment, pos, auth}) {
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 mr-1'
+              className='h-5 w-5 mr-1 dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
               <path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z' />
             </svg>
-            Chỉnh sửa
+            <span className='dark:text-gray-300'>Chỉnh sửa</span>
           </li>
           <li
             className='p-2 hover:bg-red-500 font-semibold hover:text-white 
@@ -66,7 +67,7 @@ function CommentMenu({setOnEdit, comment, pos, auth}) {
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 mr-1'
+              className='h-5 w-5 mr-1 dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -76,7 +77,7 @@ function CommentMenu({setOnEdit, comment, pos, auth}) {
                 clipRule='evenodd'
               />
             </svg>
-            Xóa bình luận
+            <span className='dark:text-gray-300'>Xóa bình luận</span>
           </li>
         </ul>
       )}

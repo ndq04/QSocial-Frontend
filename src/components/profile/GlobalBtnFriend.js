@@ -4,7 +4,7 @@ import {addfriend, unfriend} from '../../redux/actions/profileActions'
 
 function GlobalBtnFriend({user, follow}) {
   const [friend, setFriend] = useState(false)
-  const {auth, profile} = useSelector((state) => state)
+  const {auth, profile, socket} = useSelector((state) => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -15,12 +15,12 @@ function GlobalBtnFriend({user, follow}) {
 
   const addFriend = () => {
     setFriend(true)
-    dispatch(addfriend({users: profile.users, user, auth}))
+    dispatch(addfriend({users: profile.users, user, auth, socket}))
   }
 
   const unFiend = () => {
     setFriend(false)
-    dispatch(unfriend({users: profile.users, user, auth}))
+    dispatch(unfriend({users: profile.users, user, auth, socket}))
   }
 
   return (

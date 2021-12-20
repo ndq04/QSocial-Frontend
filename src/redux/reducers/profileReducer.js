@@ -8,7 +8,7 @@ const initialState = {
   userposts: [],
 }
 
-export const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
   const {type, payload} = action
   switch (type) {
     case ACTION_TYPES.LOADING:
@@ -46,3 +46,5 @@ export const profileReducer = (state = initialState, action) => {
       return state
   }
 }
+
+export default profileReducer

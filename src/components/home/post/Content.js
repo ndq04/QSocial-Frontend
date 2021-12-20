@@ -5,10 +5,23 @@ import Status from './Status'
 function Content({handleToggle}) {
   const {homePost} = useSelector((state) => state)
   return (
-    <div className='content col-span-2 w-full sm:px-[8px] xl:px-[10%] h-[calc(100vh-45px)] sm:h-[calc(100vh-60px)] py-4 overflow-y-scroll'>
+    <div className='content col-span-2 w-full sm:px-[8px] xl:px-[10%] py-4 overflow-y-scroll'>
       <Status handleToggle={handleToggle} />
       {homePost && homePost.loading ? (
-        'Đang tải...'
+        <div className='lds-spinner'>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       ) : homePost.result === 0 ? (
         <div className='w-full relative'>
           <img

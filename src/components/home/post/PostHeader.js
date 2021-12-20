@@ -67,13 +67,13 @@ function PostHeader({pos, index}) {
         <div>
           <Link
             to={`/profile/${pos.user._id}`}
-            className='hover:underline font-semibold text-gray-800'
+            className='hover:underline font-semibold text-gray-800 dark:text-gray-300'
             onMouseOver={() => setShowInfo(true)}
             onMouseOut={() => setShowInfo(false)}
           >
             {pos.user.firstname} {pos.user.lastname}
           </Link>
-          <div className='flex text-gray-500 text-[13px] font-semibold'>
+          <div className='flex text-gray-500 text-[13px] font-semibold dark:text-gray-400'>
             <span>{moment(pos.createdAt).fromNow()}</span>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -90,7 +90,7 @@ function PostHeader({pos, index}) {
           </div>
         </div>
         {showInfo && (
-          <div className='absolute w-[400px] bg-white p-4 rounded-lg shadow-lg border top-[100%] left-0 xl:left-[-50%] z-10'>
+          <div className='absolute w-[400px] bg-white p-4 rounded-lg shadow-lg border dark:border-gray-600 top-[100%] left-0 xl:left-[-50%] z-10 dark:bg-[#282928]'>
             <div className='flex items-start'>
               <img
                 src={pos.user.avatar}
@@ -99,13 +99,13 @@ function PostHeader({pos, index}) {
               />
 
               <div>
-                <p className='text-2xl font-bold text-gray-900 pb-3'>
+                <p className='text-2xl font-bold text-gray-900 pb-3 dark:text-gray-300'>
                   {pos.user.firstname} {pos.user.lastname}
                 </p>
                 <div className='flex items-center mt-2  text-gray-600 text-sm'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    className='h-6 w-6 mr-2'
+                    className='h-6 w-6 mr-2 dark:text-gray-300'
                     viewBox='0 0 20 20'
                     fill='currentColor'
                   >
@@ -117,8 +117,8 @@ function PostHeader({pos, index}) {
                     />
                   </svg>
                   <p>
-                    Đang theo dõi
-                    <span className='text-gray-800 font-semibold ml-1'>
+                    <span className='dark:text-gray-300'>Đang theo dõi</span>
+                    <span className='text-gray-800 dark:text-gray-500 font-semibold ml-1'>
                       {pos.user.followings.length}
                     </span>
                   </p>
@@ -126,15 +126,15 @@ function PostHeader({pos, index}) {
                 <div className='flex items-center mt-2 text-gray-600 text-sm'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    className='h-6 w-6 mr-2'
+                    className='h-6 w-6 mr-2 dark:text-gray-300'
                     viewBox='0 0 20 20'
                     fill='currentColor'
                   >
                     <path d='M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z' />
                   </svg>
                   <p>
-                    Người theo dõi
-                    <span className='text-gray-800 font-semibold ml-1'>
+                    <span className='dark:text-gray-300'>Người theo dõi</span>
+                    <span className='text-gray-800 dark:text-gray-500 font-semibold ml-1'>
                       {pos.user.friends.length}
                     </span>
                   </p>
@@ -142,15 +142,15 @@ function PostHeader({pos, index}) {
                 <div className='flex items-center mt-2 text-gray-600 text-sm'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    className='h-6 w-6 mr-2'
+                    className='h-6 w-6 mr-2 dark:text-gray-300'
                     viewBox='0 0 20 20'
                     fill='currentColor'
                   >
                     <path d='M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z' />
                   </svg>
                   <p>
-                    Sống tại
-                    <span className='text-gray-800 font-semibold ml-1'>
+                    <span className='dark:text-gray-300'>Sống tại</span>
+                    <span className='text-gray-800 dark:text-gray-500 font-semibold ml-1'>
                       {pos.user.livein}
                     </span>
                   </p>
@@ -164,13 +164,13 @@ function PostHeader({pos, index}) {
 
       <div className='w-[50%] sm:w-[60%] post-heading--right relative cursor-pointer flex justify-end z-10'>
         <div
-          className='w-10 h-10 rounded-full hover:bg-gray-100 flex'
+          className='w-10 h-10 rounded-full hover:bg-gray-100 flex dark:hover:bg-[#414345]'
           onClick={handleToggleDrop}
         >
           {!isOpen && auth.user._id === pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto'
+              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -184,7 +184,7 @@ function PostHeader({pos, index}) {
           {isOpen && auth.user._id === pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto'
+              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -198,7 +198,7 @@ function PostHeader({pos, index}) {
           {!isOpen && auth.user._id !== pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto'
+              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -212,7 +212,7 @@ function PostHeader({pos, index}) {
           {isOpen && auth.user._id !== pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto'
+              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -225,11 +225,11 @@ function PostHeader({pos, index}) {
           )}
         </div>
         {isOpen && (
-          <ul className='absolute bg-white rounded-md border-t-[2px] shadow-lg w-full top-[110%] p-2'>
+          <ul className='absolute bg-white rounded-md border-t-[2px] shadow-lg w-full top-[110%] p-2 dark:bg-[#282928] dark:border dark:border-gray-600'>
             {auth?.user._id === pos.user._id ? (
               <>
                 <li
-                  className='p-2 hover:bg-blue-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'
+                  className='p-2 hover:bg-blue-500 font-semibold hover:text-white text-gray-700 dark:text-gray-300 rounded-md flex items-center'
                   onClick={() => handleEdit(pos)}
                 >
                   <svg
@@ -243,7 +243,7 @@ function PostHeader({pos, index}) {
                   Sửa bài viết
                 </li>
                 <li
-                  className='p-2 hover:bg-red-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'
+                  className='p-2 hover:bg-red-500 font-semibold hover:text-white text-gray-700 dark:text-gray-300 rounded-md flex items-center'
                   onClick={handleDelete}
                 >
                   <svg
@@ -261,7 +261,7 @@ function PostHeader({pos, index}) {
                   Xóa bài viết
                 </li>
                 <li
-                  className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'
+                  className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 dark:text-gray-300 rounded-md flex items-center'
                   onClick={handleCopyPostLink}
                 >
                   <svg
@@ -282,7 +282,7 @@ function PostHeader({pos, index}) {
             ) : (
               <>
                 <li
-                  className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center'
+                  className='p-2 hover:bg-green-500 font-semibold hover:text-white text-gray-700 rounded-md flex items-center dark:text-gray-300'
                   onClick={handleCopyPostLink}
                 >
                   <svg

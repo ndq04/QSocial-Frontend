@@ -10,7 +10,7 @@ const initialState = {
   loadingUserPost: false,
 }
 
-export const postReducer = (state = initialState, action) => {
+const postReducer = (state = initialState, action) => {
   const {type, payload} = action
   switch (type) {
     case ACTION_TYPES.CREATE_POST:
@@ -69,3 +69,5 @@ export const postReducer = (state = initialState, action) => {
       return state
   }
 }
+
+export default postReducer

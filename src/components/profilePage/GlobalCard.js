@@ -26,7 +26,7 @@ function GlobalCard({user}) {
     }
   }
   return (
-    <div className='relative w-full h-[400px] shadow-md rounded-md border-gray-300 overflow-hidden mt-5'>
+    <div className='relative w-full h-[400px] shadow-md rounded-md border-gray-300 overflow-hidden mt-5 dark:bg-[#18191a]'>
       <div className='card-head relative w-full h-[150px]'>
         <img
           src={user.coverimage}
@@ -93,15 +93,15 @@ function GlobalCard({user}) {
 
         {showInfo && (
           <div className='flex flex-col items-center mt-8'>
-            <div className='flex items-center text-gray-500 font-medium'>
+            <div className='flex items-center text-gray-500 font-medium dark:text-gray-300'>
               <p>Người theo dõi</p>
-              <p className='font-bold text-gray-800 ml-2 text-lg'>
+              <p className='font-bold text-gray-800 ml-2 text-lg dark:text-gray-500'>
                 {user.friends.length}
               </p>
             </div>
-            <div className='flex items-center text-gray-500 font-medium'>
+            <div className='flex items-center text-gray-500 font-medium dark:text-gray-300'>
               <p>Đang theo dõi</p>
-              <p className='font-bold text-gray-800 ml-2 text-lg'>
+              <p className='font-bold text-gray-800 ml-2 text-lg dark:text-gray-500'>
                 {user.followings.length}
               </p>
             </div>
@@ -114,27 +114,27 @@ function GlobalCard({user}) {
         )}
         {showInfoAbout && (
           <div className='px-4'>
-            <p className='text-gray-500 font-medium py-1'>
+            <p className='text-gray-500 font-medium py-1 dark:text-gray-300'>
               <span>Sống tại</span>
-              <span className='ml-2 text-black font-semibold'>
+              <span className='ml-2 text-black font-semibold dark:text-gray-500'>
                 {user.livein || 'Đang cập nhật'}
               </span>
             </p>
-            <p className='text-gray-500 font-medium py-1'>
+            <p className='text-gray-500 font-medium py-1 dark:text-gray-300'>
               <span>Đến từ</span>
-              <span className='ml-2 text-black font-semibold'>
+              <span className='ml-2 text-black font-semibold dark:text-gray-500'>
                 {user.from || 'Đang cập nhật'}
               </span>
             </p>
-            <p className='text-gray-500 font-medium py-1'>
+            <p className='text-gray-500 font-medium py-1 dark:text-gray-300'>
               <span>Nghề nghiệp</span>
-              <span className='ml-2 text-black font-semibold'>
+              <span className='ml-2 text-black font-semibold dark:text-gray-500'>
                 {user.job || 'Đang cập nhật'}
               </span>
             </p>
-            <p className='text-gray-500 font-medium py-1'>
+            <p className='text-gray-500 font-medium py-1 dark:text-gray-300'>
               <span>Giới tính</span>
-              <span className='ml-2 text-black font-semibold'>
+              <span className='ml-2 text-black font-semibold dark:text-gray-500'>
                 {getGender(user.gender)}
               </span>
             </p>

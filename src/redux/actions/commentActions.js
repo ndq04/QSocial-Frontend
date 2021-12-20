@@ -6,20 +6,25 @@ import {
 import {ACTION_TYPES, DeleteData, EditData} from './actionTypes'
 
 export const createComment =
-  ({pos, comment, auth}) =>
+  ({pos, comment, auth, socket}) =>
   async (dispatch) => {
     const newPost = {...pos, comments: [...pos.comments, comment]}
-    dispatch({
-      type: ACTION_TYPES.UPDATE_POST,
-      payload: newPost,
-    })
-    dispatch({
-      type: ACTION_TYPES.UPDATE_USERPOST,
-      payload: newPost,
-    })
     try {
-      const data = {...comment, postId: pos._id, postUserId: pos.user._id}
-      await postDataApi('comment', data, auth.token)
+      const body = {
+        ...comment,
+        postId: pos._id,
+        postUserId: pos.user._id,
+      }
+      const res = await postDataApi('comment', body, auth.token)
+      socket.emit('createComment', newPost)
+      dispatch({
+        type: ACTION_TYPES.UPDATE_POST,
+        payload: {...pos, comments: [...pos.comments, res.data.newComment]},
+      })
+      dispatch({
+        type: ACTION_TYPES.UPDATE_USERPOST,
+        payload: {...pos, comments: [...pos.comments, res.data.newComment]},
+      })
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -61,7 +66,10 @@ export const updateComment =
 export const likeComment =
   ({comment, pos, auth}) =>
   async (dispatch) => {
-    const newComment = {...comment, likes: [...comment.likes, auth.user._id]}
+    const newComment = {
+      ...comment,
+      likes: [...comment.likes, auth.user._id],
+    }
     const newComments = EditData(pos.comments, comment._id, newComment)
 
     const newPost = {...pos, comments: newComments}
@@ -120,7 +128,7 @@ export const unLikeComment =
   }
 
 export const deleteComment =
-  ({comment, pos, auth}) =>
+  ({comment, pos, auth, socket}) =>
   async (dispatch) => {
     const deleteArr = [
       ...pos.comments.filter((cm) => cm.reply === comment._id),
@@ -145,6 +153,7 @@ export const deleteComment =
       deleteArr.forEach((item) => {
         deleteDataApi(`comment/${item._id}`, auth.token)
       })
+      socket.emit('deleteComment', newPost)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

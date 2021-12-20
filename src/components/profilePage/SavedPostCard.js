@@ -11,7 +11,7 @@ function SavedPostCard({savedPosts}) {
       <h3 className='text-xl font-bold flex items-center'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-6 w-6 sm:cursor-pointer'
+          className='h-6 w-6 sm:cursor-pointer dark:text-gray-300'
           viewBox='0 0 20 20'
           fill='currentColor'
           onClick={() => handleToggle('showAccount')}
@@ -22,12 +22,15 @@ function SavedPostCard({savedPosts}) {
             clipRule='evenodd'
           />
         </svg>
-        <span className='mx-2'>Bài viết đã lưu</span>
+        <span className='mx-2 dark:text-gray-300'>Bài viết đã lưu</span>
         <span className='text-red-500'>{savedPosts.length}</span>
       </h3>
 
       {savedPosts.map((savedpost) => (
-        <div key={savedpost._id} className='bg-white rounded-lg my-4 p-4'>
+        <div
+          key={savedpost._id}
+          className='bg-white rounded-lg my-4 p-4 dark:bg-[#282928]'
+        >
           <div className='flex'>
             {savedpost.images.length > 0 && (
               <img
@@ -38,7 +41,7 @@ function SavedPostCard({savedPosts}) {
             )}
 
             <div className='col-span-4 ml-4'>
-              <h3 className='sm:text-lg'>
+              <h3 className='sm:text-lg dark:text-gray-300'>
                 {savedpost.content.length < 70
                   ? savedpost.content
                   : readMore
@@ -47,7 +50,7 @@ function SavedPostCard({savedPosts}) {
                 <span>
                   {savedpost.content.length > 70 && (
                     <span
-                      className='font-semibold cursor-pointer hover:underline'
+                      className='font-semibold cursor-pointer hover:underline dark:text-gray-500'
                       onClick={() => setReadMore(!readMore)}
                     >
                       {readMore ? ' Ẩn bớt' : '... Xem thêm'}
@@ -69,24 +72,24 @@ function SavedPostCard({savedPosts}) {
                 </Link>
                 <Link
                   to={`/post/${savedpost._id}`}
-                  className='sm:cursor-pointer sm:hover:underline text-gray-500 text-sm sm:text-base'
+                  className='sm:cursor-pointer sm:hover:underline text-gray-500 text-sm sm:text-base dark:text-gray-300'
                 >
                   <span>Đã lưu từ bài viết của</span>
-                  <span className='ml-1 font-semibold text-gray-700'>
+                  <span className='ml-1 font-semibold text-gray-700 dark:text-gray-500'>
                     <span className='mr-1'>{savedpost.user.firstname}</span>
                     <span>{savedpost.user.lastname}</span>
                   </span>
                 </Link>
               </div>
-              <div className='text-gray-500 hidden sm:block'>
+              <div className='text-gray-500 hidden sm:block dark:text-gray-300'>
                 <p>
                   Ngày đăng
-                  <span className='text-gray-700 font-semibold ml-1'>
+                  <span className='text-gray-700 font-semibold ml-1 dark:text-gray-500'>
                     {moment(savedpost.createdAt).format('DD/MM/YYYY')}
                   </span>
                 </p>
               </div>
-              <p className='text-gray-500 my-2 sm:flex items-center hidden'>
+              <p className='text-gray-500 my-2 sm:flex items-center hidden dark:text-gray-300'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   className='h-6 w-6 text-blue-500 mr-1'
@@ -95,12 +98,12 @@ function SavedPostCard({savedPosts}) {
                 >
                   <path d='M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z' />
                 </svg>
-                <span className='font-semibold text-gray-700 mr-1'>
+                <span className='font-semibold text-gray-700 mr-1 dark:text-gray-500'>
                   {savedpost.likes.length}
                 </span>
                 <span>lượt thích</span>
               </p>
-              <p className='text-gray-500 sm:flex items-center hidden'>
+              <p className='text-gray-500 sm:flex items-center hidden dark:text-gray-300'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   className='h-6 w-6 text-blue-500 mr-1'
@@ -110,7 +113,7 @@ function SavedPostCard({savedPosts}) {
                   <path d='M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z' />
                   <path d='M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z' />
                 </svg>
-                <span className='font-semibold text-gray-700 mr-1'>
+                <span className='font-semibold text-gray-700 mr-1 dark:text-gray-500'>
                   {savedpost.comments.length}
                 </span>
                 <span>bình luận</span>

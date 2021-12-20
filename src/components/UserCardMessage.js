@@ -1,10 +1,8 @@
-import {Link} from 'react-router-dom'
-function UserCard({user, handleCloseSearch}) {
+function UserCardMessage({user, handleCloseSearch}) {
   const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER
   return (
-    <Link
-      to={`/profile/${user?._id}`}
-      className='flex items-center hover:bg-gray-200 p-2 mb-2 rounded-lg transition-colors dark:text-gray-200 dark:hover:bg-[#414345]'
+    <div
+      className='flex items-center hover:bg-[#e4e6eb] p-4 mb-2 rounded-lg transition-colors dark:text-gray-200 dark:hover:bg-[#414345]'
       onClick={handleCloseSearch}
     >
       <img
@@ -15,8 +13,8 @@ function UserCard({user, handleCloseSearch}) {
       <p className='ml-3 font-semibold'>
         {user?.firstname} {user?.lastname}
       </p>
-    </Link>
+    </div>
   )
 }
 
-export default UserCard
+export default UserCardMessage

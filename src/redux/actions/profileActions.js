@@ -271,7 +271,7 @@ export const updateCoverimage =
   }
 
 export const addfriend =
-  ({users, user, auth}) =>
+  ({users, user, auth, socket}) =>
   async (dispatch) => {
     const newUser = {
       ...user,
@@ -299,6 +299,7 @@ export const addfriend =
         {_id: auth.user._id},
         auth.token
       )
+      socket.emit('addfriend', res.data.newUser)
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
@@ -316,7 +317,7 @@ export const addfriend =
   }
 
 export const unfriend =
-  ({users, user, auth}) =>
+  ({users, user, auth, socket}) =>
   async (dispatch) => {
     const newUser = {
       ...user,
@@ -345,6 +346,7 @@ export const unfriend =
         {_id: auth.user._id},
         auth.token
       )
+      socket.emit('unfriend', res.data.newUser)
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {

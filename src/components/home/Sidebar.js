@@ -7,16 +7,16 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
   const {auth} = useSelector((state) => state)
   return (
-    <div className='sidebar h-[calc(100vh-60px)] py-4 overflow-y-scroll hidden sm:block'>
-      <ul className='border-b border-gray-300'>
+    <div className='sidebar h-[calc(100vh-60px)] py-4 overflow-y-scroll hidden lg:block'>
+      <ul className='border-b border-gray-300 dark:border-gray-600'>
         <Link to={`/profile/${auth.user._id}`}>
-          <li className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200'>
+          <li className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 dark:hover:bg-[#414345]'>
             <img
               src={auth.user.avatar}
               alt='avatar'
               className='w-8 h-8 object-cover rounded-full mr-2'
             />
-            <p className='text-gray-800 font-semibold'>
+            <p className='text-gray-800 font-semibold dark:text-gray-200'>
               {auth.user.firstname} {auth.user.lastname}
             </p>
           </li>
@@ -24,20 +24,23 @@ function Sidebar() {
         {SidebarData.map((sidebar) => (
           <li
             key={sidebar.id}
-            className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer'
+            className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 
+            cursor-pointer dark:hover:bg-[#414345]'
           >
             <img
               src={sidebar.img}
               alt={sidebar.title}
               className='w-8 h-8 rounded-full mr-2'
             />
-            <p className='text-gray-800 font-semibold'>{sidebar.title}</p>
+            <p className='text-gray-800 font-semibold dark:text-gray-200'>
+              {sidebar.title}
+            </p>
           </li>
         ))}
 
         {!isOpen && (
           <li
-            className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer'
+            className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer dark:hover:bg-[#414345]'
             onClick={() => setIsOpen(true)}
           >
             <div className=' flex w-8 h-8 bg-gray-300 rounded-full mr-2'>
@@ -55,7 +58,9 @@ function Sidebar() {
                 </g>
               </svg>
             </div>
-            <p className='text-gray-800 font-semibold'>Xem thêm</p>
+            <p className='text-gray-800 font-semibold dark:text-gray-200'>
+              Xem thêm
+            </p>
           </li>
         )}
 
@@ -63,20 +68,23 @@ function Sidebar() {
           SidebarMore.map((sidebar) => (
             <li
               key={sidebar.id}
-              className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer'
+              className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer dark:hover:bg-[#414345]'
             >
               <img
                 src={sidebar.img}
                 alt={sidebar.title}
                 className='w-8 h-8 rounded-full mr-2'
               />
-              <p className='text-gray-800 font-semibold'>{sidebar.title}</p>
+              <p className='text-gray-800 font-semibold dark:text-gray-200'>
+                {sidebar.title}
+              </p>
             </li>
           ))}
 
         {isOpen && (
           <li
-            className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 cursor-pointer'
+            className='flex items-center mb-1 px-2 py-1.5 rounded-md hover:bg-gray-200 
+            cursor-pointer dark:hover:bg-[#414345]'
             onClick={() => setIsOpen(false)}
           >
             <div className=' flex w-8 h-8 bg-gray-300 rounded-full mr-2'>
@@ -89,7 +97,9 @@ function Sidebar() {
                 <path d='M15.47 12.2 10 6.727 4.53 12.2a.75.75 0 0 1-1.06-1.061l6-6a.751.751 0 0 1 1.06 0l6 6a.75.75 0 0 1-1.06 1.061z'></path>
               </svg>
             </div>
-            <p className='text-gray-800 font-semibold'>Ẩn bớt</p>
+            <p className='text-gray-800 font-semibold dark:text-gray-200'>
+              Ẩn bớt
+            </p>
           </li>
         )}
       </ul>

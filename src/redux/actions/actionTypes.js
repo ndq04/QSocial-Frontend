@@ -20,6 +20,8 @@ export const ACTION_TYPES = {
   DELETE_USERPOST: 'DELETE_USERPOST',
   IMAGES: 'IMAGES',
   GET_IDS: 'GET_IDS',
+  SOCKET: 'SOCKET',
+  ADD_USER: 'ADD_USER',
 }
 
 export const EditData = (data, id, post) => {

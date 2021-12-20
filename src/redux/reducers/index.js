@@ -1,16 +1,18 @@
 import {combineReducers} from 'redux'
-import {alertReducer} from './alertReducer'
-import {authReducer} from './authReducer'
-import {detailPostReducer} from './detailPostReducer'
-import {postReducer} from './postReducer'
-import {profileReducer} from './profileReducer'
-import {statusReducer} from './statusReducer'
+import alert from './alertReducer'
+import auth from './authReducer'
+import detailPost from './detailPostReducer'
+import homePost from './postReducer'
+import profile from './profileReducer'
+import socket from './socketReducer'
+import status from './statusReducer'
 
 export default combineReducers({
-  auth: authReducer,
-  alert: alertReducer,
-  status: statusReducer,
-  profile: profileReducer,
-  homePost: postReducer,
-  detailPost: detailPostReducer,
+  auth,
+  alert,
+  status,
+  profile,
+  homePost,
+  detailPost,
+  socket,
 })

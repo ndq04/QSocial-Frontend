@@ -9,7 +9,7 @@ function FollowingsCard({user}) {
       <h3 className='text-xl font-bold flex items-center'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-6 w-6 sm:cursor-pointer'
+          className='h-6 w-6 sm:cursor-pointer dark:text-gray-300'
           viewBox='0 0 20 20'
           fill='currentColor'
           onClick={() => handleToggle('showAccount')}
@@ -20,7 +20,7 @@ function FollowingsCard({user}) {
             clipRule='evenodd'
           />
         </svg>
-        <span className='mx-2'>Đang theo dõi</span>
+        <span className='mx-2 dark:text-gray-300'>Đang theo dõi</span>
         <span className='text-red-500'>{user.length}</span>
       </h3>
       <div className='grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 xl:gap-4'>

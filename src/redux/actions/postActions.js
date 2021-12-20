@@ -8,9 +8,8 @@ import {imageupload} from '../../utils/imageupload'
 import {ACTION_TYPES} from './actionTypes'
 
 export const createPost =
-  ({content, images, auth}) =>
+  ({content, images, auth, socket}) =>
   async (dispatch) => {
-    // console.log({content, images, auth})
     let media = []
     try {
       dispatch({
@@ -25,10 +24,12 @@ export const createPost =
       }
       const res = await postDataApi(
         'posts',
-        {content, images: media, user: auth.user._id},
+        {content, images: media},
         auth.token
       )
-      // console.log(res)
+      console.log(res)
+      // notify
+
       dispatch({
         type: ACTION_TYPES.CREATE_POST,
         payload: {...res.data.newPost, user: auth.user},
@@ -37,6 +38,15 @@ export const createPost =
         type: ACTION_TYPES.CREATE_USERPOST,
         payload: {...res.data.newPost, user: auth.user},
       })
+      // const msg = {
+      //   id: res.data.newPost._id,
+      //   text: 'Thêm bài viết mới',
+      //   url: `/post/${res.data.newPost._id}`,
+      //   recipients: res.data.newPost.user.friends,
+      //   content,
+      //   image: media[0].secure_url,
+      // }
+      // dispatch(createNotify({msg, auth, socket}))
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
@@ -137,7 +147,7 @@ export const getUserPost =
   }
 
 export const updatePost =
-  ({content, images, auth, status}) =>
+  ({content, images, auth, status, socket}) =>
   async (dispatch) => {
     let media = []
     const newImageUrl = images.filter((image) => !image.secure_url)
@@ -257,7 +267,7 @@ export const unsavedPost =
   }
 
 export const likepost =
-  ({pos, auth}) =>
+  ({pos, auth, socket}) =>
   async (dispatch) => {
     const newPost = {...pos, likes: [...pos.likes, auth.user]}
 
@@ -270,15 +280,9 @@ export const likepost =
       type: ACTION_TYPES.UPDATE_POST,
       payload: newPost,
     })
-
     try {
       await patchDataApi(`post/${pos._id}/like`, null, auth.token)
-      // dispatch({
-      //   type: ACTION_TYPES.ALERT,
-      //   payload: {
-      //     success: res.data.message,
-      //   },
-      // })
+      socket.emit('likePost', newPost)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -290,7 +294,7 @@ export const likepost =
   }
 
 export const unlikepost =
-  ({pos, auth}) =>
+  ({pos, auth, socket}) =>
   async (dispatch) => {
     const newPost = {
       ...pos,
@@ -306,15 +310,9 @@ export const unlikepost =
       type: ACTION_TYPES.UPDATE_POST,
       payload: newPost,
     })
-
     try {
       await patchDataApi(`post/${pos._id}/unlike`, null, auth.token)
-      // dispatch({
-      //   type: ACTION_TYPES.ALERT,
-      //   payload: {
-      //     success: res.data.message,
-      //   },
-      // })
+      socket.emit('unlikePost', newPost)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

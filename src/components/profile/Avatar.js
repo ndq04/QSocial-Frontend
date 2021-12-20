@@ -5,17 +5,17 @@ function Avatar({user, auth, setOnEditAvatar}) {
         src={user.avatar}
         alt='img'
         className='w-[90%] h-[90%] m-auto object-cover rounded-full border-4
-      border-white'
+      border-white dark:border-[#242526]'
       />
       {auth.user._id === user._id && (
         <div
           className='absolute right-[5%] bottom-[15%] flex cursor-pointer
-          w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400'
+          w-10 h-10 rounded-full bg-gray-300 hover:bg-gray-400 dark:bg-[#3a3b3c]'
           onClick={() => setOnEditAvatar(true)}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6 m-auto'
+            className='h-6 w-6 m-auto dark:text-gray-200'
             viewBox='0 0 20 20'
             fill='currentColor'
           >

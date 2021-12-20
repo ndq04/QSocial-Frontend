@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Route, Switch} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
+import io from 'socket.io-client'
 import Alert from './components/Alert'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -9,16 +10,25 @@ import Messages from './pages/Messages'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
 import SinglePost from './pages/SinglePost'
+import {ACTION_TYPES} from './redux/actions/actionTypes'
 import {refreshToken} from './redux/actions/authActions'
 import {getPost} from './redux/actions/postActions'
+import SocketioClient from './SocketioClient'
 import PriviteRouter from './utils/PriviteRouter'
 
 function App() {
   const {auth} = useSelector((state) => state)
   const dispatch = useDispatch()
+  const login = localStorage.getItem('login')
 
   useEffect(() => {
     dispatch(refreshToken())
+    const socket = io()
+    dispatch({
+      type: ACTION_TYPES.SOCKET,
+      payload: socket,
+    })
+    return () => socket.close()
   }, [dispatch])
 
   useEffect(() => {
@@ -29,6 +39,7 @@ function App() {
     <>
       <Alert />
       {auth.token && <Navbar />}
+      {auth.token && <SocketioClient />}
       <Switch>
         <Route exact path='/register'>
           <Register />
@@ -43,10 +54,10 @@ function App() {
           <Messages />
         </PriviteRouter>
         <Route exact path='/post/:id'>
-          <SinglePost />
+          {login ? <SinglePost /> : <Redirect to='/' />}
         </Route>
         <Route exact path='/profile/:id'>
-          <Profile />
+          {login ? <Profile /> : <Redirect to='/' />}
         </Route>
       </Switch>
     </>

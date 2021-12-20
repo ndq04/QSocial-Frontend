@@ -15,13 +15,13 @@ function PostCommentItem({comment, pos}) {
   const [content, setContent] = useState('')
   const [readMore, setReadMore] = useState(false)
   const [isLike, setIsLike] = useState(false)
-  const [load, setLoad] = useState(false)
+  // const [load, setLoad] = useState(false)
   const [onEdit, setOnEdit] = useState(false)
   const [showPicker, setShowPicker] = useState(false)
 
   const {auth} = useSelector((state) => state)
   const dispatch = useDispatch()
-
+  // console.log(pos)
   const onEmojiClick = (e, emojiObject) => {
     setContent((prevInput) => prevInput + emojiObject.emoji)
     // setShowPicker(false)
@@ -34,18 +34,18 @@ function PostCommentItem({comment, pos}) {
   }, [comment.content, comment.likes, auth.user._id])
 
   const handleLike = () => {
-    if (load) return
+    // if (load) return
     setIsLike(true)
-    setLoad(true)
+    // setLoad(true)
     dispatch(likeComment({comment, pos, auth}))
-    setLoad(false)
+    // setLoad(false)
   }
   const handleUnLike = () => {
-    if (load) return
+    // if (load) return
     setIsLike(false)
-    setLoad(true)
+    // setLoad(true)
     dispatch(unLikeComment({comment, pos, auth}))
-    setLoad(false)
+    // setLoad(false)
   }
 
   const likeData = {isLike, handleLike, handleUnLike}
@@ -78,11 +78,11 @@ function PostCommentItem({comment, pos}) {
           <div
             className={`px-3 pt-2 pb-3 relative ${
               onEdit
-                ? 'flex-1 rounded-xl bg-green-500 h-[200px]'
-                : 'rounded-3xl bg-[#f0f2f5]'
+                ? 'flex-1 rounded-xl bg-green-500 h-[200px] dark:bg-[#3a3b3c]'
+                : 'rounded-3xl bg-[#f0f2f5] dark:bg-[#3a3b3c]'
             }`}
           >
-            <div className='font-semibold text-sm text-gray-800 hover:underline'>
+            <div className='font-semibold text-sm text-gray-800 hover:underline dark:text-gray-300'>
               <Link
                 to={`/profile/${comment.user._id}`}
                 className={`${onEdit && 'text-white'}`}
@@ -138,7 +138,7 @@ function PostCommentItem({comment, pos}) {
               )}
             </div>
           </div>
-          {comment.likes.length > 0 && !onEdit && (
+          {comment.likes.length > 0 && !onEdit ? (
             <div
               className='flex items-center right-[-5%] bottom-[-10%] p-1 
             bg-white rounded-full shadow-lg flex-shrink-0 ml-1'
@@ -152,6 +152,8 @@ function PostCommentItem({comment, pos}) {
                 {comment.likes.length}
               </span>
             </div>
+          ) : (
+            ''
           )}
           {comment.user._id === auth.user._id && !onEdit && (
             <CommentMenu {...commentData} />

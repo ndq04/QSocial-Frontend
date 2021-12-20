@@ -11,7 +11,7 @@ function StatusModal() {
   const {toggleStatusModal} = useContext(StatusContext)
   const [showPicker, setShowPicker] = useState(false)
 
-  const {auth, status} = useSelector((state) => state)
+  const {auth, status, socket} = useSelector((state) => state)
   const dispatch = useDispatch()
 
   const onEmojiClick = (e, emojiObject) => {
@@ -73,7 +73,7 @@ function StatusModal() {
 
   const handleSubmit = () => {
     if (status.edit) {
-      dispatch(updatePost({content, images, auth, status}))
+      dispatch(updatePost({content, images, auth, status, socket}))
       dispatch({
         type: ACTION_TYPES.STATUS,
         payload: {
@@ -82,7 +82,7 @@ function StatusModal() {
       })
       toggleStatusModal()
     } else {
-      dispatch(createPost({content, images, auth}))
+      dispatch(createPost({content, images, auth, socket}))
       toggleStatusModal()
     }
   }
@@ -90,21 +90,21 @@ function StatusModal() {
   return (
     <div className='select-none'>
       <div
-        className='modal fixed inset-0 bg-gray-200 opacity-70 z-10'
+        className='modal fixed inset-0 bg-gray-200 opacity-70 dark:bg-gray-700 dark:opacity-80 z-30'
         onClick={() => setShowPicker(false)}
       ></div>
       <div
         className={`inner w-full sm:w-[500px] bg-white shadow-lg absolute top-1/2 -translate-y-1/2 
-        -translate-x-1/2 left-1/2 z-10 rounded-lg flex flex-col p-4 ${
+        -translate-x-1/2 left-1/2 z-30 rounded-lg flex flex-col p-4 dark:bg-[#252627] ${
           images.length > 0 ? 'max-h-[70%] sm:max-h-[80%]' : 'h-[60%]'
         }`}
       >
         <div
           className='modal-head flex items-center justify-center h-[10%] 
-          relative pb-4 border-b border-gray-300'
+          relative pb-4 border-b border-gray-300 dark:border-gray-600'
           onClick={() => setShowPicker(false)}
         >
-          <h3 className='font-bold text-xl'>
+          <h3 className='font-bold text-xl dark:text-gray-300'>
             {status.edit ? 'Cập nhật bài viết' : 'Tạo bài viết'}
           </h3>
           <div
@@ -143,7 +143,7 @@ function StatusModal() {
               alt='avatar'
               className='w-10 h-10 object-cover rounded-full mr-2'
             />
-            <p className='text-gray-800 font-semibold'>
+            <p className='text-gray-800 font-semibold dark:text-gray-300'>
               {auth.user.firstname} {auth.user.lastname}
             </p>
           </div>
@@ -173,11 +173,11 @@ function StatusModal() {
         </div>
 
         <div
-          className='modal-text overflow-y-scroll h-[60%] mb-auto'
+          className='modal-text overflow-y-scroll h-[60%] mb-auto dark:rounded-md dark:overflow-hidden'
           onClick={() => setShowPicker(false)}
         >
           <textarea
-            className={`w-full outline-none resize-none bg-white text-2xl ${
+            className={`w-full outline-none resize-none bg-white text-2xl dark:p-3 ${
               images.length > 0 ? 'h-[110px] text-base mb-3' : 'h-full'
             }`}
             placeholder={`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}
@@ -228,7 +228,7 @@ function StatusModal() {
 
         <div
           className='modal-option flex items-center border border-gray-400 rounded-lg 
-          pl-3 py-1 my-3 sm:my-4 bg-white h-[10%]'
+          pl-3 py-1 my-3 sm:my-4 bg-white h-[15%]'
           onClick={() => setShowPicker(false)}
         >
           <p className='font-semibold text-gray-600'>Thêm ảnh</p>

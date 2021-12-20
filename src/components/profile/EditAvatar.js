@@ -29,24 +29,26 @@ function EditAvatar({setOnEditAvatar}) {
 
   return (
     <div className='select-none'>
-      <div className='modal fixed inset-0 bg-gray-500 opacity-50 z-20'></div>
+      <div className='modal fixed inset-0 bg-gray-500 opacity-50 dark:bg-gray-700 dark:opacity-80 z-30'></div>
       <div
         className='inner w-full lg:w-[40%] sm:w-[70%] bg-[#f0f2f5] h-[70%] sm:h-[90%] shadow-lg absolute top-[50%] -translate-y-1/2 
-          -translate-x-1/2 left-1/2 z-30 rounded-lg flex flex-col px-4 pt-4'
+          -translate-x-1/2 left-1/2 z-30 rounded-lg flex flex-col px-4 pt-4 dark:bg-[#252627]'
       >
         <div
           className='modal-head flex items-center 
             justify-between h-[10%] mb-4'
         >
-          <h3 className='font-bold text-xl'>Cập nhật ảnh đại diện</h3>
+          <h3 className='font-bold text-xl dark:text-gray-300'>
+            Cập nhật ảnh đại diện
+          </h3>
           <div
             className='cursor-pointer w-9 h-9 
-            bg-gray-200 hover:bg-gray-300 rounded-full flex'
+            bg-gray-200 hover:bg-gray-300 rounded-full flex dark:bg-[#464747] dark:hover:bg-[#666768]'
             onClick={() => setOnEditAvatar(false)}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 m-auto text-gray-500'
+              className='h-6 w-6 m-auto text-gray-500 dark:text-gray-300'
               fill='none'
               viewBox='0 0 24 24'
               stroke='currentColor'

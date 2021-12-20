@@ -61,10 +61,11 @@ function Profile() {
   ])
 
   const data = {userData, profile, auth, id, userPosts}
+
   return (
     userData && (
       <>
-        <div className='bg-[#f0f2f5] select-none pt-[60px]'>
+        <div className='bg-[#f0f2f5] select-none pt-[60px] dark:bg-[#18191a]'>
           <div className='profile h-[calc(100vh-60px)] overflow-y-scroll'>
             <Info {...data} />
             {showAccount && <ProfileBody {...data} photos={photos} />}

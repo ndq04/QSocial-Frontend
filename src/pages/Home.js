@@ -12,7 +12,9 @@ function Home() {
   return (
     <>
       <div
-        className='grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 sm:gap-5 bg-[#f0f2f5] select-none sm:px-2 pt-[45px] sm:pt-[60px]'
+        className='grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5 bg-[#f0f2f5] 
+        select-none sm:px-10 lg:px-5 h-[calc(100vh-45px)] sm:h-[calc(100vh-60px)] 
+        mt-[45px] sm:mt-[60px] dark:bg-[#18191a]'
         onClick={handleClose}
       >
         <Sidebar />

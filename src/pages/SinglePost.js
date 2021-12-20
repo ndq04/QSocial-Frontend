@@ -21,11 +21,11 @@ function SinglePost() {
   }, [dispatch, auth, id, detailPost])
 
   return (
-    <div className='pt-[60px] bg-[#f0f2f5] min-h-screen'>
+    <div className='pt-[60px] bg-[#f0f2f5] min-h-screen dark:bg-[#18191a]'>
       <div className='max-w-[590px] m-auto'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-6 w-6 sm:cursor-pointer my-4'
+          className='h-6 w-6 sm:cursor-pointer my-4 dark:text-gray-300'
           viewBox='0 0 20 20'
           fill='currentColor'
           onClick={() => history.goBack()}

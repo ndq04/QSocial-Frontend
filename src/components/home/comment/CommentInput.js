@@ -1,13 +1,13 @@
-import {useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
 import Picker from 'emoji-picker-react'
+import {useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {createComment} from '../../../redux/actions/commentActions'
 
 function InputPostComment({pos}) {
   const [content, setContent] = useState('')
   const [showPicker, setShowPicker] = useState(false)
 
-  const {auth} = useSelector((state) => state)
+  const {auth, socket} = useSelector((state) => state)
   const dispatch = useDispatch()
 
   const onEmojiClick = (e, emojiObject) => {
@@ -23,7 +23,7 @@ function InputPostComment({pos}) {
       user: auth.user,
       createdAt: new Date().toISOString(),
     }
-    dispatch(createComment({pos, comment: newComment, auth}))
+    dispatch(createComment({pos, comment: newComment, auth, socket}))
     setContent('')
   }
   return (
@@ -35,7 +35,7 @@ function InputPostComment({pos}) {
         onClick={() => setShowPicker(false)}
       />
       <form
-        className='flex-1 bg-[#f0f2f5] flex items-center px-4 rounded-full shadow-sm h-9 relative z-20'
+        className='flex-1 bg-[#f0f2f5] flex items-center px-4 rounded-full shadow-sm h-9 relative z-20 dark:bg-[#3a3b3c]'
         onSubmit={handleSubmit}
       >
         <input
@@ -43,7 +43,7 @@ function InputPostComment({pos}) {
           placeholder='Viết bình luận...'
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className='w-full outline-none border-none m-auto bg-transparent mr-3'
+          className='w-full outline-none border-none m-auto bg-transparent mr-3 dark:text-gray-300'
           onClick={() => setShowPicker(false)}
         />
         <svg

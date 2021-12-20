@@ -21,7 +21,7 @@ function Info(data) {
     userData.map((user) => (
       <div
         key={user._id}
-        className='profileinfo h-[60vh] bg-white sm:shadow-sm sm:border-b-2 border-b-[1px]'
+        className='profileinfo h-[70vh] bg-white sm:shadow-sm sm:border-b-2 border-b-[1px] dark:bg-[#282928] dark:border-b-0'
       >
         <div className='relative sm:max-w-6xl h-[70%] sm:h-[80%] mt-[1px] sm:mt-0 mx-auto p-3 sm:p-0'>
           <img
@@ -45,7 +45,7 @@ function Info(data) {
             <>
               <div className='absolute hidden  left-0 lg:left-[5%] lg:flex items-center'>
                 <p className='mr-3'>
-                  <span className='mr-1 font-semibold text-gray-600'>
+                  <span className='mr-1 font-semibold text-gray-600 dark:text-gray-200'>
                     Người theo dõi
                   </span>
                   <span className='font-semibold text-lg'>
@@ -53,7 +53,7 @@ function Info(data) {
                   </span>
                 </p>
                 <p className='mr-3'>
-                  <span className='mr-1 font-semibold text-gray-600'>
+                  <span className='mr-1 font-semibold text-gray-600 dark:text-gray-200'>
                     Đang theo dõi
                   </span>
                   <span className='font-semibold text-lg'>
@@ -66,9 +66,11 @@ function Info(data) {
 
               <div
                 className='absolute left-[5%] lg:left-[31%] sm:cursor-pointer flex 
-                items-center font-semibold text-gray-600'
+                items-center font-semibold'
               >
-                <span className='hidden sm:block'>Đã lưu</span>
+                <span className='hidden sm:block text-gray-600 dark:text-gray-200'>
+                  Đã lưu
+                </span>
                 <img
                   src='https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png'
                   alt='saved'
@@ -78,7 +80,7 @@ function Info(data) {
               </div>
             </>
           )}
-          <h3 className='text-[32px] font-bold'>
+          <h3 className='text-[32px] font-bold dark:text-gray-200'>
             {user.firstname} {user.lastname}
           </h3>
         </div>
