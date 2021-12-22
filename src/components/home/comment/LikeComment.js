@@ -9,7 +9,7 @@ function LikeComment({likeData}) {
     </small>
   ) : (
     <small
-      className='hover:underline cursor-pointer font-bold text-gray-500 pl-3 pr-2'
+      className='hover:underline cursor-pointer font-bold text-gray-500 pl-3 pr-2 dark:text-gray-400'
       onClick={handleLike}
     >
       Thích

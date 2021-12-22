@@ -16,8 +16,11 @@ function SocketioClient() {
         type: ACTION_TYPES.UPDATE_POST,
         payload: newPost,
       })
+      dispatch({
+        type: ACTION_TYPES.UPDATE_USERPOST,
+        payload: newPost,
+      })
     })
-
     return () => socket.off('likeToClient')
   }, [dispatch, socket])
 
@@ -25,6 +28,10 @@ function SocketioClient() {
     socket.on('unlikeToClient', (newPost) => {
       dispatch({
         type: ACTION_TYPES.UPDATE_POST,
+        payload: newPost,
+      })
+      dispatch({
+        type: ACTION_TYPES.UPDATE_USERPOST,
         payload: newPost,
       })
     })
@@ -37,6 +44,10 @@ function SocketioClient() {
         type: ACTION_TYPES.UPDATE_POST,
         payload: newPost,
       })
+      dispatch({
+        type: ACTION_TYPES.UPDATE_USERPOST,
+        payload: newPost,
+      })
     })
     return () => socket.off('createCommentToClient')
   }, [dispatch, socket])
@@ -45,6 +56,10 @@ function SocketioClient() {
     socket.on('deleteCommentToClient', (newPost) => {
       dispatch({
         type: ACTION_TYPES.UPDATE_POST,
+        payload: newPost,
+      })
+      dispatch({
+        type: ACTION_TYPES.UPDATE_USERPOST,
         payload: newPost,
       })
     })

@@ -27,7 +27,7 @@ function StatusModal() {
 
   const uploadImages = (e) => {
     const files = [...e.target.files]
-    let err
+    let err = ''
     let imagesArr = []
     files.forEach((file) => {
       if (!file) return (err = 'Không tìm thấy tệp')

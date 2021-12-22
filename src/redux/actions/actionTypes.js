@@ -22,6 +22,7 @@ export const ACTION_TYPES = {
   GET_IDS: 'GET_IDS',
   SOCKET: 'SOCKET',
   ADD_USER: 'ADD_USER',
+  ADD_MESSAGE: 'ADD_MESSAGE',
 }
 
 export const EditData = (data, id, post) => {

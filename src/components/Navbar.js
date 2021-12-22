@@ -341,7 +341,7 @@ function Navbar() {
               </svg>
               {isOpen && (
                 <div
-                  className='absolute right-0 top-[120%] w-[350px] border-t-2 
+                  className='absolute right-0 top-[120%] w-[350px] border-t-2
                 bg-white rounded-lg shadow-md drop-shadow-lg p-2 dark:bg-[#242526] dark:border dark:border-gray-700'
                 >
                   <ul>

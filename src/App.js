@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import io from 'socket.io-client'
 import Alert from './components/Alert'
+import Conversation from './components/messages/Conversation'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -55,6 +56,9 @@ function App() {
         </PriviteRouter>
         <Route exact path='/post/:id'>
           {login ? <SinglePost /> : <Redirect to='/' />}
+        </Route>
+        <Route exact path='/message/:id'>
+          {login ? <Conversation /> : <Redirect to='/' />}
         </Route>
         <Route exact path='/profile/:id'>
           {login ? <Profile /> : <Redirect to='/' />}

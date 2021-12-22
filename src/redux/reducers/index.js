@@ -2,6 +2,7 @@ import {combineReducers} from 'redux'
 import alert from './alertReducer'
 import auth from './authReducer'
 import detailPost from './detailPostReducer'
+import message from './messageReducer'
 import homePost from './postReducer'
 import profile from './profileReducer'
 import socket from './socketReducer'
@@ -15,4 +16,5 @@ export default combineReducers({
   homePost,
   detailPost,
   socket,
+  message,
 })

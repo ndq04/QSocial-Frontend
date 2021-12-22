@@ -127,12 +127,15 @@
 /* ============================================================================================================================================= */
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
   display: none;
 }
 
 .sidebar:hover::-webkit-scrollbar,
 .rightbar:hover::-webkit-scrollbar {
+  display: block;
+}
+.leftSideMessage:hover::-webkit-scrollbar {
   display: block;
 }
 

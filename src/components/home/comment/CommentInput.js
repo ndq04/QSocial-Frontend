@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {createComment} from '../../../redux/actions/commentActions'
 
-function InputPostComment({pos}) {
+function CommentInput({pos, children, comment, onReply, setOnReply}) {
   const [content, setContent] = useState('')
   const [showPicker, setShowPicker] = useState(false)
 
@@ -16,14 +16,21 @@ function InputPostComment({pos}) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!content.trim()) return
+    if (!content.trim()) {
+      if (onReply) return setOnReply(false)
+      return
+    }
     const newComment = {
       content,
       likes: [],
       user: auth.user,
       createdAt: new Date().toISOString(),
+      reply: onReply && onReply.commentId,
+      tag: onReply && onReply.user,
     }
+    console.log({newComment})
     dispatch(createComment({pos, comment: newComment, auth, socket}))
+    if (onReply) return setOnReply(false)
     setContent('')
   }
   return (
@@ -31,11 +38,12 @@ function InputPostComment({pos}) {
       <img
         src={auth.user.avatar}
         alt='avatar'
-        className='w-9 h-9 rounded-full object-cover flex-shrink-0 mr-3'
+        className='w-9 h-9 rounded-full object-cover flex-shrink-0 mr-2'
         onClick={() => setShowPicker(false)}
       />
+      {children}
       <form
-        className='flex-1 bg-[#f0f2f5] flex items-center px-4 rounded-full shadow-sm h-9 relative z-20 dark:bg-[#3a3b3c]'
+        className='flex-1 bg-[#f0f2f5] flex items-center px-4 rounded-full shadow-sm h-9 relative z-10 dark:bg-[#3a3b3c]'
         onSubmit={handleSubmit}
       >
         <input
@@ -69,4 +77,4 @@ function InputPostComment({pos}) {
   )
 }
 
-export default InputPostComment
+export default CommentInput

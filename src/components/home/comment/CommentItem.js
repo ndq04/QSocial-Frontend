@@ -8,20 +8,21 @@ import {
   unLikeComment,
   updateComment,
 } from '../../../redux/actions/commentActions'
+import CommentInput from './CommentInput'
 import CommentMenu from './CommentMenu'
 import LikeComment from './LikeComment'
 
-function PostCommentItem({comment, pos}) {
+function PostCommentItem({comment, pos, commentId, children}) {
   const [content, setContent] = useState('')
   const [readMore, setReadMore] = useState(false)
   const [isLike, setIsLike] = useState(false)
   // const [load, setLoad] = useState(false)
   const [onEdit, setOnEdit] = useState(false)
+  const [onReply, setOnReply] = useState(false)
   const [showPicker, setShowPicker] = useState(false)
 
   const {auth} = useSelector((state) => state)
   const dispatch = useDispatch()
-  // console.log(pos)
   const onEmojiClick = (e, emojiObject) => {
     setContent((prevInput) => prevInput + emojiObject.emoji)
     // setShowPicker(false)
@@ -46,6 +47,11 @@ function PostCommentItem({comment, pos}) {
     // setLoad(true)
     dispatch(unLikeComment({comment, pos, auth}))
     // setLoad(false)
+  }
+
+  const handleReply = () => {
+    if (onReply) return setOnReply(false)
+    setOnReply({...comment, commentId})
   }
 
   const likeData = {isLike, handleLike, handleUnLike}
@@ -120,20 +126,33 @@ function PostCommentItem({comment, pos}) {
                 </div>
               ) : (
                 <>
-                  {content.length < 150
-                    ? content
-                    : readMore
-                    ? content
-                    : content.slice(0, 150)}
+                  <p className='dark:text-gray-300'>
+                    {comment?.tag && comment.tag._id !== comment.user._id && (
+                      <Link
+                        to={`/profile/${comment.tag._id}`}
+                        className='sm:hover:border-b-2 sm:hover:border-blue-400 sm:dark:hover:border-blue-500'
+                      >
+                        <span className='text-sm font-semibold text-blue-500'>
+                          @{comment.tag.firstname}
+                          {comment.tag.lastname}{' '}
+                        </span>
+                      </Link>
+                    )}
+                    {content.length < 150
+                      ? content
+                      : readMore
+                      ? content
+                      : content.slice(0, 150)}
 
-                  {content.length > 150 && (
-                    <span
-                      className='font-semibold cursor-pointer hover:underline'
-                      onClick={() => setReadMore(!readMore)}
-                    >
-                      {readMore ? ' Ẩn bớt' : '... Xem thêm'}
-                    </span>
-                  )}
+                    {content.length > 150 && (
+                      <span
+                        className='font-semibold cursor-pointer hover:underline dark:text-gray-400'
+                        onClick={() => setReadMore(!readMore)}
+                      >
+                        {readMore ? ' Ẩn bớt' : '... Xem thêm'}
+                      </span>
+                    )}
+                  </p>
                 </>
               )}
             </div>
@@ -164,13 +183,13 @@ function PostCommentItem({comment, pos}) {
           {onEdit ? (
             <>
               <small
-                className='hover:underline cursor-pointer font-bold text-gray-500 hover:text-green-600 pr-2'
+                className='sm:hover:underline sm:cursor-pointer font-bold text-gray-500 sm:hover:text-green-600 pr-2 dark:text-gray-400 sm:dark:hover:text-green-500'
                 onClick={handleUpdateComment}
               >
                 Cập nhật
               </small>
               <small
-                className='hover:underline cursor-pointer font-bold text-gray-500 hover:text-red-500 pr-2'
+                className='sm:hover:underline sm:cursor-pointer font-bold text-gray-500 sm:hover:text-red-500 pr-2 dark:text-gray-400 sm:dark:hover:text-red-400'
                 onClick={() => setOnEdit(false)}
               >
                 Hủy bỏ
@@ -179,14 +198,34 @@ function PostCommentItem({comment, pos}) {
           ) : (
             <>
               <LikeComment likeData={likeData} />
-              <small className='hover:underline cursor-pointer font-bold text-gray-500 pr-2'>
-                Phản hồi
+              <small
+                className='sm:hover:underline sm:cursor-pointer font-bold text-gray-500 pr-2 dark:text-gray-400'
+                onClick={handleReply}
+              >
+                {onReply ? 'Hủy bỏ' : 'Phản hồi'}
               </small>
-              <small className='text-gray-600'>
+              <small className='text-gray-600 dark:text-gray-500'>
                 {moment(comment.createdAt).fromNow()}
               </small>
             </>
           )}
+          {onReply && (
+            <CommentInput
+              pos={pos}
+              comment={comment}
+              onReply={onReply}
+              setOnReply={setOnReply}
+            >
+              <Link
+                to={`/profile/${onReply.user._id}`}
+                className='mr-2 text-sm font-semibold dark:text-gray-300'
+              >
+                @{onReply.user.firstname}
+                {onReply.user.lastname}
+              </Link>
+            </CommentInput>
+          )}
+          <div className='m-1'>{children}</div>
         </div>
       </div>
     </div>

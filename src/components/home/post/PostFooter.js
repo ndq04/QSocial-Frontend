@@ -26,6 +26,8 @@ function PostFooter({pos, setShowComment}) {
   useEffect(() => {
     if (auth.user.saved.find((id) => id === pos._id)) {
       setSaved(true)
+    } else {
+      setSaved(false)
     }
   }, [auth.user.saved, pos._id])
 
