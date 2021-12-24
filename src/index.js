@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import {BrowserRouter as Router} from 'react-router-dom'
 import App from './App'
 import AccountContextProvider from './contexts/AccountContext'
+import NotifyContextProvider from './contexts/NotifyContext'
 import ProfileContextProvider from './contexts/ProfileContext'
 import StatusContextProvider from './contexts/StatusContext'
 import './index.css'
@@ -14,9 +15,11 @@ ReactDOM.render(
       <ProfileContextProvider>
         <StatusContextProvider>
           <AccountContextProvider>
-            <Router>
-              <App />
-            </Router>
+            <NotifyContextProvider>
+              <Router>
+                <App />
+              </Router>
+            </NotifyContextProvider>
           </AccountContextProvider>
         </StatusContextProvider>
       </ProfileContextProvider>

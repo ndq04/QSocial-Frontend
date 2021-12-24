@@ -11,47 +11,46 @@ function LeftSideMessage() {
   const [searchUsers, setSearchUsers] = useState([])
   const {auth, message} = useSelector((state) => state)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (message.firstLoad) return
-    dispatch(getConversations(auth))
-  }, [dispatch, auth, message.firstLoad])
-
   const history = useHistory()
 
   const handleCloseSearch = () => {
     setSearch('')
     setSearchUsers([])
   }
+
+  useEffect(() => {
+    if (message.firstLoad) return
+    dispatch(getConversations(auth))
+  }, [dispatch, auth, message.firstLoad])
+
   useEffect(() => {
     if (!search) {
       handleCloseSearch()
     }
   }, [search])
 
-  const handleSearch = () => {
+  const handleSearch = async (e) => {
+    e.preventDefault()
     if (!search) {
       handleCloseSearch()
     }
     if (search && auth.token) {
-      getDataApi(`search?username=${search}`, auth.token)
-        .then((res) => {
-          setSearchUsers(res.data.users)
+      try {
+        const res = await getDataApi(`search?username=${search}`, auth.token)
+        setSearchUsers(res.data.users)
+      } catch (error) {
+        dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            error: error.response.data.message,
+          },
         })
-        .catch((error) => {
-          dispatch({
-            type: ACTION_TYPES.ALERT,
-            payload: {
-              error: error.response.data.message,
-            },
-          })
-        })
+      }
     }
   }
 
   const handleAddChat = (user) => {
-    setSearch('')
-    setSearchUsers([])
+    handleCloseSearch()
     dispatch(AddUser({user, message}))
     history.push(`/message/${user._id}`)
   }
@@ -90,13 +89,13 @@ function LeftSideMessage() {
           </div>
         </div>
       </div>
-      <div className='leftSideMessage max-h-full overflow-y-scroll px-2'>
+      <div className='leftSideMessage max-h-full overflow-y-scroll pl-2'>
         {searchUsers.length !== 0 ? (
           <>
             {searchUsers.map((user, i) => (
               <div
                 key={i}
-                className='cursor-pointer'
+                className='md:cursor-pointer'
                 onClick={() => handleAddChat(user)}
               >
                 <UserCardMessage user={user} />
@@ -109,7 +108,7 @@ function LeftSideMessage() {
               message.users?.map((user, i) => (
                 <div
                   key={i}
-                  className='cursor-pointer'
+                  className='md:cursor-pointer'
                   onClick={() => handleAddChat(user)}
                 >
                   <UserCardMessage user={user} />

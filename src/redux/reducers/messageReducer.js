@@ -5,6 +5,7 @@ const initialState = {
   data: [],
   loading: false,
   resultUsers: 0,
+  resultData: 0,
   page: 0,
   firstLoad: false,
 }
@@ -17,7 +18,7 @@ const messageReducer = (state = initialState, action) => {
         ...state,
         users: [...state.users, payload],
       }
-    case ACTION_TYPES.ADD_MESSAGE:
+    case ACTION_TYPES.ADD_MESSENGER:
       return {
         ...state,
         data: [...state.data, payload],
@@ -26,6 +27,21 @@ const messageReducer = (state = initialState, action) => {
             ? {...user, text: payload.text, media: payload.media}
             : user
         ),
+      }
+    case ACTION_TYPES.GET_CONVERSATION:
+      return {
+        ...state,
+
+        users: payload.newArr,
+        resultUsers: payload.result,
+        firstLoad: true,
+      }
+    case ACTION_TYPES.GET_MESSENGER:
+      return {
+        ...state,
+
+        data: payload.message,
+        resultData: payload.result,
       }
     default:
       return state

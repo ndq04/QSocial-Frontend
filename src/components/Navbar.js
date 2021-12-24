@@ -1,10 +1,13 @@
+import moment from 'moment'
 import {useContext, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import {AccountContext} from '../contexts/AccountContext'
 import useDarkMode from '../hooks/useDarkMode'
 import {ACTION_TYPES} from '../redux/actions/actionTypes'
 import {logout} from '../redux/actions/authActions'
+import {deleteAllNotifies, readNotify} from '../redux/actions/notifyActions'
+import {NotifyContext} from './../contexts/NotifyContext'
 import {getDataApi} from './../utils/fetchDataApi'
 import UserCard from './UserCard'
 
@@ -13,12 +16,16 @@ function Navbar() {
   const [search, setSearch] = useState('')
   const [searchUsers, setSearchUsers] = useState([])
   const [load, setLoad] = useState(false)
+  const {pathname} = useLocation()
 
   const {isOpen, handleToggle, handleClose} = useContext(AccountContext)
+  const {showNotify, handleToggleNotify, handleCloseNotify} =
+    useContext(NotifyContext)
+
   const [showInput, setShowInput] = useState(false)
 
   const dispatch = useDispatch()
-  const {auth} = useSelector((state) => state)
+  const {auth, notify} = useSelector((state) => state)
 
   const handleCloseSearch = () => {
     setSearch('')
@@ -56,12 +63,33 @@ function Navbar() {
     }
   }
 
+  const isReadNotify = (nt) => {
+    dispatch(readNotify({nt, auth}))
+  }
+
+  const handleDeleteAll = () => {
+    const newArr = notify.data.filter((item) => item.isRead === false)
+    if (newArr.length === 0) {
+      dispatch(deleteAllNotifies(auth))
+    }
+    if (
+      window.confirm(
+        `Bạn có ${newArr.length} thông báo chưa đọc. Bạn có muốn tiếp tục ?`
+      )
+    ) {
+      dispatch(deleteAllNotifies(auth))
+    }
+  }
+
   return (
     <nav
-      className='bg-white sm:shadow-md w-full h-[60px] px-4 sm:grid grid-cols-2 
+      className='bg-white shadow-md w-full h-[60px] px-4 sm:grid grid-cols-2 
       lg:grid-cols-3 xl:grid-cols-4 fixed select-none z-20 flex flex-col top-0 
-      dark:bg-[#242526] dark:border-b-[1px] border-gray-900'
-      onClick={handleClose}
+      dark:bg-[#242526] dark:border-b-[1px] border-gray-600'
+      onClick={() => {
+        handleClose()
+        handleCloseNotify()
+      }}
     >
       <div
         className='nav-left w-full flex items-center relative 
@@ -283,14 +311,15 @@ function Navbar() {
         </div>
 
         <div className='items-center justify-end hidden sm:flex'>
-          <div
-            className='message ml-5 bg-[#e4e6eb] rounded-full 
-            hover:bg-gray-300 sm:cursor-pointer p-0.5 dark:bg-[#3a3b3c] dark:hover:bg-[#6a6b6c]'
-          >
-            <Link to='/message' className='flex w-10 h-10'>
+          {/* Messenger */}
+          <Link to='/message' className='flex'>
+            <div
+              className='message ml-4 bg-[#e4e6eb] rounded-full 
+            hover:bg-gray-300 sm:cursor-pointer p-[9px] dark:bg-[#3a3b3c] dark:hover:bg-[#6a6b6c]'
+            >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-6 w-6 m-auto dark:text-gray-200'
+                className='h-5 w-5 m-auto dark:text-gray-200'
                 viewBox='0 0 20 20'
                 fill='currentColor'
               >
@@ -300,34 +329,191 @@ function Navbar() {
                   clipRule='evenodd'
                 />
               </svg>
-            </Link>
-          </div>
+            </div>
+          </Link>
 
+          {/* Notify */}
           <div
-            className='notify ml-4 bg-[#e4e6eb] rounded-full 
-            hover:bg-gray-200 sm:cursor-pointer p-0.5 dark:bg-[#3a3b3c] dark:hover:bg-[#6a6b6c]'
+            className={`notify ml-3 bg-[#e4e6eb] rounded-full relative
+            hover:bg-gray-300 p-[9px] dark:bg-[#3a3b3c] dark:hover:bg-[#6a6b6c] 
+            ${
+              pathname === '/notify' ? 'md:cursor-default' : 'md:cursor-pointer'
+            }`}
+            onClick={
+              pathname === '/notify' ? handleCloseNotify : handleToggleNotify
+            }
           >
-            <Link to='/notify' className='flex w-10 h-10 '>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='h-6 w-6 m-auto dark:text-gray-200'
-                viewBox='0 0 20 20'
-                fill='currentColor'
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-5 w-5 m-auto dark:text-gray-200'
+              viewBox='0 0 20 20'
+              fill='currentColor'
+            >
+              <path d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z' />
+            </svg>
+            {notify?.data.length > 0 && (
+              <span
+                className='absolute top-0 right-0 translate-x-1 -translate-y-1 w-5 h-5 rounded-full bg-[#e41e3f] text-white 
+                font-semibold flex text-[11px]'
               >
-                <path d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z' />
-              </svg>
-            </Link>
+                <span className='m-auto'>{notify.data.length}</span>
+              </span>
+            )}
+            {showNotify && (
+              <div
+                className='absolute right-[0] translate-x-[15%] top-[120%] w-[360px] h-[85vh] border-t-2 overflow-y-scroll text-sm
+                bg-white rounded-lg shadow-md drop-shadow-lg p-2 dark:bg-[#242526] dark:border dark:border-gray-700 sm:cursor-default'
+              >
+                <h3 className='font-bold text-[22px] text-gray-800 dark:text-gray-300 mt-4 sm:mt-0'>
+                  Thông báo
+                </h3>
+                {notify.data?.length > 0 && (
+                  <div className='flex items-center justify-between px-2'>
+                    <p
+                      className='inline-block my-2 px-2 py-1 rounded-md text-gray-700 bg-[#f0f2f5] border 
+                    md:cursor-pointer font-semibold md:hover:bg-[#dbdde0] md:dark:bg-transparent dark:border-0 dark:text-red-500 md:dark:hover:bg-[#3a3b3c]'
+                      onClick={handleDeleteAll}
+                    >
+                      Xóa tất cả
+                    </p>
+                    <Link
+                      to='/notify'
+                      className='text-blue-500 md:cursor-pointer md:hover:bg-[#f0f2f5] md:dark:hover:bg-[#3a3b3c] px-2 py-1 rounded-md'
+                    >
+                      Xem tất cả
+                    </Link>
+                  </div>
+                )}
+                {notify.data && notify.data.length > 0 ? (
+                  <ul className='mt-2'>
+                    {notify.data.map((nt, i) => (
+                      <li
+                        key={i}
+                        className='rounded-lg 
+                      md:hover:bg-[#f0f2f5] md:dark:hover:bg-[#3a3b3c] transition-colors duration-200 px-2 py-1 my-1'
+                      >
+                        <Link
+                          to={`${nt.url}`}
+                          className='flex items-center justify-between'
+                          onClick={() => isReadNotify(nt)}
+                        >
+                          <div className='relative'>
+                            <img
+                              src={nt.user.avatar}
+                              alt='avatar'
+                              className='w-12 h-12 object-cover rounded-full flex-shrink-0'
+                            />
+
+                            {nt.text === 'đã thích bài viết' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-blue-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bỏ thích bài viết' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-gray-400 dark:bg-gray-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.105-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bình luận bài viết' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-green-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z' />
+                                <path d='M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã nhắc đến bạn trong bình luận' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-green-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z' />
+                                <path d='M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bắt đầu theo dõi bạn' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-blue-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bỏ theo dõi bạn' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-red-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M11 6a3 3 0 11-6 0 3 3 0 016 0zM14 17a6 6 0 00-12 0h12zM13 8a1 1 0 100 2h4a1 1 0 100-2h-4z' />
+                              </svg>
+                            )}
+                          </div>
+                          <div className='flex-1 px-3'>
+                            <div className='dark:text-white'>
+                              <span className='font-semibold dark:text-gray-400'>
+                                {nt.user.firstname} {nt.user.lastname}
+                              </span>
+                              <span className='mx-1 text-gray-800 dark:text-gray-300'>
+                                {nt.text}
+                              </span>
+                              <p>
+                                {nt.content?.slice(0, 30)}
+                                {nt.content?.length > 30 && <span> ...</span>}
+                              </p>
+                            </div>
+                            <small
+                              className={`font-medium ${
+                                nt.isRead ? 'text-gray-500' : 'text-blue-500'
+                              }`}
+                            >
+                              {moment(nt.createdAt).fromNow()}
+                            </small>
+                          </div>
+                          {!nt.isRead && (
+                            <span className='flex-shrink-0 w-3 h-3 rounded-full bg-blue-500'></span>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className='flex mt-36 text-lg font-semibold dark:text-gray-300'>
+                    <p className='m-auto'>Không có thông báo</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
+          {/* Account */}
           <div
-            className='account ml-4 bg-[#e4e6eb] rounded-full
-            hover:bg-gray-200 sm:cursor-pointer relative p-0.5 dark:bg-[#3a3b3c] dark:hover:bg-[#6a6b6c]'
+            className='account ml-3 bg-[#e4e6eb] rounded-full
+            hover:bg-gray-300 sm:cursor-pointer relative p-[9px] dark:bg-[#3a3b3c] dark:hover:bg-[#6a6b6c]'
             onClick={handleToggle}
           >
-            <div className='flex w-10 h-10 '>
+            <div className='flex'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className={`h-6 w-6 m-auto dark:text-gray-200 ${
+                className={`h-5 w-5 m-auto dark:text-gray-200 ${
                   isOpen ? 'text-blue-600' : ''
                 }`}
                 viewBox='0 0 20 20'

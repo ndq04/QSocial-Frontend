@@ -13,7 +13,7 @@ function PostHeader({pos, index}) {
   const handleToggleDrop = () => setIsOpen(!isOpen)
   const {toggleStatusModal} = useContext(StatusContext)
 
-  const {auth} = useSelector((state) => state)
+  const {auth, socket} = useSelector((state) => state)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -33,7 +33,7 @@ function PostHeader({pos, index}) {
     if (
       window.confirm('Thao tác này không thể quay lại. Bạn có muốn tiếp tục ?')
     ) {
-      dispatch(deletePost({pos, auth}))
+      dispatch(deletePost({pos, auth, socket}))
     }
     setIsOpen(false)
     history.push('/')

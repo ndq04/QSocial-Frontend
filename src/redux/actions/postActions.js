@@ -6,12 +6,13 @@ import {
 } from '../../utils/fetchDataApi'
 import {imageupload} from '../../utils/imageupload'
 import {ACTION_TYPES} from './actionTypes'
+import {createNotify, removeNotify} from './notifyActions'
 
 export const createPost =
   ({content, images, auth, socket}) =>
   async (dispatch) => {
-    let media = []
     try {
+      let media = []
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
@@ -27,8 +28,6 @@ export const createPost =
         {content, images: media},
         auth.token
       )
-      console.log(res)
-      // notify
 
       dispatch({
         type: ACTION_TYPES.CREATE_POST,
@@ -38,15 +37,18 @@ export const createPost =
         type: ACTION_TYPES.CREATE_USERPOST,
         payload: {...res.data.newPost, user: auth.user},
       })
-      // const msg = {
-      //   id: res.data.newPost._id,
-      //   text: 'Thêm bài viết mới',
-      //   url: `/post/${res.data.newPost._id}`,
-      //   recipients: res.data.newPost.user.friends,
-      //   content,
-      //   image: media[0].secure_url,
-      // }
-      // dispatch(createNotify({msg, auth, socket}))
+
+      // notify
+      const msg = {
+        id: res.data.newPost._id,
+        text: 'đã thêm bài viết mới',
+        url: `/post/${res.data.newPost._id}`,
+        recipients: res.data.newPost.user.friends,
+        content,
+        image: media?.length > 0 ? media[0].secure_url : '',
+      }
+      dispatch(createNotify({msg, auth, socket}))
+
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
@@ -280,9 +282,19 @@ export const likepost =
       type: ACTION_TYPES.UPDATE_POST,
       payload: newPost,
     })
+    socket.emit('likePost', newPost)
     try {
       await patchDataApi(`post/${pos._id}/like`, null, auth.token)
-      socket.emit('likePost', newPost)
+
+      // notify
+      const msg = {
+        id: auth.user._id,
+        text: 'đã thích bài viết',
+        url: `/post/${pos._id}`,
+        recipients: [pos.user._id],
+        content: pos.content,
+      }
+      dispatch(createNotify({msg, auth, socket}))
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -310,9 +322,19 @@ export const unlikepost =
       type: ACTION_TYPES.UPDATE_POST,
       payload: newPost,
     })
+    socket.emit('unlikePost', newPost)
     try {
       await patchDataApi(`post/${pos._id}/unlike`, null, auth.token)
-      socket.emit('unlikePost', newPost)
+
+      // notify
+      const msg = {
+        id: auth.user._id,
+        text: 'đã bỏ thích bài viết',
+        url: `/post/${pos._id}`,
+        recipients: [pos.user._id],
+        content: pos.content,
+      }
+      dispatch(createNotify({msg, auth, socket}))
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -324,7 +346,7 @@ export const unlikepost =
   }
 
 export const deletePost =
-  ({pos, auth}) =>
+  ({pos, auth, socket}) =>
   async (dispatch) => {
     dispatch({
       type: ACTION_TYPES.DELETE_POST,
@@ -336,6 +358,14 @@ export const deletePost =
     })
     try {
       const res = await deleteDataApi(`/post/${pos._id}`, auth.token)
+      // notify
+      const msg = {
+        id: pos._id,
+        text: 'đã thêm bài viết mới',
+        url: `/post/${pos._id}`,
+      }
+      dispatch(removeNotify({msg, auth, socket}))
+
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {

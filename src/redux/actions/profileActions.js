@@ -1,6 +1,7 @@
 import {getDataApi, patchDataApi} from '../../utils/fetchDataApi'
 import {imageupload} from '../../utils/imageupload'
 import {ACTION_TYPES, DeleteData} from './actionTypes'
+import {createNotify} from './notifyActions'
 
 export const getProfileUsers =
   ({users, id, auth}) =>
@@ -300,6 +301,16 @@ export const addfriend =
         auth.token
       )
       socket.emit('addfriend', res.data.newUser)
+
+      // notify
+      const msg = {
+        id: auth.user._id,
+        text: 'đã bắt đầu theo dõi bạn',
+        url: `/profile/${auth.user._id}`,
+        recipients: [newUser._id],
+      }
+      dispatch(createNotify({msg, auth, socket}))
+
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {
@@ -347,6 +358,16 @@ export const unfriend =
         auth.token
       )
       socket.emit('unfriend', res.data.newUser)
+
+      // notify
+      const msg = {
+        id: auth.user._id,
+        text: 'đã bỏ theo dõi bạn',
+        url: `/profile/${auth.user._id}`,
+        recipients: [newUser._id],
+      }
+      dispatch(createNotify({msg, auth, socket}))
+
       dispatch({
         type: ACTION_TYPES.ALERT,
         payload: {

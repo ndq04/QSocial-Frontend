@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import {ACTION_TYPES} from '../../redux/actions/actionTypes'
-import {addMessage} from '../../redux/actions/messageActions'
+import {addMessage, getMessages} from '../../redux/actions/messageActions'
 import {imageupload} from '../../utils/imageupload'
 import MessageDisplay from './MessageDisplay'
 import MessageHeader from './MessageHeader'
@@ -27,6 +27,15 @@ function RightSideMessage() {
       })
     }
   }, [])
+
+  useEffect(() => {
+    if (id) {
+      const getMessagesData = async () => {
+        await dispatch(getMessages({auth, id}))
+      }
+      getMessagesData()
+    }
+  }, [dispatch, auth, id])
 
   useEffect(() => {
     const newData = message.users.find((item) => item._id === id)
@@ -71,7 +80,7 @@ function RightSideMessage() {
     <img
       src={src}
       alt=''
-      className='w-12 h-12 rounded-lg object-cover border border-gray-400 dark:border-gray-500'
+      className='w-12 h-12 rounded-lg object-cover border border-gray-300 dark:border-gray-500'
     />
   )
   const videoShow = (src) => (
@@ -79,7 +88,7 @@ function RightSideMessage() {
       controls
       src={src}
       alt=''
-      className='w-12 h-12 rounded-lg border border-gray-400 dark:border-gray-500'
+      className='w-12 h-12 rounded-lg border border-gray-300 dark:border-gray-500'
     />
   )
 
@@ -105,7 +114,7 @@ function RightSideMessage() {
   }
 
   return (
-    <div className='col-span-3 flex flex-col justify-between overflow-hidden'>
+    <div className='col-span-2 flex flex-col justify-between overflow-hidden border-r dark:border-gray-600'>
       <MessageHeader user={user} />
       {loadMedia && (
         <div className='lds-spinner'>
@@ -139,10 +148,13 @@ function RightSideMessage() {
         className='message-footer h-[60px] w-full flex-shrink-0 flex items-center justify-center relative'
         onSubmit={handleSend}
       >
-        <label htmlFor='imageUpload' className='absolute left-3'>
+        <label
+          htmlFor='imageUpload'
+          className='absolute left-0 translate-x-[50%] md:cursor-pointer'
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6 text-blue-500 sm:cursor-pointer'
+            className='h-6 w-6 text-blue-500'
             viewBox='0 0 20 20'
             fill='currentColor'
           >
@@ -167,15 +179,32 @@ function RightSideMessage() {
           placeholder='Aa'
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className={`w-[90%] px-4 py-2 border-none outline-none text-[17px] bg-[#f0f2f5] 
+          className={`w-[80%] px-4 py-2 border-none outline-none text-[17px] bg-[#f0f2f5] 
           dark:bg-[#3a3b3c] dark:text-gray-300 ${
             media.length > 0 ? 'rounded-b-3xl' : 'rounded-full'
           }`}
         />
+        <div
+          className='absolute right-0 translate-x-[-50%] md:cursor-pointer'
+          onClick={handleSend}
+        >
+          <svg
+            className='h-7 w-7 text-blue-500'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <line x1='22' y1='2' x2='11' y2='13' />{' '}
+            <polygon points='22 2 15 22 11 13 2 9 22 2' />
+          </svg>
+        </div>
         {media.length > 0 && (
           <div
-            className='absolute p-3 rounded-t-3xl w-[90%] h-[200%] bottom-[calc(100%-10px)] bg-[#f0f2f5] 
-            grid grid-cols-12 gap-3 overflow-scroll dark:bg-[#3a3b3c]'
+            className='absolute p-3 rounded-t-3xl w-[80%] h-[200%] bottom-[calc(100%-10px)] bg-[#f0f2f5] 
+            grid grid-cols-8 gap-2 overflow-scroll dark:bg-[#3a3b3c]'
           >
             {media.length > 0 &&
               media.map((item, i) => (
@@ -184,7 +213,7 @@ function RightSideMessage() {
                     ? videoShow(URL.createObjectURL(item))
                     : imageShow(URL.createObjectURL(item))}
                   <span
-                    className='group absolute p-1 rounded-full border border-gray-400 dark:border-gray-600 sm:cursor-pointer top-0 right-0 
+                    className='group absolute p-0.5 rounded-full border border-gray-400 dark:border-gray-600 sm:cursor-pointer top-0 right-0 
                     translate-x-[20%] translate-y-[-20%] bg-white dark:bg-[#3a3b3c] hover:bg-red-500 hover:border-red-500 dark:hover:bg-red-500'
                     onClick={() => deleteImage(i)}
                   >

@@ -1,5 +1,102 @@
+import {
+  deleteDataApi,
+  getDataApi,
+  patchDataApi,
+  postDataApi,
+} from '../../utils/fetchDataApi'
+import {ACTION_TYPES} from './actionTypes'
+
 export const createNotify =
-  ({message, auth, socket}) =>
+  ({msg, auth, socket}) =>
   async (dispatch) => {
-    console.log({message})
+    try {
+      const res = await postDataApi('notify', msg, auth.token)
+      socket.emit('createNotify', {
+        ...res.data.notify,
+        user: {
+          firstname: auth.user.firstname,
+          lastname: auth.user.lastname,
+          avatar: auth.user.avatar,
+        },
+      })
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
   }
+
+export const removeNotify =
+  ({msg, auth, socket}) =>
+  async (dispatch) => {
+    try {
+      await deleteDataApi(`notify/${msg.id}?url=${msg.url}`, auth.token)
+      socket.emit('removeNotify', msg)
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+
+export const getNotify = (token) => async (dispatch) => {
+  try {
+    const res = await getDataApi('notifies', token)
+
+    dispatch({
+      type: ACTION_TYPES.GET_NOTIFIES,
+      payload: res.data.notifies,
+    })
+  } catch (error) {
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
+        error: error.response.data.message,
+      },
+    })
+  }
+}
+
+export const readNotify =
+  ({nt, auth}) =>
+  async (dispatch) => {
+    dispatch({
+      type: ACTION_TYPES.UPDATE_NOTIFIES,
+      payload: {...nt, isRead: true},
+    })
+
+    try {
+      await patchDataApi(`isreadnotify/${nt._id}`, null, auth.token)
+    } catch (error) {
+      dispatch({
+        type: ACTION_TYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      })
+    }
+  }
+
+export const deleteAllNotifies = (auth) => async (dispatch) => {
+  dispatch({
+    type: ACTION_TYPES.DELETE_NOTIFIES,
+    payload: [],
+  })
+
+  try {
+    await deleteDataApi('deleteallnotifies', auth.token)
+  } catch (error) {
+    dispatch({
+      type: ACTION_TYPES.ALERT,
+      payload: {
+        error: error.response.data.message,
+      },
+    })
+  }
+}

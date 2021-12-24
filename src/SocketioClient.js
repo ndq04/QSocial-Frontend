@@ -86,6 +86,26 @@ function SocketioClient() {
     return () => socket.off('unfriendToClient')
   }, [dispatch, socket, auth])
 
+  useEffect(() => {
+    socket.on('createNotifyToClient', (msg) => {
+      dispatch({
+        type: ACTION_TYPES.CREATE_NOTIFIES,
+        payload: msg,
+      })
+    })
+    return () => socket.off('createNotifyToClient')
+  }, [dispatch, socket, auth])
+
+  // useEffect(() => {
+  //   socket.on('removeNotifyToClient', (msg) => {
+  //     dispatch({
+  //       type: ACTION_TYPES.REMOVE_NOTIFIES,
+  //       payload: msg,
+  //     })
+  //   })
+  //   return () => socket.off('removeNotifyToClient')
+  // }, [dispatch, socket, auth])
+
   return <></>
 }
 

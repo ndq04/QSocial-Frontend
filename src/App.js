@@ -8,11 +8,13 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Messages from './pages/Messages'
+import Notification from './pages/Notification'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
 import SinglePost from './pages/SinglePost'
 import {ACTION_TYPES} from './redux/actions/actionTypes'
 import {refreshToken} from './redux/actions/authActions'
+import {getNotify} from './redux/actions/notifyActions'
 import {getPost} from './redux/actions/postActions'
 import SocketioClient from './SocketioClient'
 import PriviteRouter from './utils/PriviteRouter'
@@ -33,7 +35,10 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(getPost(auth.token))
+    if (auth.token) {
+      dispatch(getPost(auth.token))
+      dispatch(getNotify(auth.token))
+    }
   }, [auth.token, dispatch])
 
   return (
@@ -52,10 +57,13 @@ function App() {
           <Login />
         </Route>
         <PriviteRouter exact path='/message'>
-          <Messages />
+          {login ? <Messages /> : <Redirect to='/' />}
         </PriviteRouter>
         <Route exact path='/post/:id'>
           {login ? <SinglePost /> : <Redirect to='/' />}
+        </Route>
+        <Route exact path='/notify'>
+          {login ? <Notification /> : <Redirect to='/' />}
         </Route>
         <Route exact path='/message/:id'>
           {login ? <Conversation /> : <Redirect to='/' />}
