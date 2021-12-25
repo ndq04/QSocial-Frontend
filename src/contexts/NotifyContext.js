@@ -10,9 +10,11 @@ function NotifyContextProvider({children}) {
       setShowNotify(false)
     }
   }
+  const handleOpenNotify = () => setShowNotify(true)
   const data = {
     showNotify,
     handleToggleNotify,
+    handleOpenNotify,
     handleCloseNotify,
   }
   return (

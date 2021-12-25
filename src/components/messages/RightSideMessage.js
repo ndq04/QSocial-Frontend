@@ -6,7 +6,8 @@ import {addMessage, getMessages} from '../../redux/actions/messageActions'
 import {imageupload} from '../../utils/imageupload'
 import MessageDisplay from './MessageDisplay'
 import MessageHeader from './MessageHeader'
-function RightSideMessage() {
+
+function RightSideMessage({messenger}) {
   const [user, setUser] = useState([])
   const [text, setText] = useState('')
   const [media, setMedia] = useState([])
@@ -15,7 +16,7 @@ function RightSideMessage() {
   const {id} = useParams()
   const {auth, message, socket} = useSelector((state) => state)
 
-  const msgRef = useRef(null)
+  const msgRef = useRef()
   useEffect(() => {
     if (msgRef) {
       msgRef.current.addEventListener('DOMNodeInserted', (event) => {
@@ -110,11 +111,18 @@ function RightSideMessage() {
       createdAt: new Date().toISOString(),
     }
     setLoadMedia(false)
-    dispatch(addMessage({auth, msg, socket}))
+    await dispatch(addMessage({auth, msg, socket}))
+    if (msgRef.current) {
+      msgRef.current.scrollIntoView({behavior: 'smooth', block: 'end'})
+    }
   }
 
   return (
-    <div className='col-span-2 flex flex-col justify-between overflow-hidden border-r dark:border-gray-600'>
+    <div
+      className={`${
+        messenger ? 'col-span-3' : 'col-span-2'
+      } flex flex-col justify-between overflow-hidden border-r dark:border-gray-600`}
+    >
       <MessageHeader user={user} />
       {loadMedia && (
         <div className='lds-spinner'>
@@ -132,7 +140,10 @@ function RightSideMessage() {
           <div></div>
         </div>
       )}
-      <div className='flex-1 overflow-y-scroll' ref={msgRef}>
+      <div
+        className='flex-1 overflow-y-scroll flex flex-col-reverse'
+        ref={msgRef}
+      >
         {message.data.map((msg, i) => (
           <div key={i}>
             {msg.sender !== auth.user._id && (

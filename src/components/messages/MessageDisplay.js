@@ -14,8 +14,10 @@ function MessageDisplay({user, msg, auth}) {
         <div>
           {msg?.text && (
             <p
-              className={`p-2 rounded-2xl ${
-                auth ? 'text-white bg-[#0084ff]' : 'text-gray-900 bg-[#e4e6eb]'
+              className={`p-2 text-sm rounded-2xl ${
+                auth
+                  ? 'text-white bg-[#0084ff]'
+                  : 'text-gray-900 bg-[#e4e6eb] dark:bg-[#3a3b3c] dark:text-gray-300'
               }`}
             >
               {msg.text}
@@ -28,7 +30,7 @@ function MessageDisplay({user, msg, auth}) {
           <div
             key={i}
             className={`w-full flex rounded-lg border border-gray-300 dark:border-0 overflow-hidden ${
-              msg.media?.length === 1
+              msg.media?.length === 1 && auth
                 ? 'col-start-2 rounded-b-3xl rounded-l-3xl rounded-tr-none'
                 : ''
             }`}
@@ -38,11 +40,6 @@ function MessageDisplay({user, msg, auth}) {
               : imageShow(item.secure_url)}
           </div>
         ))}
-      </div>
-      <div>
-        {msg?.createdAt && (
-          <small className='dark:text-gray-300'>{msg.createdAt}</small>
-        )}
       </div>
     </div>
   )

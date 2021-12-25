@@ -4,6 +4,7 @@ import {Redirect, Route, Switch} from 'react-router-dom'
 import io from 'socket.io-client'
 import Alert from './components/Alert'
 import Conversation from './components/messages/Conversation'
+import ConversationAll from './components/messages/ConversationAll'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -17,7 +18,6 @@ import {refreshToken} from './redux/actions/authActions'
 import {getNotify} from './redux/actions/notifyActions'
 import {getPost} from './redux/actions/postActions'
 import SocketioClient from './SocketioClient'
-import PriviteRouter from './utils/PriviteRouter'
 
 function App() {
   const {auth} = useSelector((state) => state)
@@ -56,14 +56,17 @@ function App() {
         <Route exact path='/login'>
           <Login />
         </Route>
-        <PriviteRouter exact path='/message'>
+        <Route exact path='/message'>
           {login ? <Messages /> : <Redirect to='/' />}
-        </PriviteRouter>
+        </Route>
         <Route exact path='/post/:id'>
           {login ? <SinglePost /> : <Redirect to='/' />}
         </Route>
         <Route exact path='/notify'>
           {login ? <Notification /> : <Redirect to='/' />}
+        </Route>
+        <Route exact path='/messageall/:id'>
+          {login ? <ConversationAll /> : <Redirect to='/' />}
         </Route>
         <Route exact path='/message/:id'>
           {login ? <Conversation /> : <Redirect to='/' />}

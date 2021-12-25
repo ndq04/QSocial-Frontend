@@ -81,6 +81,8 @@ function Navbar() {
     }
   }
 
+  const newNotifies = notify?.data.filter((item) => item.isRead === false)
+
   return (
     <nav
       className='bg-white shadow-md w-full h-[60px] px-4 sm:grid grid-cols-2 
@@ -351,12 +353,13 @@ function Navbar() {
             >
               <path d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z' />
             </svg>
-            {notify?.data.length > 0 && (
+
+            {newNotifies?.length > 0 && (
               <span
                 className='absolute top-0 right-0 translate-x-1 -translate-y-1 w-5 h-5 rounded-full bg-[#e41e3f] text-white 
                 font-semibold flex text-[11px]'
               >
-                <span className='m-auto'>{notify.data.length}</span>
+                <span className='m-auto'>{newNotifies.length}</span>
               </span>
             )}
             {showNotify && (
@@ -387,14 +390,11 @@ function Navbar() {
                 {notify.data && notify.data.length > 0 ? (
                   <ul className='mt-2'>
                     {notify.data.map((nt, i) => (
-                      <li
-                        key={i}
-                        className='rounded-lg 
-                      md:hover:bg-[#f0f2f5] md:dark:hover:bg-[#3a3b3c] transition-colors duration-200 px-2 py-1 my-1'
-                      >
+                      <li key={i} className='my-1 relative group'>
                         <Link
                           to={`${nt.url}`}
-                          className='flex items-center justify-between'
+                          className='flex items-center justify-between md:hover:bg-[#f0f2f5] 
+                          md:dark:hover:bg-[#3a3b3c] px-2 py-1 rounded-lg transition-colors duration-200'
                           onClick={() => isReadNotify(nt)}
                         >
                           <div className='relative'>

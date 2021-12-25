@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 import {ACTION_TYPES} from '../../redux/actions/actionTypes'
 import {AddUser, getConversations} from '../../redux/actions/messageActions'
 import {getDataApi} from '../../utils/fetchDataApi'
@@ -12,6 +12,7 @@ function LeftSideMessage() {
   const {auth, message} = useSelector((state) => state)
   const dispatch = useDispatch()
   const history = useHistory()
+  const {id} = useParams()
 
   const handleCloseSearch = () => {
     setSearch('')
@@ -48,17 +49,16 @@ function LeftSideMessage() {
       }
     }
   }
-
   const handleAddChat = (user) => {
     handleCloseSearch()
     dispatch(AddUser({user, message}))
-    history.push(`/message/${user._id}`)
+    history.push(`/messageall/${user._id}`)
   }
   return (
     <div className='border-r dark:border-gray-600 overflow-y-hidden'>
       <div className='p-5 border-b dark:border-gray-600'>
         <h3 className='font-bold text-2xl dark:text-gray-300'>Chat</h3>
-        <div className='flex items-center px-1.5 sm:bg-gray-100 rounded-full sm:dark:bg-[#3a3b3c] mt-3'>
+        <div className='flex items-center px-1.5 md:bg-gray-100 rounded-full md:dark:bg-[#3a3b3c] mt-3'>
           <input
             type='text'
             placeholder='Tìm kiếm trên Messenger'
@@ -89,7 +89,7 @@ function LeftSideMessage() {
           </div>
         </div>
       </div>
-      <div className='leftSideMessage max-h-full overflow-y-scroll pl-2'>
+      <div className='leftSideMessage max-h-full overflow-y-scroll ml-2'>
         {searchUsers.length !== 0 ? (
           <>
             {searchUsers.map((user, i) => (
@@ -111,7 +111,7 @@ function LeftSideMessage() {
                   className='md:cursor-pointer'
                   onClick={() => handleAddChat(user)}
                 >
-                  <UserCardMessage user={user} />
+                  <UserCardMessage user={user} data={message.data} id={id} />
                 </div>
               ))}
           </>

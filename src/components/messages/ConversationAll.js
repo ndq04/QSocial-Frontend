@@ -1,10 +1,11 @@
 import {useContext} from 'react'
-import EmptyConversation from '../components/messages/EmptyConversation'
-import LeftSideMessage from '../components/messages/LeftSideMessage'
-import {AccountContext} from './../contexts/AccountContext'
-import {NotifyContext} from './../contexts/NotifyContext'
+import {AccountContext} from './../../contexts/AccountContext'
+import {NotifyContext} from './../../contexts/NotifyContext'
+import InfoUserMessage from './InfoUserMessage'
+import LeftSideMessage from './LeftSideMessage'
+import RightSideMessage from './RightSideMessage'
 
-function Messages() {
+function ConversationAll() {
   const {handleClose} = useContext(AccountContext)
   const {handleCloseNotify} = useContext(NotifyContext)
   return (
@@ -16,9 +17,10 @@ function Messages() {
       }}
     >
       <LeftSideMessage />
-      <EmptyConversation />
+      <RightSideMessage />
+      <InfoUserMessage />
     </div>
   )
 }
 
-export default Messages
+export default ConversationAll

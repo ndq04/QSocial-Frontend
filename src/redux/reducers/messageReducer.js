@@ -21,7 +21,7 @@ const messageReducer = (state = initialState, action) => {
     case ACTION_TYPES.ADD_MESSENGER:
       return {
         ...state,
-        data: [...state.data, payload],
+        data: [payload, ...state.data],
         users: state.users.map((user) =>
           user._id === payload.recipient || user._id === payload.sender
             ? {...user, text: payload.text, media: payload.media}
@@ -39,7 +39,6 @@ const messageReducer = (state = initialState, action) => {
     case ACTION_TYPES.GET_MESSENGER:
       return {
         ...state,
-
         data: payload.message,
         resultData: payload.result,
       }

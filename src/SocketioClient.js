@@ -94,7 +94,7 @@ function SocketioClient() {
       })
     })
     return () => socket.off('createNotifyToClient')
-  }, [dispatch, socket, auth])
+  }, [dispatch, socket])
 
   // useEffect(() => {
   //   socket.on('removeNotifyToClient', (msg) => {
@@ -104,7 +104,17 @@ function SocketioClient() {
   //     })
   //   })
   //   return () => socket.off('removeNotifyToClient')
-  // }, [dispatch, socket, auth])
+  // }, [dispatch, socket])
+
+  useEffect(() => {
+    socket.on('addMessengerToClient', (msg) => {
+      dispatch({
+        type: ACTION_TYPES.ADD_MESSENGER,
+        payload: msg,
+      })
+    })
+    return () => socket.off('addMessengerToClient')
+  }, [dispatch, socket])
 
   return <></>
 }

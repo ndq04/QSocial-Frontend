@@ -21,7 +21,10 @@ export const addMessage =
     })
 
     try {
-      await postDataApi('message', msg, auth.token)
+      if (auth.token) {
+        await postDataApi('message', msg, auth.token)
+      }
+      socket.emit('addMessenger', msg)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -36,6 +39,7 @@ export const getConversations = (auth) => async (dispatch) => {
   if (auth.token) {
     try {
       const res = await getDataApi('conversations', auth.token)
+
       let newArr = []
       res.data.conversation.forEach((item) => {
         item.recipients.forEach((re) => {
@@ -44,6 +48,7 @@ export const getConversations = (auth) => async (dispatch) => {
           }
         })
       })
+
       dispatch({
         type: ACTION_TYPES.GET_CONVERSATION,
         payload: {newArr, result: res.data.result},
@@ -62,18 +67,20 @@ export const getConversations = (auth) => async (dispatch) => {
 export const getMessages =
   ({auth, id}) =>
   async (dispatch) => {
-    try {
-      const res = await getDataApi(`message/${id}`, auth.token)
-      dispatch({
-        type: ACTION_TYPES.GET_MESSENGER,
-        payload: res.data,
-      })
-    } catch (error) {
-      dispatch({
-        type: ACTION_TYPES.ALERT,
-        payload: {
-          error: error.response.data.message,
-        },
-      })
+    if (auth.token) {
+      try {
+        const res = await getDataApi(`message/${id}`, auth.token)
+        dispatch({
+          type: ACTION_TYPES.GET_MESSENGER,
+          payload: res.data,
+        })
+      } catch (error) {
+        dispatch({
+          type: ACTION_TYPES.ALERT,
+          payload: {
+            error: error.response.data.message,
+          },
+        })
+      }
     }
   }

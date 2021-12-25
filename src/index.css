@@ -135,7 +135,7 @@
 .rightbar:hover::-webkit-scrollbar {
   display: block;
 }
-.leftSideMessage:hover::-webkit-scrollbar {
+.leftSideMessage::-webkit-scrollbar {
   display: block;
 }
 
