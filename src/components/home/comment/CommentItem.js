@@ -88,7 +88,7 @@ function PostCommentItem({comment, pos, commentId, children}) {
                 : 'rounded-3xl bg-[#f0f2f5] dark:bg-[#3a3b3c]'
             }`}
           >
-            <div className='font-semibold text-sm text-gray-800 hover:underline dark:text-gray-300'>
+            <div className='font-semibold text-sm text-[#fe2c55] hover:underline dark:text-gray-300'>
               <Link
                 to={`/profile/${comment.user._id}`}
                 className={`${onEdit && 'text-white'}`}
@@ -132,7 +132,7 @@ function PostCommentItem({comment, pos, commentId, children}) {
                         to={`/profile/${comment.tag._id}`}
                         className='sm:hover:border-b-2 sm:hover:border-blue-400 sm:dark:hover:border-blue-500'
                       >
-                        <span className='text-sm font-semibold text-blue-500'>
+                        <span className='text-sm font-semibold text-[#fe2c55]'>
                           @{comment.tag.firstname}
                           {comment.tag.lastname}{' '}
                         </span>

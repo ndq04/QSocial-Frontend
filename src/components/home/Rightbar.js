@@ -15,7 +15,7 @@ function Rightbar() {
   }
   return (
     <div className='rightbar h-[calc(100vh-60px)] py-4 overflow-y-scroll hidden xl:block'>
-      <h3 className='mb-1 px-2 py-1 text-gray-500 font-semibold dark:text-gray-200'>
+      <h3 className='mb-1 px-2 py-1 text-[#fe2c55] font-semibold dark:text-gray-200'>
         Được tài trợ
       </h3>
       <ul className='border-b border-gray-300 pb-3 pr-3 dark:border-gray-600'>
@@ -44,7 +44,7 @@ function Rightbar() {
         ))}
       </ul>
 
-      <h3 className='mb-1 px-2 pt-3 pb-1 text-gray-500 font-semibold dark:text-gray-200'>
+      <h3 className='mb-1 px-2 pt-3 pb-1 text-[#fe2c55] font-semibold dark:text-gray-200'>
         Người liên hệ
         <p
           className='ml-1 text-[12px] left-[50%] w-[18px] h-[18px] rounded-full 

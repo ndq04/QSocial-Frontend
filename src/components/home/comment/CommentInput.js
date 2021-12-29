@@ -38,7 +38,7 @@ function CommentInput({pos, children, comment, onReply, setOnReply}) {
       <img
         src={auth.user.avatar}
         alt='avatar'
-        className='w-9 h-9 rounded-full object-cover flex-shrink-0 mr-2'
+        className='w-11 h-11 rounded-full object-cover flex-shrink-0 border-2 p-[2px] border-[#fe2c55] mr-2'
         onClick={() => setShowPicker(false)}
       />
       {children}

@@ -9,7 +9,7 @@ function Conversation() {
   const {handleCloseNotify} = useContext(NotifyContext)
   return (
     <div
-      className='mt-[45px] sm:mt-[60px] grid grid-cols-4 h-[calc(100vh-45px)] sm:h-[calc(100vh-60px)] select-none dark:bg-[#18191a]'
+      className='mt-[45px] sm:mt-[60px] grid grid-cols-3 lg:grid-cols-4 h-[calc(100vh-45px)] sm:h-[calc(100vh-60px)] select-none dark:bg-[#18191a]'
       onClick={() => {
         handleClose()
         handleCloseNotify()

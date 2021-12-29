@@ -100,16 +100,16 @@ function StatusModal() {
         }`}
       >
         <div
-          className='modal-head flex items-center justify-center h-[10%] 
-          relative pb-4 border-b border-gray-300 dark:border-gray-600'
+          className='modal-head flex items-center justify-center h-[15%] 
+          relative pb-4 border-b border-gray-300 text-[#fe2c55]'
           onClick={() => setShowPicker(false)}
         >
-          <h3 className='font-bold text-xl dark:text-gray-300'>
+          <h3 className='font-bold text-xl'>
             {status.edit ? 'Cập nhật bài viết' : 'Tạo bài viết'}
           </h3>
           <div
-            className='absolute right-1 top-0 cursor-pointer p-1.5 
-          bg-red-500 hover:bg-red-600 rounded-full flex '
+            className='absolute right-1 top-0 cursor-pointer p-1
+          bg-[#fe2c55] md:hover:bg-red-500 rounded-full flex '
             onClick={handleCloseModal}
           >
             <svg
@@ -143,7 +143,7 @@ function StatusModal() {
               alt='avatar'
               className='w-10 h-10 object-cover rounded-full mr-2'
             />
-            <p className='text-gray-800 font-semibold dark:text-gray-300'>
+            <p className='text-[#fe2c55] font-semibold'>
               {auth.user.firstname} {auth.user.lastname}
             </p>
           </div>
@@ -168,7 +168,7 @@ function StatusModal() {
                 <Picker onEmojiClick={onEmojiClick} />
               </div>
             )}
-            <span className='font-bold text-blue-700'>{content?.length}</span>
+            <span className='font-bold text-[#fe2c55]'>{content?.length}</span>
           </div>
         </div>
 
@@ -231,14 +231,14 @@ function StatusModal() {
           pl-3 py-1 my-3 sm:my-4 bg-white h-[15%]'
           onClick={() => setShowPicker(false)}
         >
-          <p className='font-semibold text-gray-600'>Thêm ảnh</p>
+          <p className='font-semibold text-[#fe2c55]'>Thêm ảnh</p>
           <label
             htmlFor='status'
             className='p-2 rounded-full hover:bg-gray-200 cursor-pointer ml-3'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-7 w-7 text-green-500'
+              className='h-7 w-7 text-[#fe2c55]'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -258,7 +258,7 @@ function StatusModal() {
             />
           </label>
           <span
-            className='bg-red-500 hover:bg-red-600 py-1 px-3 text-white rounded-md cursor-pointer mr-2 ml-auto'
+            className='bg-white py-1 px-3 text-[#fe2c55] border border-[#fe2c55] rounded-md md:cursor-pointer mr-2 ml-auto'
             onClick={handleDiscard}
           >
             Xóa tất cả
@@ -268,7 +268,7 @@ function StatusModal() {
         <button
           className={`py-1.5 rounded-md font-semibold ${
             content.length > 0 || images.length > 0
-              ? 'bg-blue-500 hover:bg-blue-700 text-white'
+              ? 'bg-[#fe2c55] md:hover:bg-[#f51a46] text-white'
               : 'bg-gray-200 cursor-not-allowed text-gray-400'
           }`}
           onClick={handleSubmit}

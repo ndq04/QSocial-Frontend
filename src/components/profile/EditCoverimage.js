@@ -63,7 +63,7 @@ function EditCoverimage({setOnEditCoverimage}) {
           </div>
         </div>
 
-        <div className='modal-image w-full h-[60%] sm:h-[80%] flex rounded-lg'>
+        <div className='modal-image w-full h-[60%] sm:h-[75%] flex rounded-lg'>
           <img
             src={
               coverimage

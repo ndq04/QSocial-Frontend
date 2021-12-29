@@ -2,7 +2,7 @@ function BtnEditCoverimage({setOnEditCoverimage}) {
   return (
     <button
       className='absolute right-[10%] bottom-[10%] p-2 bg-white hover:bg-gray-50 
-      cursor-pointer rounded-full md:rounded-lg font-semibold flex items-center'
+      cursor-pointer rounded-full md:rounded-lg font-semibold flex items-center text-[#fe2c55]'
       onClick={() => setOnEditCoverimage(true)}
     >
       <svg

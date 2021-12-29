@@ -14,7 +14,7 @@ function Home() {
   return (
     <>
       <div
-        className='grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5 bg-[#f0f2f5] 
+        className='grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5 bg-white 
         select-none sm:px-10 lg:px-5 h-[calc(100vh-45px)] sm:h-[calc(100vh-60px)] 
         mt-[45px] sm:mt-[60px] dark:bg-[#18191a]'
         onClick={() => {

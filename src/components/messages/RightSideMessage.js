@@ -120,8 +120,8 @@ function RightSideMessage({messenger}) {
   return (
     <div
       className={`${
-        messenger ? 'col-span-3' : 'col-span-2'
-      } flex flex-col justify-between overflow-hidden border-r dark:border-gray-600`}
+        messenger ? 'col-span-3' : 'col-span-3 lg:col-span-2 h-[60%]'
+      } flex flex-col justify-between overflow-hidden lg:border-r dark:border-gray-600 lg:h-full`}
     >
       <MessageHeader user={user} />
       {loadMedia && (

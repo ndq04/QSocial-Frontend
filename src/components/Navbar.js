@@ -100,22 +100,22 @@ function Navbar() {
         <div className='flex-shrink-0' onClick={handleCloseSearch}>
           <Link to='/'>
             <img
-              src='https://i.imgur.com/iDuSx6e.png'
+              src='https://res.cloudinary.com/doltvro6d/image/upload/v1640764224/qsocial/Screenshot_2021-12-29_144949_vidtnq.png'
               alt='logo'
               className='w-12 h-12 rounded-full hidden sm:block'
             />
           </Link>
           <Link to='/'>
-            <h3 className='text-blue-500 font-bold text-xl sm:hidden'>
+            <h3 className='text-[#fe2c55] font-bold text-xl sm:hidden'>
               Q Social
             </h3>
           </Link>
         </div>
         <div className='flex items-center'>
-          <form className='relative flex items-center ml-2 p-2 sm:bg-gray-100 rounded-full sm:w-full sm:dark:bg-[#3a3b3c]'>
+          <form className='flex items-center ml-2 p-2 sm:bg-gray-100 rounded-full sm:w-full sm:dark:bg-[#3a3b3c]'>
             <div
-              className='sm:hidden text-blue-600 sm:sm:cursor-pointer p-2 bg-gray-100 
-            rounded-full translate-x-[8px]'
+              className='sm:hidden text-[#fe2c55] sm:sm:cursor-pointer p-2 bg-gray-100 rounded-full dark:bg-[#3a3b3c]'
+              onClick={toggleShowInput}
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -123,7 +123,6 @@ function Navbar() {
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
-                onClick={toggleShowInput}
               >
                 <path
                   strokeLinecap='round'
@@ -133,21 +132,22 @@ function Navbar() {
                 />
               </svg>
             </div>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 hidden sm:block text-gray-600 dark:text-gray-300'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-              />
-            </svg>
-
+            <div>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-6 w-6 hidden sm:block text-[#fe2c55] dark:text-gray-300'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                />
+              </svg>
+            </div>
             <input
               type='text'
               placeholder='Tìm kiếm trên QSocial'
@@ -166,8 +166,187 @@ function Navbar() {
             )}
           </form>
           <div
-            className='sm:hidden ml-3 sm:cursor-pointer text-blue-600 
-        sm:hover:text-white p-1.5 rounded-full sm:hover:bg-blue-500'
+            className='sm:hidden sm:sm:cursor-pointer p-2 bg-gray-100 
+            rounded-full dark:bg-[#3a3b3c] relative'
+            onClick={
+              pathname === '/notify' ? handleCloseNotify : handleToggleNotify
+            }
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-6 w-6 text-[#fe2c55]'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9'
+              />
+            </svg>
+            {newNotifies?.length > 0 && (
+              <span
+                className='absolute top-0 right-0 translate-x-1 -translate-y-1 w-5 h-5 rounded-full bg-[#fe2c55] text-white 
+                font-semibold flex text-[11px]'
+              >
+                <span className='m-auto'>{newNotifies.length}</span>
+              </span>
+            )}
+            {showNotify && (
+              <div
+                className='fixed inset-0 bg-white z-10 p-3 dark:bg-[#18191a] text-sm
+                rounded-lg shadow-md drop-shadow-lg dark:border dark:border-gray-700 sm:cursor-default overflow-hidden'
+              >
+                <div>
+                  <h3 className='font-bold text-[22px] text-[#fe2c55] dark:text-gray-300 mb-2'>
+                    Thông báo
+                  </h3>
+                  {notify.data?.length > 0 && (
+                    <div className='flex items-center justify-between px-2'>
+                      <p
+                        className='inline-block my-2 px-2 py-1 rounded-md text-[#fe2c55] bg-[#f0f2f5] border 
+                    md:cursor-pointer font-semibold md:hover:bg-[#dbdde0] md:dark:bg-transparent dark:border-0 dark:text-red-500 md:dark:hover:bg-[#3a3b3c]'
+                        onClick={handleDeleteAll}
+                      >
+                        Xóa tất cả
+                      </p>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        className='h-7 w-7 md:cursor-pointer text-[#fe2c55] dark:text-gray-300'
+                        viewBox='0 0 20 20'
+                        fill='currentColor'
+                        onClick={handleCloseNotify}
+                      >
+                        <path
+                          fillRule='evenodd'
+                          d='M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z'
+                          clipRule='evenodd'
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+
+                {notify.data && notify.data.length > 0 ? (
+                  <ul className='overflow-y-scroll max-h-[100%]'>
+                    {notify.data.map((nt, i) => (
+                      <li key={i} className='my-1 relative group'>
+                        <Link
+                          to={`${nt.url}`}
+                          className='flex items-center justify-between md:hover:bg-[#f0f2f5] 
+                          md:dark:hover:bg-[#3a3b3c] px-2 py-1 rounded-lg transition-colors duration-200'
+                          onClick={() => isReadNotify(nt)}
+                        >
+                          <div className='relative'>
+                            <img
+                              src={nt.user.avatar}
+                              alt='avatar'
+                              className='w-12 h-12 object-cover rounded-full flex-shrink-0'
+                            />
+
+                            {nt.text === 'đã thích bài viết' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-blue-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bỏ thích bài viết' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-gray-400 dark:bg-gray-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.105-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bình luận bài viết' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-green-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z' />
+                                <path d='M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã nhắc đến bạn trong bình luận' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-green-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z' />
+                                <path d='M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bắt đầu theo dõi bạn' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-blue-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z' />
+                              </svg>
+                            )}
+                            {nt.text === 'đã bỏ theo dõi bạn' && (
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                className='h-6 w-6 rounded-full translate-x-[25%] absolute bottom-0 right-0 text-white bg-red-500 p-1'
+                                viewBox='0 0 20 20'
+                                fill='currentColor'
+                              >
+                                <path d='M11 6a3 3 0 11-6 0 3 3 0 016 0zM14 17a6 6 0 00-12 0h12zM13 8a1 1 0 100 2h4a1 1 0 100-2h-4z' />
+                              </svg>
+                            )}
+                          </div>
+                          <div className='flex-1 px-3'>
+                            <div className='dark:text-white'>
+                              <span className='font-semibold text-[#fe2c55] dark:text-gray-400'>
+                                {nt.user.firstname} {nt.user.lastname}
+                              </span>
+                              <span className='mx-1 text-gray-800 dark:text-gray-300'>
+                                {nt.text}
+                              </span>
+                              <p>
+                                {nt.content?.slice(0, 30)}
+                                {nt.content?.length > 30 && <span> ...</span>}
+                              </p>
+                            </div>
+                            <small
+                              className={`font-medium ${
+                                nt.isRead ? 'text-gray-500' : 'text-[#fe2c55]'
+                              }`}
+                            >
+                              {moment(nt.createdAt).fromNow()}
+                            </small>
+                          </div>
+                          {!nt.isRead && (
+                            <span className='flex-shrink-0 w-3 h-3 rounded-full bg-[#fe2c55]'></span>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className='flex mt-36 text-lg font-semibold dark:text-gray-300'>
+                    <p className='m-auto'>Không có thông báo</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <div
+            className='sm:hidden ml-3 sm:cursor-pointer text-[#fe2c55] p-1.5 rounded-full'
             onClick={handleToggle}
           >
             {!isOpen ? (
@@ -206,7 +385,7 @@ function Navbar() {
             <div className='flex items-center'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-7 w-7 sm:cursor-pointer dark:text-gray-300'
+                className='h-7 w-7 sm:cursor-pointer text-[#fe2c55] dark:text-gray-300'
                 viewBox='0 0 20 20'
                 fill='currentColor'
                 onClick={toggleShowInput}
@@ -304,9 +483,9 @@ function Navbar() {
             <img
               src={auth.user.avatar}
               alt='avatar'
-              className='w-10 h-10 rounded-full object-cover flex-shrink-0'
+              className='w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 p-[2px] border-[#fe2c55]'
             />
-            <p className='text-gray-600 font-semibold mx-2 hidden sm:block dark:text-gray-200'>
+            <p className='text-[#fe2c55] font-semibold mx-2 hidden sm:block dark:text-gray-200'>
               {auth.user.lastname}
             </p>
           </Link>
@@ -321,7 +500,7 @@ function Navbar() {
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-5 w-5 m-auto dark:text-gray-200'
+                className='h-5 w-5 m-auto text-[#fe2c55]'
                 viewBox='0 0 20 20'
                 fill='currentColor'
               >
@@ -347,7 +526,7 @@ function Navbar() {
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 m-auto dark:text-gray-200'
+              className='h-5 w-5 m-auto text-[#fe2c55]'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -356,7 +535,7 @@ function Navbar() {
 
             {newNotifies?.length > 0 && (
               <span
-                className='absolute top-0 right-0 translate-x-1 -translate-y-1 w-5 h-5 rounded-full bg-[#e41e3f] text-white 
+                className='absolute top-0 right-0 translate-x-1 -translate-y-1 w-5 h-5 rounded-full bg-[#fe2c55] text-white 
                 font-semibold flex text-[11px]'
               >
                 <span className='m-auto'>{newNotifies.length}</span>
@@ -364,7 +543,7 @@ function Navbar() {
             )}
             {showNotify && (
               <div
-                className='absolute right-[0] translate-x-[15%] top-[120%] w-[360px] h-[85vh] border-t-2 overflow-y-scroll text-sm
+                className='absolute right-[0] translate-x-[15%] top-[120%] w-[360px] h-[70vh] md:h-[85vh] border-t-2 overflow-y-scroll text-sm
                 bg-white rounded-lg shadow-md drop-shadow-lg p-2 dark:bg-[#242526] dark:border dark:border-gray-700 sm:cursor-default'
               >
                 <h3 className='font-bold text-[22px] text-gray-800 dark:text-gray-300 mt-4 sm:mt-0'>
@@ -513,9 +692,7 @@ function Navbar() {
             <div className='flex'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className={`h-5 w-5 m-auto dark:text-gray-200 ${
-                  isOpen ? 'text-blue-600' : ''
-                }`}
+                className='h-5 w-5 m-auto text-[#fe2c55]'
                 viewBox='0 0 20 20'
                 fill='currentColor'
               >
@@ -539,9 +716,9 @@ function Navbar() {
                         <img
                           src={auth.user.avatar}
                           alt='avatar'
-                          className='w-16 h-16 object-cover rounded-full mr-3'
+                          className='w-16 h-16 object-cover rounded-full mr-3 border-2 p-[2px] border-[#fe2c55]'
                         />
-                        <p className='text-gray-800 font-semibold dark:text-gray-200'>
+                        <p className='text-[#fe2c55] font-semibold'>
                           {auth.user.firstname} {auth.user.lastname}
                         </p>
                       </li>
@@ -552,10 +729,10 @@ function Navbar() {
                     hover:bg-[#f0f2f5] sm:cursor-pointer transition-colors dark:hover:bg-[#414345]'
                       onClick={handleLogout}
                     >
-                      <p className='flex w-9 h-9 rounded-full bg-gray-400 mr-6'>
+                      <p className='flex w-9 h-9 rounded-full bg-gray-300 mr-6'>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
-                          className='h-6 w-6 m-auto dark:text-gray-200'
+                          className='h-6 w-6 m-auto text-[#fe2c55]'
                           fill='none'
                           viewBox='0 0 24 24'
                           stroke='currentColor'
@@ -577,11 +754,11 @@ function Navbar() {
                     hover:bg-[#f0f2f5] sm:cursor-pointer transition-colors dark:hover:bg-[#414345]'
                       onClick={() => setTheme(colorTheme)}
                     >
-                      <div className='flex w-9 h-9 rounded-full bg-gray-400 mr-6'>
+                      <div className='flex w-9 h-9 rounded-full bg-gray-300 mr-6'>
                         {colorTheme === 'dark' ? (
                           <svg
                             xmlns='http://www.w3.org/2000/svg'
-                            className='h-6 w-6 m-auto'
+                            className='h-6 w-6 m-auto text-yellow-500'
                             fill='none'
                             viewBox='0 0 24 24'
                             stroke='currentColor'
@@ -643,24 +820,34 @@ function Navbar() {
                   <img
                     src={auth.user.avatar}
                     alt='avatar'
-                    className='w-16 h-16 object-cover rounded-full mr-3'
+                    className='w-16 h-16 object-cover rounded-full mr-3 border-2 p-[2px] border-[#fe2c55]'
                   />
-                  <p className='text-gray-800 font-semibold dark:text-gray-300'>
+                  <p className='text-[#fe2c55] font-semibold'>
                     {auth.user.firstname} {auth.user.lastname}
                   </p>
                 </li>
               </Link>
-              <li className='m-3 w-[95%] mx-auto h-[0.5px] bg-gray-400'></li>
+              <li className='m-3 w-[95%] mx-auto h-[0.5px] bg-gray-300'></li>
               <li
                 className='flex items-center p-2 rounded-md dark:hover:bg-[#414345]
                     hover:bg-[#f0f2f5] sm:cursor-pointer transition-colors'
                 onClick={handleLogout}
               >
-                <p className='flex w-8 h-8 rounded-full bg-gray-400 mr-6'>
-                  <i
-                    data-visualcompletion='css-img'
-                    className='logout-icon m-auto'
-                  ></i>
+                <p className='flex w-9 h-9 rounded-full bg-gray-300 mr-6'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-6 w-6 m-auto text-[#fe2c55]'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1'
+                    />
+                  </svg>
                 </p>
                 <p className='text-gray-800 font-semibold dark:text-gray-300'>
                   Đăng xuất
@@ -671,11 +858,11 @@ function Navbar() {
                     hover:bg-[#f0f2f5] sm:cursor-pointer transition-colors dark:hover:bg-[#414345]'
                 onClick={() => setTheme(colorTheme)}
               >
-                <div className='flex w-9 h-9 rounded-full bg-gray-400 mr-6'>
+                <div className='flex w-9 h-9 rounded-full bg-gray-300 mr-6'>
                   {colorTheme === 'dark' ? (
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
-                      className='h-6 w-6 m-auto'
+                      className='h-6 w-6 m-auto text-yellow-500'
                       fill='none'
                       viewBox='0 0 24 24'
                       stroke='currentColor'
@@ -690,7 +877,7 @@ function Navbar() {
                   ) : (
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
-                      className='h-6 w-6  m-auto dark:text-purple-600'
+                      className='h-6 w-6  m-auto text-purple-600'
                       fill='none'
                       viewBox='0 0 24 24'
                       stroke='currentColor'

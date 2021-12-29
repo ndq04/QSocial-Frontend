@@ -4,6 +4,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import App from './App'
 import AccountContextProvider from './contexts/AccountContext'
 import NotifyContextProvider from './contexts/NotifyContext'
+import PostContextProvider from './contexts/PostContext'
 import ProfileContextProvider from './contexts/ProfileContext'
 import StatusContextProvider from './contexts/StatusContext'
 import './index.css'
@@ -14,13 +15,15 @@ ReactDOM.render(
     <DataProvider>
       <ProfileContextProvider>
         <StatusContextProvider>
-          <AccountContextProvider>
-            <NotifyContextProvider>
-              <Router>
-                <App />
-              </Router>
-            </NotifyContextProvider>
-          </AccountContextProvider>
+          <PostContextProvider>
+            <AccountContextProvider>
+              <NotifyContextProvider>
+                <Router>
+                  <App />
+                </Router>
+              </NotifyContextProvider>
+            </AccountContextProvider>
+          </PostContextProvider>
         </StatusContextProvider>
       </ProfileContextProvider>
     </DataProvider>

@@ -3,6 +3,7 @@ import Post from './Post'
 
 function Posts() {
   const {homePost} = useSelector((state) => state)
+
   return (
     <div>
       {homePost &&

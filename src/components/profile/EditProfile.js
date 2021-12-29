@@ -85,13 +85,13 @@ function EditProfile({setOnEditProfile, ...data}) {
               </p>
             </div>
 
-            <label className='form-control flex items-center justify-between mt-4 mb-6 relative'>
+            <label className='form-control flex items-center justify-between mt-4 mb-4 relative'>
               <input
                 type='text'
                 name='firstname'
                 placeholder='Họ'
                 className='border-2 rounded-md focus:border-blue-500 dark:bg-[#3a3b3c] dark:text-gray-200 dark:border dark:border-gray-500
-                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
+                outline-none py-2 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
                 value={firstname}
                 onChange={handleChange}
               />
@@ -100,13 +100,13 @@ function EditProfile({setOnEditProfile, ...data}) {
               </span>
             </label>
 
-            <label className='form-control flex items-center justify-between mb-6 relative'>
+            <label className='form-control flex items-center justify-between mb-4 relative'>
               <input
                 type='text'
                 name='lastname'
                 placeholder='Tên'
                 className='border-2 rounded-md focus:border-blue-500 dark:bg-[#3a3b3c] dark:text-gray-200 dark:border dark:border-gray-500
-                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
+                outline-none py-2 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
                 value={lastname}
                 onChange={handleChange}
               />
@@ -115,38 +115,38 @@ function EditProfile({setOnEditProfile, ...data}) {
               </span>
             </label>
 
-            <label className='form-control flex items-center justify-between mb-6'>
+            <label className='form-control flex items-center justify-between mb-4'>
               <input
                 type='text'
                 name='livein'
                 placeholder='Sống tại'
                 className='border-2 rounded-md focus:border-blue-500 dark:bg-[#3a3b3c] dark:text-gray-200 dark:border dark:border-gray-500
-                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
+                outline-none py-2 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
                 value={livein}
                 onChange={handleChange}
               />
             </label>
 
-            <label className='form-control flex items-center justify-between mb-6'>
+            <label className='form-control flex items-center justify-between mb-4'>
               <input
                 type='text'
                 name='from'
                 placeholder='Đến từ'
                 className='border-2 rounded-md focus:border-blue-500 dark:bg-[#3a3b3c] dark:text-gray-200 dark:border dark:border-gray-500
-                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
+                outline-none py-2 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
                 value={from}
                 onChange={handleChange}
               />
             </label>
 
-            <label className='form-control flex items-center justify-between mb-8'>
+            <label className='form-control flex items-center justify-between mb-4 sm:mb-8'>
               <input
                 type='text'
                 id='job'
                 name='job'
                 placeholder='Nghề nghiệp'
                 className='border-2 rounded-md focus:border-blue-500 dark:bg-[#3a3b3c] dark:text-gray-200 dark:border dark:border-gray-500
-                outline-none py-2 sm:py-2.5 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
+                outline-none py-2 px-3 flex-1 w-full text-lg dark:focus:border-blue-500'
                 value={job}
                 onChange={handleChange}
               />

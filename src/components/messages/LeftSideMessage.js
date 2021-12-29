@@ -6,7 +6,7 @@ import {AddUser, getConversations} from '../../redux/actions/messageActions'
 import {getDataApi} from '../../utils/fetchDataApi'
 import UserCardMessage from '../UserCardMessage'
 
-function LeftSideMessage() {
+function LeftSideMessage({messenger}) {
   const [search, setSearch] = useState('')
   const [searchUsers, setSearchUsers] = useState([])
   const {auth, message} = useSelector((state) => state)
@@ -55,14 +55,14 @@ function LeftSideMessage() {
     history.push(`/messageall/${user._id}`)
   }
   return (
-    <div className='border-r dark:border-gray-600 overflow-y-hidden'>
+    <div className='border-r dark:border-gray-600 overflow-y-hidden h-[40%] lg:h-full flex items-center md:block'>
       <div className='p-5 border-b dark:border-gray-600'>
         <h3 className='font-bold text-2xl dark:text-gray-300'>Chat</h3>
         <div className='flex items-center px-1.5 md:bg-gray-100 rounded-full md:dark:bg-[#3a3b3c] mt-3'>
           <input
             type='text'
             placeholder='Tìm kiếm trên Messenger'
-            className='hidden sm:block bg-transparent outline-none border-0 
+            className='bg-transparent outline-none border-0 
           focus:outline-none pl-3 w-full pr-5 dark:text-gray-300 py-2'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -89,7 +89,11 @@ function LeftSideMessage() {
           </div>
         </div>
       </div>
-      <div className='leftSideMessage max-h-full overflow-y-scroll ml-2'>
+      <div
+        className={`leftSideMessage max-h-full lg:overflow-y-scroll ml-2 ${
+          messenger ? 'flex lg:block max-w-full overflow-x-scroll' : ''
+        }`}
+      >
         {searchUsers.length !== 0 ? (
           <>
             {searchUsers.map((user, i) => (

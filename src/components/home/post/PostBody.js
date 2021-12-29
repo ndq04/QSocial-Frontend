@@ -16,7 +16,7 @@ function PostBody({pos}) {
 
   return (
     <div className='post-PostBody w-full'>
-      <div className='max-w-full px-3 text-[15px] text-gray-800 dark:text-gray-300'>
+      <div className='max-w-full px-3 text-sm text-gray-800 dark:text-gray-300'>
         {pos.content.length < 200
           ? pos.content
           : readMore
@@ -25,7 +25,7 @@ function PostBody({pos}) {
         <span>
           {pos.content.length > 200 && (
             <span
-              className='font-semibold cursor-pointer hover:underline dark:text-gray-500'
+              className='font-semibold cursor-pointer hover:underline dark:text-gray-400'
               onClick={() => setReadMore(!readMore)}
             >
               {readMore ? ' Ẩn bớt' : '... Xem thêm'}

@@ -1,17 +1,19 @@
 import moment from 'moment'
 import {useContext, useState} from 'react'
+import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {ProfileContext} from '../../contexts/ProfileContext'
 
 function SavedPostCard({savedPosts}) {
   const [readMore, setReadMore] = useState(false)
   const {handleToggle} = useContext(ProfileContext)
+  const {auth} = useSelector((state) => state)
   return (
     <>
       <h3 className='text-xl font-bold flex items-center'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-6 w-6 sm:cursor-pointer dark:text-gray-300'
+          className='h-6 w-6 sm:cursor-pointer text-[#fe2c55]'
           viewBox='0 0 20 20'
           fill='currentColor'
           onClick={() => handleToggle('showAccount')}
@@ -22,7 +24,7 @@ function SavedPostCard({savedPosts}) {
             clipRule='evenodd'
           />
         </svg>
-        <span className='mx-2 dark:text-gray-300'>Bài viết đã lưu</span>
+        <span className='mx-2 text-[#fe2c55]'>Bài viết đã lưu</span>
         <span className='text-red-500'>{savedPosts.length}</span>
       </h3>
 
@@ -75,10 +77,16 @@ function SavedPostCard({savedPosts}) {
                   className='sm:cursor-pointer sm:hover:underline text-gray-500 text-sm sm:text-base dark:text-gray-300'
                 >
                   <span>Đã lưu từ bài viết của</span>
-                  <span className='ml-1 font-semibold text-gray-700 dark:text-gray-500'>
-                    <span className='mr-1'>{savedpost.user.firstname}</span>
-                    <span>{savedpost.user.lastname}</span>
-                  </span>
+                  {auth.user._id === savedpost.user._id ? (
+                    <span className='ml-1 font-semibold text-[#fe2c55]'>
+                      <span>Bạn</span>
+                    </span>
+                  ) : (
+                    <span className='ml-1 font-semibold text-[#fe2c55]'>
+                      <span className='mr-1'>{savedpost.user.firstname}</span>
+                      <span>{savedpost.user.lastname}</span>
+                    </span>
+                  )}
                 </Link>
               </div>
               <div className='text-gray-500 hidden sm:block dark:text-gray-300'>

@@ -12,15 +12,12 @@ function UserCardMessage({user, handleCloseSearch, data, id}) {
       <img
         src={user?.avatar}
         alt='avatar'
-        className='w-[50px] h-[50px] object-cover rounded-full'
+        className='lg:w-[50px] lg:h-[50px] w-10 h-10 object-cover rounded-full'
       />
       <div>
-        <p className='ml-3 font-semibold'>
+        <p className='px-3 font-semibold text-sm lg:text-base'>
           {user?.firstname} {user?.lastname}
         </p>
-        {user?._id === id && data?.length > 0 && (
-          <small>{data[data.length + 1]?.text}</small>
-        )}
       </div>
     </div>
   )

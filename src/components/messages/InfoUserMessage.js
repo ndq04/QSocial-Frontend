@@ -14,7 +14,7 @@ function InfoUserMessage() {
     }
   }, [message.users, id])
   return (
-    <div className='col-span-1 flex justify-center w-full'>
+    <div className='col-span-1 lg:flex justify-center w-full hidden'>
       <div className='flex flex-col items-center mt-5'>
         <img
           src={user?.avatar || 'https://i.imgur.com/iDuSx6e.png'}

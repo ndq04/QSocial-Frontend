@@ -14,9 +14,9 @@ function Sidebar() {
             <img
               src={auth.user.avatar}
               alt='avatar'
-              className='w-8 h-8 object-cover rounded-full mr-2'
+              className='w-10 h-10 mr-2 rounded-full object-cover flex-shrink-0 border-2 p-[2px] border-[#fe2c55]'
             />
-            <p className='text-gray-800 font-semibold dark:text-gray-200'>
+            <p className='text-[#fe2c55] font-semibold dark:text-gray-200'>
               {auth.user.firstname} {auth.user.lastname}
             </p>
           </li>
@@ -45,22 +45,19 @@ function Sidebar() {
           >
             <div className=' flex w-8 h-8 bg-gray-300 rounded-full mr-2'>
               <svg
-                viewBox='0 0 16 16'
-                width='1em'
-                height='1em'
-                className='a8c37x1j ms05siws hwsy1cff b7h9ocf4 fzdkajry jnigpg78 odw8uiq3 m-auto'
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-5 w-5 m-auto text-[#fe2c55]'
+                viewBox='0 0 20 20'
+                fill='currentColor'
               >
-                <g fillRule='evenodd' transform='translate(-448 -544)'>
-                  <path
-                    fillRule='nonzero'
-                    d='M452.707 549.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L456 552.586l-3.293-3.293z'
-                  ></path>
-                </g>
+                <path
+                  fillRule='evenodd'
+                  d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
+                  clipRule='evenodd'
+                />
               </svg>
             </div>
-            <p className='text-gray-800 font-semibold dark:text-gray-200'>
-              Xem thêm
-            </p>
+            <p className='text-[#fe2c55] font-semibold'>Xem thêm</p>
           </li>
         )}
 
@@ -89,17 +86,19 @@ function Sidebar() {
           >
             <div className=' flex w-8 h-8 bg-gray-300 rounded-full mr-2'>
               <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-5 w-5 m-auto text-[#fe2c55]'
                 viewBox='0 0 20 20'
-                width='1.2em'
-                height='1.2em'
-                className='a8c37x1j ms05siws hwsy1cff b7h9ocf4 fzdkajry jnigpg78 odw8uiq3 m-auto'
+                fill='currentColor'
               >
-                <path d='M15.47 12.2 10 6.727 4.53 12.2a.75.75 0 0 1-1.06-1.061l6-6a.751.751 0 0 1 1.06 0l6 6a.75.75 0 0 1-1.06 1.061z'></path>
+                <path
+                  fillRule='evenodd'
+                  d='M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z'
+                  clipRule='evenodd'
+                />
               </svg>
             </div>
-            <p className='text-gray-800 font-semibold dark:text-gray-200'>
-              Ẩn bớt
-            </p>
+            <p className='text-[#fe2c55] font-semibold'>Ẩn bớt</p>
           </li>
         )}
       </ul>

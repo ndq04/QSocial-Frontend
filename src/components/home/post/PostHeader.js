@@ -61,13 +61,13 @@ function PostHeader({pos, index}) {
           <img
             src={pos.user.avatar}
             alt={pos.user.firstname}
-            className='w-11 h-11 object-cover rounded-full mr-2'
+            className='w-11 h-11 rounded-full object-cover flex-shrink-0 border-2 p-[2px] border-[#fe2c55] mr-2'
           />
         </Link>
         <div>
           <Link
             to={`/profile/${pos.user._id}`}
-            className='hover:underline font-semibold text-gray-800 dark:text-gray-300'
+            className='hover:underline font-semibold text-[#fe2c55]'
             onMouseOver={() => setShowInfo(true)}
             onMouseOut={() => setShowInfo(false)}
           >
@@ -90,16 +90,16 @@ function PostHeader({pos, index}) {
           </div>
         </div>
         {showInfo && (
-          <div className='absolute w-[400px] bg-white p-4 rounded-lg shadow-lg border dark:border-gray-600 top-[100%] left-0 xl:left-[-50%] z-10 dark:bg-[#282928]'>
+          <div className='absolute w-[400px] bg-white p-4 rounded-lg shadow-lg border dark:border-gray-600 top-[100%] left-0 xl:left-[-50%] z-30 dark:bg-[#282928]'>
             <div className='flex items-start'>
               <img
                 src={pos.user.avatar}
                 alt={pos.user.firstname}
-                className='w-24 h-24 object-cover rounded-full mr-4'
+                className='w-24 h-24 rounded-full object-cover flex-shrink-0 border-[2.5px] p-[2.5px] border-[#fe2c55] mr-4'
               />
 
               <div>
-                <p className='text-2xl font-bold text-gray-900 pb-3 dark:text-gray-300'>
+                <p className='text-2xl font-bold text-[#fe2c55] pb-3'>
                   {pos.user.firstname} {pos.user.lastname}
                 </p>
                 <div className='flex items-center mt-2  text-gray-600 text-sm'>
@@ -170,7 +170,7 @@ function PostHeader({pos, index}) {
           {!isOpen && auth.user._id === pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
+              className='h-5 w-5 text-[#fe2c55] m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -184,7 +184,7 @@ function PostHeader({pos, index}) {
           {isOpen && auth.user._id === pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
+              className='h-5 w-5 text-[#fe2c55] m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -198,7 +198,7 @@ function PostHeader({pos, index}) {
           {!isOpen && auth.user._id !== pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
+              className='h-5 w-5 text-[#fe2c55] m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -212,7 +212,7 @@ function PostHeader({pos, index}) {
           {isOpen && auth.user._id !== pos.user._id && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 text-gray-600 m-auto dark:text-gray-300'
+              className='h-5 w-5 text-[#fe2c55] m-auto dark:text-gray-300'
               viewBox='0 0 20 20'
               fill='currentColor'
             >

@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Like} from '../../../data/Like'
 import {
   likepost,
   savedPost,
@@ -13,6 +12,8 @@ import SavePost from './SavePost'
 function PostFooter({pos, setShowComment}) {
   const [isLike, setIsLike] = useState(false)
   const [saved, setSaved] = useState(false)
+  // const {showUserLike, handleToggleUserLike} = useContext(PostContext)
+  const [showUserLike, setShowUserLike] = useState(false)
 
   const dispatch = useDispatch(0)
   const {auth, socket} = useSelector((state) => state)
@@ -22,7 +23,6 @@ function PostFooter({pos, setShowComment}) {
       setIsLike(true)
     }
   }, [pos.likes, auth.user._id])
-
   useEffect(() => {
     if (auth.user.saved.find((id) => id === pos._id)) {
       setSaved(true)
@@ -54,26 +54,54 @@ function PostFooter({pos, setShowComment}) {
 
   return (
     <div className='post-footer px-3 pt-3'>
-      <div className='post-footer--top flex items-center justify-between border-gray-300'>
+      <div className='post-footer--top flex items-center justify-between relative'>
         <div className='flex items-center'>
-          {Like.map((item) => (
-            <img
-              key={item.id}
-              src={item.img}
-              alt='*'
-              className='w-5 h-5 mr-1'
-            />
-          ))}
-          <p className='text-gray-600 text-[15px] ml-2 dark:text-gray-300'>
-            {pos.likes.length} <span>người thích</span>
-          </p>
+          <img
+            src='https://res.cloudinary.com/doltvro6d/image/upload/v1638971144/qsocial/tim_cli82p.png'
+            alt='like'
+            className='w-5 h-5 md:hover:cursor-pointer'
+            onMouseOver={() => setShowUserLike(true)}
+            onMouseOut={() => setShowUserLike(false)}
+          />
+
+          <div className='text-gray-600 text-[15px] ml-1 dark:text-gray-300 flex-1'>
+            <p
+              className='md:hover:underline md:hover:cursor-pointer text-sm'
+              onMouseOver={() => setShowUserLike(true)}
+              onMouseOut={() => setShowUserLike(false)}
+            >
+              <span>{pos.likes?.length}</span>
+            </p>
+            {showUserLike && (
+              <div
+                className='absolute w-[35%] bg-black opacity-70 p-2 rounded-lg shadow-lg border dark:border-gray-600
+                top-[120%] left-0 z-20 dark:bg-white dark:opacity-90'
+              >
+                {pos.likes?.length > 0 &&
+                  pos.likes.map((like, i) => (
+                    <div key={i} className='rounded-md'>
+                      <p className='text-sm text-gray-300 dark:text-black'>
+                        {auth.user._id === like._id ? (
+                          <span>Bạn</span>
+                        ) : (
+                          <span>
+                            {like.firstname} {like.lastname}
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
         </div>
-        <p className='text-gray-600 text-[15px] ml-2 dark:text-gray-300'>
-          {pos.comments.length} <span>bình luận</span>
+        <p className='text-gray-600 text-sm ml-2 dark:text-gray-300'>
+          <span>{pos.comments?.length}</span>
+          <span> bình luận</span>
         </p>
       </div>
 
-      <div className='post-footer--bottom grid grid-cols-3 text-sm border-t border-gray-300 mt-3 py-1 dark:border-gray-600'>
+      <div className='post-footer--bottom grid grid-cols-3 text-sm border-t border-[#fe2c55] dark:border-gray-600 mt-3 py-1'>
         <LikePost {...likeData} />
 
         <div

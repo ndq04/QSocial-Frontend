@@ -8,7 +8,7 @@ function PhotoCard({photos, userData}) {
       <h3 className='text-xl font-bold flex items-center mb-4'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          className='h-6 w-6 sm:cursor-pointer dark:text-gray-300'
+          className='h-6 w-6 sm:cursor-pointer text-[#fe2c55]'
           viewBox='0 0 20 20'
           fill='currentColor'
           onClick={() => handleToggle('showAccount')}
@@ -19,7 +19,7 @@ function PhotoCard({photos, userData}) {
             clipRule='evenodd'
           />
         </svg>
-        <span className='mx-2 dark:text-gray-300'>Ảnh</span>
+        <span className='mx-2 text-[#fe2c55]'>Ảnh</span>
         <span className='text-red-500'>{photos.length + 1}</span>
       </h3>
       <div className='grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 xl:gap-4'>

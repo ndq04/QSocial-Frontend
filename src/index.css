@@ -19,7 +19,7 @@
   position: absolute;
   left: 8px;
   width: 14px;
-  background: #1877f2;
+  background: #fe2c55;
   animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 .lds-facebook div:nth-child(1) {
@@ -66,7 +66,7 @@
   width: 5px;
   height: 15px;
   border-radius: 20%;
-  background: #1888ff;
+  background: #fe2c55;
 }
 .lds-spinner div:nth-child(1) {
   transform: rotate(0deg);

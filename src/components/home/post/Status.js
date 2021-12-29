@@ -20,7 +20,7 @@ function Status() {
           />
         </Link>
         <p
-          className='text-gray-600 text-lg bg-[#f0f2f5] dark:bg-[#3a3b3c] dark:text-gray-300
+          className='text-gray-600 bg-[#f0f2f5] dark:bg-[#3a3b3c] dark:text-gray-300
           hover:bg-gray-200 flex-1 px-3 py-2 rounded-full'
           onClick={toggleStatusModal}
         >

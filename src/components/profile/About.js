@@ -20,11 +20,11 @@ function About({userData, auth, photos}) {
     userData.map((user, i) => (
       <div key={i}>
         <div className='profile-info--intro md:rounded-lg p-3 bg-white shadow-lg dark:bg-[#282928] dark:mx-4 dark:rounded-lg md:dark:mx-0'>
-          <h3 className='font-bold text-xl dark:text-gray-300'>Giới thiệu</h3>
+          <h3 className='font-bold text-xl text-[#fe2c55]'>Giới thiệu</h3>
           <div className='flex items-center py-3'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 text-gray-500 mr-2 dark:text-gray-300'
+              className='h-6 w-6 text-[#fe2c55] mr-2'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -38,7 +38,7 @@ function About({userData, auth, photos}) {
           <div className='flex items-center pb-3'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 text-gray-500 mr-2 dark:text-gray-300'
+              className='h-6 w-6 text-[#fe2c55] mr-2'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -56,7 +56,7 @@ function About({userData, auth, photos}) {
           <div className='flex items-center pb-3'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 text-gray-500 mr-2 dark:text-gray-300'
+              className='h-6 w-6 text-[#fe2c55] mr-2'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -70,7 +70,7 @@ function About({userData, auth, photos}) {
           <div className='flex items-center pb-3'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 text-gray-500 mr-2 dark:text-gray-300'
+              className='h-6 w-6 text-[#fe2c55] mr-2'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -88,7 +88,7 @@ function About({userData, auth, photos}) {
           <div className='flex items-center pb-3'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 text-gray-500 mr-2 dark:text-gray-300'
+              className='h-6 w-6 text-[#fe2c55] mr-2'
               viewBox='0 0 20 20'
               fill='currentColor'
             >
@@ -106,7 +106,7 @@ function About({userData, auth, photos}) {
         </div>
         <div className='profile-info--followings md:rounded-lg p-3 bg-white mt-[1.5px] md:mt-4 md:shadow-lg dark:bg-[#282928] dark:m-4 dark:rounded-lg md:dark:mx-0'>
           <div className='my-3 flex items-center justify-between'>
-            <h3 className='relative font-bold text-xl flex items-center dark:text-gray-300'>
+            <h3 className='relative font-bold text-xl flex items-center text-[#fe2c55]'>
               Ảnh
               <span className='ml-2 flex w-6 h-6 bg-red-500 text-white rounded-full'>
                 <span className='m-auto text-sm'>{photos.length + 1}</span>
@@ -114,7 +114,7 @@ function About({userData, auth, photos}) {
             </h3>
             <p
               className='py-1.5 px-4 hover:bg-gray-300 dark:hover:bg-[#414345] dark:hover:text-gray-300
-                rounded-md cursor-pointer text-blue-600'
+                rounded-md cursor-pointer text-[#fe2c55]'
               onClick={() => handleToggle('showPhotos')}
             >
               Xem tất cả
@@ -141,7 +141,7 @@ function About({userData, auth, photos}) {
         {auth && auth.user && id === auth.user._id && (
           <div className='profile-info--followings md:rounded-lg p-3 bg-white mt-[1.5px] md:mt-4 md:shadow-lg dark:bg-[#282928] dark:m-4 dark:rounded-lg md:dark:mx-0'>
             <div className='my-3 flex items-center justify-between'>
-              <h3 className='relative font-bold text-xl flex items-center dark:text-gray-300'>
+              <h3 className='relative font-bold text-xl flex items-center text-[#fe2c55]'>
                 Đang theo dõi
                 <span className='ml-2 flex w-6 h-6 bg-red-500 text-white rounded-full'>
                   <span className='m-auto text-sm'>
@@ -151,7 +151,7 @@ function About({userData, auth, photos}) {
               </h3>
               <p
                 className='py-1.5 px-4 hover:bg-gray-300 dark:hover:bg-[#414345] dark:hover:text-gray-300
-                rounded-md cursor-pointer text-blue-600'
+                rounded-md cursor-pointer text-[#fe2c55]'
                 onClick={() => handleToggle('showFollowings')}
               >
                 Xem tất cả
@@ -178,7 +178,7 @@ function About({userData, auth, photos}) {
         {auth && auth.user && id === auth.user._id && (
           <div className='profile-info--followings md:rounded-lg p-3 bg-white mt-[2px] md:mt-4 md:shadow-lg dark:bg-[#282928] dark:m-4 dark:rounded-lg md:dark:mx-0'>
             <div className='my-3 flex items-center justify-between'>
-              <h3 className='relative font-bold text-xl flex items-center dark:text-gray-300'>
+              <h3 className='relative font-bold text-xl flex items-center text-[#fe2c55]'>
                 Người theo dõi
                 <span className='ml-2 flex w-6 h-6 bg-red-500 text-white rounded-full'>
                   <span className='m-auto text-sm'>{user.friends.length}</span>
@@ -186,7 +186,7 @@ function About({userData, auth, photos}) {
               </h3>
               <p
                 className='py-1.5 px-4 hover:bg-gray-300 dark:hover:bg-[#414345] dark:hover:text-gray-300
-                rounded-md cursor-pointer text-blue-600 '
+                rounded-md cursor-pointer text-[#fe2c55] '
                 onClick={() => handleToggle('showFriends')}
               >
                 Xem tất cả

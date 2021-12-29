@@ -80,7 +80,7 @@ function Info(data) {
               </div>
             </>
           )}
-          <h3 className='text-[32px] font-bold dark:text-gray-200'>
+          <h3 className='text-[32px] font-bold text-[#fe2c55]'>
             {user.firstname} {user.lastname}
           </h3>
         </div>

@@ -4,8 +4,8 @@ function Avatar({user, auth, setOnEditAvatar}) {
       <img
         src={user.avatar}
         alt='img'
-        className='w-[90%] h-[90%] m-auto object-cover rounded-full border-4
-      border-white dark:border-[#242526]'
+        className='w-[90%] h-[90%] m-auto object-cover rounded-full border-4 p-1 bg-white
+      border-[#fe2c55]'
       />
       {auth.user._id === user._id && (
         <div
@@ -15,7 +15,7 @@ function Avatar({user, auth, setOnEditAvatar}) {
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6 m-auto dark:text-gray-200'
+            className='h-6 w-6 m-auto text-[#fe2c55]'
             viewBox='0 0 20 20'
             fill='currentColor'
           >
