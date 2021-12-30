@@ -101,7 +101,7 @@ function PostFooter({pos, setShowComment}) {
         </p>
       </div>
 
-      <div className='post-footer--bottom grid grid-cols-3 text-sm border-t border-[#fe2c55] dark:border-gray-600 mt-3 py-1'>
+      <div className='post-footer--bottom grid grid-cols-3 text-sm border-t border-gray-200 dark:border-gray-600 mt-3 py-1'>
         <LikePost {...likeData} />
 
         <div
