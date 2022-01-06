@@ -1,6 +1,6 @@
 import {postDataApi} from '../../utils/fetchDataApi'
-import {ACTION_TYPES} from './actionTypes'
 import {valid} from '../../utils/Valid'
+import {ACTION_TYPES} from './actionTypes'
 
 export const login = (data) => async (dispatch) => {
   try {

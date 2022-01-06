@@ -29,9 +29,9 @@ export const valid = ({
   }
 
   if (!username) {
-    err.username = 'Tên đăng nhập không được để trống'
+    err.username = 'Tên người dùng không được để trống'
   } else if (username.replace(/ /g, '').length > 15) {
-    err.username = 'Tên đăng nhập vượt quá 15 ký tự'
+    err.username = 'Tên người dùng vượt quá 15 ký tự'
   }
 
   if (!email) {

@@ -30,17 +30,16 @@ function Login() {
     dispatch(login(state))
   }
   return (
-    <div className='login bg-[#f0f2f5] select-none h-screen flex items-start xl:items-center'>
+    <div className='login bg-[#f0f2f5] select-none h-screen flex items-start xl:items-center z-10'>
       <div className='login-content sm:mx-20 md:mx-auto flex items-center flex-col-reverse md:flex-row w-full md:max-w-5xl pt-20'>
         <div className='login-left w-full md:w-[50%] md:mx-auto flex flex-col bg-white rounded-lg shadow-md px-4 py-10'>
           <form
             className='flex flex-col border-b border-gray-300 pb-5 mb-5'
             onSubmit={handleSubmit}
           >
-            <div className='form-control mb-4'>
+            <div className='form-control mb-6 relative'>
               <input
-                type='email'
-                required
+                type='text'
                 placeholder='Email'
                 className='border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none py-2 px-3 text-lg'
@@ -49,10 +48,9 @@ function Login() {
                 onChange={handleChange}
               />
             </div>
-            <div className='form-control relative mb-4'>
+            <div className='form-control relative mb-6'>
               <input
                 type={showPassword ? 'text' : 'password'}
-                required
                 placeholder='Mật khẩu'
                 className='border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none py-2 px-3 text-lg'

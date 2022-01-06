@@ -98,7 +98,7 @@ function Register() {
             <div className='form-control mb-5 relative'>
               <input
                 type='text'
-                placeholder='Tên đăng nhập'
+                placeholder='Tên người dùng'
                 className={`border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none p-2 text-lg ${
                   alert.username && 'border-red-400'

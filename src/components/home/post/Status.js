@@ -20,8 +20,7 @@ function Status() {
           />
         </Link>
         <p
-          className='text-white bg-[#fe2c55] dark:bg-[#3a3b3c]
-          md:hover:bg-[#f52650] flex-1 px-3 py-2 rounded-full'
+          className='text-[#fe2c55] border-2 border-[#fe2c55] dark:bg-[#3a3b3c] flex-1 px-3 py-2 rounded-full'
           onClick={toggleStatusModal}
         >
           <span> {`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}</span>
