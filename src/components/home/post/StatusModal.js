@@ -36,7 +36,7 @@ function StatusModal() {
         file.type !== 'image/png' &&
         file.type !== 'image/gif'
       ) {
-        return (err = 'Định dạng ảnh không hỗ trợ')
+        return (err = 'Định dạng không hỗ trợ')
       }
       return imagesArr.push(file)
     })

@@ -18,7 +18,7 @@ export const imageupload = async (images) => {
     const formData = new FormData()
     formData.append('file', image)
 
-    formData.append('upload_preset', 'fcfm2sej')
+    formData.append('upload_preset', 'ndq_qsocial')
     formData.append('cloud_name', 'doltvro6d')
 
     try {
