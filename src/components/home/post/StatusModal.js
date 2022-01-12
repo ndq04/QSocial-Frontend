@@ -177,7 +177,7 @@ function StatusModal() {
           onClick={() => setShowPicker(false)}
         >
           <textarea
-            className={`w-full outline-none resize-none bg-white text-2xl dark:p-3 ${
+            className={`w-full outline-none resize-none bg-white text-2xl dark:bg-[#3a3b3c] dark:text-white dark:p-3 ${
               images.length > 0 ? 'h-[110px] text-base mb-3' : 'h-full'
             }`}
             placeholder={`${auth.user.lastname} ơi, bạn đang nghĩ gì thế ?`}
@@ -228,7 +228,7 @@ function StatusModal() {
 
         <div
           className='modal-option flex items-center border border-gray-400 rounded-lg 
-          pl-3 py-1 my-3 sm:my-4 bg-white h-[15%]'
+          pl-3 py-1 my-3 sm:my-4 bg-white h-[15%] dark:bg-[#282928] dark:border-gray-600'
           onClick={() => setShowPicker(false)}
         >
           <p className='font-semibold text-[#fe2c55]'>Thêm ảnh</p>
