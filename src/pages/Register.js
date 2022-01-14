@@ -61,7 +61,7 @@ function Register() {
               <div className='form-control mb-5 relative flex-1 mr-1.5'>
                 <input
                   type='text'
-                  placeholder='Họ'
+                  placeholder='Họ *'
                   className={`border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none p-2 text-lg ${
                   alert.firstname && 'border-red-400'
@@ -79,7 +79,7 @@ function Register() {
               <div className='form-control mb-5 relative flex-1 ml-1.5'>
                 <input
                   type='text'
-                  placeholder='Tên'
+                  placeholder='Tên *'
                   className={`border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none p-2 text-lg ${
                   alert.lastname && 'border-red-400'
@@ -98,7 +98,7 @@ function Register() {
             <div className='form-control mb-5 relative'>
               <input
                 type='text'
-                placeholder='Tên người dùng'
+                placeholder='Tên người dùng *'
                 className={`border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none p-2 text-lg ${
                   alert.username && 'border-red-400'
@@ -116,7 +116,7 @@ function Register() {
             <div className='form-control mb-5 relative'>
               <input
                 type='email'
-                placeholder='Email'
+                placeholder='Email *'
                 className={`border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none p-2 text-lg ${alert.email && 'border-red-400'} ${
                   alert.email && 'focus:border-red-400'
@@ -134,7 +134,7 @@ function Register() {
             <div className='form-control mb-5 relative'>
               <input
                 type={showPassword ? 'text' : 'password'}
-                placeholder='Mật khẩu'
+                placeholder='Mật khẩu *'
                 className={`border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none p-2 text-lg ${
                   alert.password && 'border-red-400'
@@ -190,7 +190,7 @@ function Register() {
             <div className='form-control mb-5 relative'>
               <input
                 type={showCfPassword ? 'text' : 'password'}
-                placeholder='Nhập lại mật khẩu'
+                placeholder='Nhập lại mật khẩu *'
                 className={`border-[1px] sm:border-2 rounded-md w-full focus:border-[#fe2c55] 
                 outline-none p-2 text-lg ${
                   alert.cfPassword && 'border-red-400'
