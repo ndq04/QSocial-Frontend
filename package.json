@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "https://q-social.herokuapp.com",
+  "proxy": "https://q-social-api.herokuapp.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
