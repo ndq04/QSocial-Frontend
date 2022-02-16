@@ -30,6 +30,28 @@ function LeftSideMessage({messenger}) {
     }
   }, [search])
 
+  useEffect(() => {
+    if (!search) {
+      handleCloseSearch()
+    }
+    const searchUsersFetch = async () => {
+      if (search && auth.token) {
+        try {
+          const res = await getDataApi(`search?username=${search}`, auth.token)
+          setSearchUsers(res.data.users)
+        } catch (error) {
+          dispatch({
+            type: ACTION_TYPES.ALERT,
+            payload: {
+              error: error.response.data.message,
+            },
+          })
+        }
+      }
+    }
+    searchUsersFetch()
+  }, [search])
+
   const handleSearch = async (e) => {
     e.preventDefault()
     if (!search) {
@@ -55,26 +77,32 @@ function LeftSideMessage({messenger}) {
     history.push(`/messageall/${user._id}`)
   }
   return (
-    <div className='border-r dark:border-gray-600 overflow-y-hidden h-[40%] lg:h-full flex items-center md:block'>
-      <div className='p-5 border-b dark:border-gray-600'>
-        <h3 className='font-bold text-2xl dark:text-gray-300'>Chat</h3>
-        <div className='flex items-center px-1.5 md:bg-gray-100 rounded-full md:dark:bg-[#3a3b3c] mt-3'>
+    <div
+      className={`${
+        messenger
+          ? 'border-r dark:border-gray-600 overflow-y-hidden h-[30%] sm:h-full hidden lg:block flex-col items-center'
+          : 'border-r dark:border-gray-600 overflow-y-hidden h-full lg:block flex-col items-center'
+      }`}
+    >
+      <div className='p-5 border-b dark:border-gray-600 w-full'>
+        <h3 className='font-bold text-2xl dark:text-gray-300 w-full'>Chat</h3>
+        <div className='flex items-center px-1.5 bg-gray-100 rounded-full md:dark:bg-[#3a3b3c] mt-3 w-full'>
           <input
             type='text'
             placeholder='Tìm kiếm trên Messenger'
-            className='bg-transparent outline-none border-0 
+            className='bg-transparent outline-none border-0 flex-1
           focus:outline-none pl-3 w-full pr-5 dark:text-gray-300 py-2'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
 
           <div
-            className='p-1.5 bg-blue-500 rounded-full sm:cursor-pointer dark:bg-[#18191a] relative'
+            className='p-1.5 bg-blue-500 rounded-full hidden sm:cursor-pointer dark:bg-[#18191a] relative sm:flex flex-shrink-0 w-8 h-8'
             onClick={handleSearch}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5 hidden sm:block text-white dark:text-gray-300'
+              className='h-5 w-5 hidden sm:block text-white dark:text-gray-300 m-auto flex-shrink-0'
               fill='none'
               viewBox='0 0 24 24'
               stroke='currentColor'

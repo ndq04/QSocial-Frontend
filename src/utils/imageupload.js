@@ -4,6 +4,7 @@ export const checkimage = (file) => {
   if (file.size > 1024 * 1024 * 6) err = 'Dung lượng ảnh vượt quá 6 MB'
   if (
     file.type !== 'image/jpeg' &&
+    file.type !== 'image/jpg' &&
     file.type !== 'image/png' &&
     file.type !== 'image/gif'
   ) {

@@ -1,6 +1,6 @@
 function MessageHeader({user}) {
   return (
-    <div className='h-[70px] w-full shadow dark:border-b dark:border-gray-600 flex items-center px-4 flex-shrink-0'>
+    <div className='h-[70px] w-full shadow dark:border-b dark:border-gray-600 flex items-center px-4 flex-shrink-0 mt-[15px] sm:mt-0'>
       <div className='relative mr-2'>
         <img
           src={user?.avatar || 'https://i.imgur.com/iDuSx6e.png'}

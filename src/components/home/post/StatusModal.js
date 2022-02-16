@@ -32,6 +32,7 @@ function StatusModal() {
     files.forEach((file) => {
       if (!file) return (err = 'Không tìm thấy tệp')
       if (
+        file.type !== 'image/jpg' &&
         file.type !== 'image/jpeg' &&
         file.type !== 'image/png' &&
         file.type !== 'image/gif'
