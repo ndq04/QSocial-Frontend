@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "https://q-social-api.herokuapp.com",
+  "proxy": "https://q-social.onrender.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "cross-env TAILWIND_MODE=watch craco start",
-    "build": "react-scripts build",
+    "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
