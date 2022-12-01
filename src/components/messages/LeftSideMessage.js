@@ -50,7 +50,7 @@ function LeftSideMessage({messenger}) {
       }
     }
     searchUsersFetch()
-  }, [search])
+  }, [search, auth.token, dispatch])
 
   const handleSearch = async (e) => {
     e.preventDefault()
