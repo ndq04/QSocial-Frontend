@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "https://q-social.onrender.com/",
+  "proxy": "https://q-social-backend.vercel.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,8 +12,8 @@
     "cross-env": "^7.0.3",
     "emoji-picker-react": "^3.4.8",
     "moment": "^2.29.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
