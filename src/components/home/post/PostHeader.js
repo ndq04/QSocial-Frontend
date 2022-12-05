@@ -40,7 +40,7 @@ function PostHeader({pos, index}) {
   }
 
   const handleCopyPostLink = () => {
-    navigator.clipboard.writeText(`${BASE_URL}/post/${pos._id}`)
+    navigator.clipboard.writeText(`${BASE_URL}post/${pos._id}`)
     setIsOpen(false)
     dispatch({
       type: ACTION_TYPES.ALERT,
