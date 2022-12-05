@@ -57,7 +57,7 @@ function PostFooter({pos, setShowComment}) {
       <div className='post-footer--top flex items-center justify-between relative'>
         <div className='flex items-center'>
           <img
-            src='https://res.cloudinary.com/doltvro6d/image/upload/v1638971144/qsocial/tim_cli82p.png'
+            src='https://res.cloudinary.com/quangnd/image/upload/v1638971144/qsocial/tim_cli82p.png'
             alt='like'
             className='w-5 h-5 md:hover:cursor-pointer'
             onMouseOver={() => setShowUserLike(true)}

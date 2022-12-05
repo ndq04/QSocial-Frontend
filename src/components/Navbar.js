@@ -100,7 +100,7 @@ function Navbar() {
         <div className='flex-shrink-0' onClick={handleCloseSearch}>
           <Link to='/'>
             <img
-              src='https://res.cloudinary.com/doltvro6d/image/upload/v1640764224/qsocial/Screenshot_2021-12-29_144949_vidtnq.png'
+              src='https://res.cloudinary.com/quangnd/image/upload/v1640764224/qsocial/Screenshot_2021-12-29_144949_vidtnq.png'
               alt='logo'
               className='w-12 h-12 rounded-full hidden sm:block'
             />

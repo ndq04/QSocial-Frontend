@@ -25,7 +25,7 @@ function Content({handleToggle}) {
       ) : homePost.result === 0 ? (
         <div className='w-full relative'>
           <img
-            src='https://res.cloudinary.com/doltvro6d/image/upload/v1639408951/qsocial/Screenshot_2021-12-13_222134_ohqc1x.png'
+            src='https://res.cloudinary.com/quangnd/image/upload/v1639408951/qsocial/Screenshot_2021-12-13_222134_ohqc1x.png'
             alt='no post'
             className='w-full rounded-lg'
           />

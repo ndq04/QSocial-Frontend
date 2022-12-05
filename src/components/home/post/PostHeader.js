@@ -5,7 +5,8 @@ import {Link, useHistory} from 'react-router-dom'
 import {StatusContext} from '../../../contexts/StatusContext'
 import {ACTION_TYPES} from '../../../redux/actions/actionTypes'
 import {deletePost} from '../../../redux/actions/postActions'
-import {BASE_URL} from '../../../utils/config'
+// import {BASE_URL} from '../../../utils/config'
+const BASE_COPY_URL = 'http://localhost:3000/'
 
 function PostHeader({pos, index}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -40,7 +41,7 @@ function PostHeader({pos, index}) {
   }
 
   const handleCopyPostLink = () => {
-    navigator.clipboard.writeText(`${BASE_URL}post/${pos._id}`)
+    navigator.clipboard.writeText(`${BASE_COPY_URL}post/${pos._id}`)
     setIsOpen(false)
     dispatch({
       type: ACTION_TYPES.ALERT,

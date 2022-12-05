@@ -2,28 +2,28 @@ export const SidebarData = [
   {
     id: 1,
     title: 'Bạn bè',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png',
+    img: 'https://res.cloudinary.com/quangnd/image/upload/v1670253266/qsocial/BanBe_drg28d.png',
   },
   {
     id: 2,
     title: 'Đã lưu',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png',
+    img: 'https://res.cloudinary.com/quangnd/image/upload/v1670253362/qsocial/DaLuu_pg9jpt.png',
   },
   {
     id: 3,
     title: 'Nhóm',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/PrjLkDYpYbH.png',
+    img: 'https://res.cloudinary.com/quangnd/image/upload/v1670253439/qsocial/Nhom_mp4wnq.png',
   },
 
   {
     id: 4,
     title: 'Watch',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/duk32h44Y31.png',
+    img: 'https://res.cloudinary.com/quangnd/image/upload/v1670253483/qsocial/Watch_c3b5wc.png',
   },
   {
     id: 5,
     title: 'Maketplace',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/D2y-jJ2C_hO.png',
+    img: 'https://res.cloudinary.com/quangnd/image/upload/v1670253538/qsocial/Maket_yjl6f2.png',
   },
 ]
 
@@ -31,12 +31,12 @@ export const SidebarMore = [
   {
     id: 1,
     title: 'Chiến dịch gây quỹ',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/yA/r/A2tHTy6ibgT.png',
+    img: 'https://res.cloudinary.com/quangnd/image/upload/v1670253582/qsocial/GayQuy_h1os4u.png',
   },
   {
     id: 2,
     title: 'Gần đây nhất',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/y1/r/l6e-P1BHJLy.png',
+    img: 'https://res.cloudinary.com/quangnd/image/upload/v1670253708/qsocial/GanDay_hqn5vw.png',
   },
   {
     id: 3,
@@ -61,7 +61,7 @@ export const SidebarMore = [
   {
     id: 7,
     title: 'Sự kiện',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/9-o1e6LN_TX.png',
+    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/yP/r/AEtAaL2yH8k.png',
   },
   {
     id: 8,
@@ -76,7 +76,7 @@ export const SidebarMore = [
   {
     id: 10,
     title: 'Video trực tiếp',
-    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/yO/r/FBOwekDrmB5.png',
+    img: 'https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/fwJfS2s82lU.png',
   },
   {
     id: 11,

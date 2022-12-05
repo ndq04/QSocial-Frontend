@@ -163,7 +163,7 @@ function PostCommentItem({comment, pos, commentId, children}) {
             bg-white rounded-full shadow-lg flex-shrink-0 ml-1'
             >
               <img
-                src='https://res.cloudinary.com/doltvro6d/image/upload/v1638971144/qsocial/thich_vjy4ss.png'
+                src='https://res.cloudinary.com/quangnd/image/upload/v1638971144/qsocial/thich_vjy4ss.png'
                 alt='icon'
                 className='w-5 h-5'
               />
