@@ -1,31 +1,31 @@
 import axios from 'axios'
 
 export const getDataApi = async (url, token) => {
-  return await axios.get(`/api/${url}`, {
+  return await axios.get(url, {
     headers: {Authorization: token},
   })
 }
 
 export const postDataApi = async (url, data, token) => {
-  return await axios.post(`/api/${url}`, data, {
+  return await axios.post(url, data, {
     headers: {Authorization: token},
   })
 }
 
 export const putDataApi = async (url, data, token) => {
-  return await axios.put(`/api/${url}`, data, {
+  return await axios.put(url, data, {
     headers: {Authorization: token},
   })
 }
 
 export const patchDataApi = async (url, data, token) => {
-  return await axios.patch(`/api/${url}`, data, {
+  return await axios.patch(url, data, {
     headers: {Authorization: token},
   })
 }
 
 export const deleteDataApi = async (url, token) => {
-  return await axios.delete(`/api/${url}`, {
+  return await axios.delete(url, {
     headers: {Authorization: token},
   })
 }

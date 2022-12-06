@@ -31,7 +31,6 @@ export const imageupload = async (images) => {
         }
       )
       const data = await res.json()
-      // console.log(data)
       imageArr.push({public_id: data.public_id, secure_url: data.secure_url})
     } catch (error) {
       console.log(error)

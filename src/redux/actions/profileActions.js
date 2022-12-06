@@ -1,3 +1,4 @@
+import { BASE_URL } from '../../utils/config'
 import {getDataApi, patchDataApi} from '../../utils/fetchDataApi'
 import {imageupload} from '../../utils/imageupload'
 import {ACTION_TYPES, DeleteData} from './actionTypes'
@@ -19,8 +20,8 @@ export const getProfileUsers =
             loading: true,
           },
         })
-        const user = await getDataApi(`user/${id}`, auth.token)
-        const posts = await getDataApi(`post/${id}/userpost`, auth.token)
+        const user = await getDataApi(`${BASE_URL}/user/${id}`, auth.token)
+        const posts = await getDataApi(`${BASE_URL}/post/${id}/userpost`, auth.token)
 
         dispatch({
           type: ACTION_TYPES.GET_USER,
@@ -55,7 +56,6 @@ export const getProfileUsers =
 export const updateProfile =
   ({editData, auth}) =>
   async (dispatch) => {
-    // console.log({editData})
     try {
       const {firstname, lastname, livein, from, job} = editData
 
@@ -99,7 +99,7 @@ export const updateProfile =
         },
       })
       const res = await patchDataApi(
-        'userprofile',
+        `${BASE_URL}/userprofile`,
         {
           firstname,
           lastname,
@@ -110,7 +110,6 @@ export const updateProfile =
         },
         auth.token
       )
-      // console.log(res)
 
       dispatch({
         type: ACTION_TYPES.AUTH,
@@ -168,14 +167,13 @@ export const updateAvatar =
       }
 
       const res = await patchDataApi(
-        'useravatar',
+        `${BASE_URL}/useravatar`,
         {
           avatar: avatar ? media[0].secure_url : auth.user.avatar,
           userId: auth.user._id,
         },
         auth.token
       )
-      // console.log(res)
 
       dispatch({
         type: ACTION_TYPES.AUTH,
@@ -228,14 +226,13 @@ export const updateCoverimage =
       }
 
       const res = await patchDataApi(
-        'usercoverimage',
+        `${BASE_URL}/usercoverimage`,
         {
           coverimage: coverimage ? media[0].secure_url : auth.user.coverimage,
           userId: auth.user._id,
         },
         auth.token
       )
-      // console.log(res)
 
       dispatch({
         type: ACTION_TYPES.AUTH,
@@ -278,7 +275,6 @@ export const addfriend =
       ...user,
       friends: [...user.friends, auth.user],
     }
-    // console.log(newUser)
 
     dispatch({
       type: ACTION_TYPES.FRIEND,
@@ -296,7 +292,7 @@ export const addfriend =
     })
     try {
       const res = await patchDataApi(
-        `user/${user._id}/friend`,
+        `${BASE_URL}/user/${user._id}/friend`,
         {_id: auth.user._id},
         auth.token
       )
@@ -334,7 +330,6 @@ export const unfriend =
       ...user,
       friends: DeleteData(user.friends, auth.user._id),
     }
-    // console.log(newUser)
 
     dispatch({
       type: ACTION_TYPES.UNFRIEND,
@@ -353,7 +348,7 @@ export const unfriend =
     })
     try {
       const res = await patchDataApi(
-        `user/${user._id}/unfriend`,
+        `${BASE_URL}/user/${user._id}/unfriend`,
         {_id: auth.user._id},
         auth.token
       )

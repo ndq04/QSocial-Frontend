@@ -7,6 +7,7 @@ import useDarkMode from '../hooks/useDarkMode'
 import {ACTION_TYPES} from '../redux/actions/actionTypes'
 import {logout} from '../redux/actions/authActions'
 import {deleteAllNotifies, readNotify} from '../redux/actions/notifyActions'
+import { BASE_URL } from '../utils/config'
 import {NotifyContext} from './../contexts/NotifyContext'
 import {getDataApi} from './../utils/fetchDataApi'
 import UserCard from './UserCard'
@@ -41,7 +42,7 @@ function Navbar() {
     }
     if (search && auth.token) {
       setLoad(true)
-      getDataApi(`search?username=${search}`, auth.token)
+      getDataApi(`${BASE_URL}/search?username=${search}`, auth.token)
         .then((res) => {
           setSearchUsers(res.data.users)
           setLoad(false)

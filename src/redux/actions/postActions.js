@@ -1,3 +1,4 @@
+import { BASE_URL } from '../../utils/config'
 import {
   deleteDataApi,
   getDataApi,
@@ -24,7 +25,7 @@ export const createPost =
         media = await imageupload(images)
       }
       const res = await postDataApi(
-        'posts',
+        `${BASE_URL}/posts`,
         {content, images: media},
         auth.token
       )
@@ -78,8 +79,7 @@ export const getPost = (token) => async (dispatch) => {
         type: ACTION_TYPES.LOADING_POSTS,
         payload: true,
       })
-      const res = await getDataApi('posts', token)
-      // console.log(res)
+      const res = await getDataApi(`${BASE_URL}/posts`, token)
 
       dispatch({
         type: ACTION_TYPES.GET_POSTS,
@@ -91,7 +91,6 @@ export const getPost = (token) => async (dispatch) => {
       })
     }
   } catch (error) {
-    // console.log(error.response.data.message)
     dispatch({
       type: ACTION_TYPES.ALERT,
       payload: {
@@ -104,10 +103,9 @@ export const getPost = (token) => async (dispatch) => {
 export const getSinglePost =
   ({detailPost, auth, id}) =>
   async (dispatch) => {
-    // console.log({detailPost, auth, id})
     if (detailPost.every((item) => item._id !== id)) {
       try {
-        const res = await getDataApi(`/post/${id}/singlepost`, auth.token)
+        const res = await getDataApi(`${BASE_URL}/post/${id}/singlepost`, auth.token)
         dispatch({
           type: ACTION_TYPES.GET_POST,
           payload: res.data.post,
@@ -126,8 +124,7 @@ export const getUserPost =
         type: ACTION_TYPES.LOADING_USERPOSTS,
         payload: true,
       })
-      const res = await getDataApi(`post/${id}/userpost`, token)
-      // console.log(res)
+      const res = await getDataApi(`${BASE_URL}/post/${id}/userpost`, token)
 
       dispatch({
         type: ACTION_TYPES.GET_USERPOSTS,
@@ -172,11 +169,10 @@ export const updatePost =
         media = await imageupload(newImageUrl)
       }
       const res = await patchDataApi(
-        `post/${status._id}`,
+        `${BASE_URL}/post/${status._id}`,
         {content, images: [...oldImageUrl, ...media]},
         auth.token
       )
-      // console.log(res)
       dispatch({
         type: ACTION_TYPES.UPDATE_POST,
         payload: res.data.updatePost,
@@ -217,8 +213,7 @@ export const savedPost =
       payload: {...auth, user: newUser},
     })
     try {
-      const res = await patchDataApi(`save/${pos._id}`, null, auth.token)
-      console.log(res)
+      const res = await patchDataApi(`${BASE_URL}/save/${pos._id}`, null, auth.token)
 
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -249,8 +244,7 @@ export const unsavedPost =
       payload: {...auth, user: newUser},
     })
     try {
-      const res = await patchDataApi(`unsave/${pos._id}`, null, auth.token)
-      console.log(res)
+      const res = await patchDataApi(`${BASE_URL}/unsave/${pos._id}`, null, auth.token)
 
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -284,7 +278,7 @@ export const likepost =
     })
     socket.emit('likePost', newPost)
     try {
-      await patchDataApi(`post/${pos._id}/like`, null, auth.token)
+      await patchDataApi(`${BASE_URL}/post/${pos._id}/like`, null, auth.token)
 
       // notify
       const msg = {
@@ -324,7 +318,7 @@ export const unlikepost =
     })
     socket.emit('unlikePost', newPost)
     try {
-      await patchDataApi(`post/${pos._id}/unlike`, null, auth.token)
+      await patchDataApi(`${BASE_URL}/post/${pos._id}/unlike`, null, auth.token)
 
       // notify
       const msg = {

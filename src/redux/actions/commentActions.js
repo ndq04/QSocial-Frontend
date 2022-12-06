@@ -1,3 +1,4 @@
+import { BASE_URL } from '../../utils/config'
 import {
   deleteDataApi,
   patchDataApi,
@@ -16,7 +17,7 @@ export const createComment =
         postId: pos._id,
         postUserId: pos.user._id,
       }
-      const res = await postDataApi('comment', body, auth.token)
+      const res = await postDataApi(`${BASE_URL}/comment`, body, auth.token)
 
       // const newData = {
       //   ...res.data.newComment,
@@ -76,7 +77,7 @@ export const updateComment =
       payload: newComment,
     })
     try {
-      await patchDataApi(`comment/${comment._id}`, {content}, auth.token)
+      await patchDataApi(`${BASE_URL}/comment/${comment._id}`, {content}, auth.token)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -109,7 +110,7 @@ export const likeComment =
     })
 
     try {
-      await patchDataApi(`comment/${comment._id}/like`, null, auth.token)
+      await patchDataApi(`${BASE_URL}/comment/${comment._id}/like`, null, auth.token)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,
@@ -140,7 +141,7 @@ export const unLikeComment =
       payload: newPost,
     })
     try {
-      await patchDataApi(`comment/${comment._id}/unlike`, null, auth.token)
+      await patchDataApi(`${BASE_URL}/comment/${comment._id}/unlike`, null, auth.token)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

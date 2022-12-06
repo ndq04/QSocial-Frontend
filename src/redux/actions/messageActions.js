@@ -1,3 +1,4 @@
+import { BASE_URL } from '../../utils/config'
 import {getDataApi, postDataApi} from '../../utils/fetchDataApi'
 import {ACTION_TYPES} from './actionTypes'
 
@@ -22,7 +23,7 @@ export const addMessage =
 
     try {
       if (auth.token) {
-        await postDataApi('message', msg, auth.token)
+        await postDataApi(`${BASE_URL}/message`, msg, auth.token)
       }
       socket.emit('addMessenger', msg)
     } catch (error) {
@@ -38,7 +39,7 @@ export const addMessage =
 export const getConversations = (auth) => async (dispatch) => {
   if (auth.token) {
     try {
-      const res = await getDataApi('conversations', auth.token)
+      const res = await getDataApi(`${BASE_URL}/conversations`, auth.token)
 
       let newArr = []
       res.data.conversation.forEach((item) => {
@@ -69,7 +70,7 @@ export const getMessages =
   async (dispatch) => {
     if (auth.token) {
       try {
-        const res = await getDataApi(`message/${id}`, auth.token)
+        const res = await getDataApi(`${BASE_URL}/message/${id}`, auth.token)
         dispatch({
           type: ACTION_TYPES.GET_MESSENGER,
           payload: res.data,

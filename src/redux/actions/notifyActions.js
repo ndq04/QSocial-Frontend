@@ -1,3 +1,4 @@
+import { BASE_URL } from '../../utils/config'
 import {
   deleteDataApi,
   getDataApi,
@@ -10,7 +11,7 @@ export const createNotify =
   ({msg, auth, socket}) =>
   async (dispatch) => {
     try {
-      const res = await postDataApi('notify', msg, auth.token)
+      const res = await postDataApi(`${BASE_URL}/notify`, msg, auth.token)
       socket.emit('createNotify', {
         ...res.data.notify,
         user: {
@@ -47,7 +48,7 @@ export const removeNotify =
 
 export const getNotify = (token) => async (dispatch) => {
   try {
-    const res = await getDataApi('notifies', token)
+    const res = await getDataApi(`${BASE_URL}/notifies`, token)
 
     dispatch({
       type: ACTION_TYPES.GET_NOTIFIES,
@@ -72,7 +73,7 @@ export const readNotify =
     })
 
     try {
-      await patchDataApi(`isreadnotify/${nt._id}`, null, auth.token)
+      await patchDataApi(`${BASE_URL}/isreadnotify/${nt._id}`, null, auth.token)
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.ALERT,

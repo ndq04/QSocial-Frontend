@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useHistory, useParams} from 'react-router-dom'
 import {ACTION_TYPES} from '../../redux/actions/actionTypes'
 import {AddUser, getConversations} from '../../redux/actions/messageActions'
+import { BASE_URL } from '../../utils/config'
 import {getDataApi} from '../../utils/fetchDataApi'
 import UserCardMessage from '../UserCardMessage'
 
@@ -37,7 +38,7 @@ function LeftSideMessage({messenger}) {
     const searchUsersFetch = async () => {
       if (search && auth.token) {
         try {
-          const res = await getDataApi(`search?username=${search}`, auth.token)
+          const res = await getDataApi(`${BASE_URL}/search?username=${search}`, auth.token)
           setSearchUsers(res.data.users)
         } catch (error) {
           dispatch({
@@ -59,7 +60,7 @@ function LeftSideMessage({messenger}) {
     }
     if (search && auth.token) {
       try {
-        const res = await getDataApi(`search?username=${search}`, auth.token)
+        const res = await getDataApi(`${BASE_URL}/search?username=${search}`, auth.token)
         setSearchUsers(res.data.users)
       } catch (error) {
         dispatch({

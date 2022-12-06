@@ -28,7 +28,6 @@ function CommentInput({pos, children, comment, onReply, setOnReply}) {
       reply: onReply && onReply.commentId,
       tag: onReply && onReply.user,
     }
-    console.log({newComment})
     dispatch(createComment({pos, comment: newComment, auth, socket}))
     if (onReply) return setOnReply(false)
     setContent('')

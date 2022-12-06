@@ -7,7 +7,6 @@ function Toast({msg, bgColor, handleShow}) {
     }, 3000)
 
     return () => {
-      console.log('clean up')
       clearTimeout()
     }
   })
